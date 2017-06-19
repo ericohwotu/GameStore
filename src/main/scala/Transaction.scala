@@ -7,9 +7,9 @@ import java.util.Date;
   *
   */
 
-class Transaction(transactionID: String, employee: Employee, dateAndTime: Date) {
+class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
 
-  var trID: String = transactionID
+  var trID: Int = transactionID
   var customer: Customer
   var worker: Employee = employee
   var stocks: List[Stock] = List.empty
@@ -69,5 +69,5 @@ class Transaction(transactionID: String, employee: Employee, dateAndTime: Date) 
     *
     */
 
-  def printReceipt() {println("Date and time" +"Customer who bought item" + "Price from purchase")}
+  def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
 }

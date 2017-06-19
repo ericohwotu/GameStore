@@ -6,8 +6,10 @@
   */
 
 
-class Report {
+abstract class Report(reportID: Int, transaction: List[Transaction]) {
 
-  override def toString: String = "Date/Time" + "Transaction ID" + "Price of transaction" + "EmployeeID who sold product" + "Total takings for day"
+   val trans: Transaction
+
+  override def toString: String = trans.toString
 
 }
