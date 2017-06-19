@@ -1,5 +1,5 @@
 /**
-  * Created by Administrator on 19/06/2017.
+  * Created by Emmanuel Haastrup on 19/06/2017.
   */
 
 import java.util.{Date}
