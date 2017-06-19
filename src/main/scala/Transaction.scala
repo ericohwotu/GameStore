@@ -7,16 +7,16 @@ import java.util.Date;
   *
   */
 
-class Transaction(transactionID: String, dateAndTime: Date) {
+class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
 
-  var trID: String = transactionID
-  var customer: Customer
-  var employee: Employee
-  var stock: Stock
-  var customerID: String
+  var trID: Int = transactionID
+  //var customer: Customer
+  var worker: Employee = employee
+  var stocks: List[Stock] = List.empty
+  //var customerID: String
   var dAT: Date = dateAndTime
-  var price: Double
-  var discount: Double
+  var price: Double = 0.0
+  var discount: Double = 0.0
 
   /**
     * Getters and setters for parameters
@@ -26,8 +26,7 @@ class Transaction(transactionID: String, dateAndTime: Date) {
   def getTransactionID = trID
   def getDateAndTime = dAT
   def setDate(d :Date) {this.dAT = d}
-  def getStock = stock
-  def setStock(st: Stock) {this.stock = st}
+  def getStock = stocks
   def getDiscount = discount
   def setDiscount {this.discount = discount}
 
@@ -70,5 +69,5 @@ class Transaction(transactionID: String, dateAndTime: Date) {
     *
     */
 
-  def printReceipt() {println("Date and time" +"Customer who bought item" + "Price from purchase")}
+  def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
 }
