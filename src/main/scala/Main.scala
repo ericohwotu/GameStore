@@ -14,7 +14,7 @@ object Main {
   val stocks: ListBuffer[Stock] = new ListBuffer[Stock]
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
-  val reports: ListBuffer[Reports] = new ListBuffer[Reports]
+  val reports: ListBuffer[Report] = new ListBuffer[Report]
   val loggedIn: Employee = null
 
   //entry point
@@ -27,18 +27,19 @@ object Main {
   def deleteEmployee(id: Int): Boolean = false
 
   def createTransaction(id: Int, stocks: List[Stock], employee: Employee, time: Date): Boolean = false
-  def getTransaction(id: Int): Transaction
+  def getTransaction(id: Int): Transaction = null
   def deleteTransaction(id: Int): Boolean = false
 
+
   def createReport(id: Int, transactions: List[Transaction]) = Boolean
-  def getReport(id: Int): Report
+  def getReport(id: Int): Report = null
   def deleteReport(id: Int): Boolean = false
 
-
-  def createStock(): Boolean = false
-  def createStock(): Boolean = false
-  def createStock(): Boolean = false
-  def getStock(id: Int): Stock
+  // create stock depending on parameters
+  def createStock(id: Int, name: String, desc: String, price: Double, config: String): Boolean = false
+  def createStock(id: Int, name: String, desc: String, price: Double, itemType: ItemType.Value): Boolean = false
+  def createStock(id: Int, name: String, desc: String, price: Double, rating: Int, genre: String, console: Console): Boolean = false
+  def getStock(id: Int): Stock = null
   def deleteStock(id: Int): Boolean = false
 
 
