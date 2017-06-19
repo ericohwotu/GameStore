@@ -7,12 +7,12 @@ import java.util.Date;
   *
   */
 
-class Transaction(transactionID: String, dateAndTime: Date) {
+class Transaction(transactionID: String, employee: Employee, dateAndTime: Date) {
 
   var trID: String = transactionID
   var customer: Customer
-  var employee: Employee
-  var stock: Stock
+  var worker: Employee = employee
+  var stocks: List[Stock] = List.empty
   var customerID: String
   var dAT: Date = dateAndTime
   var price: Double
@@ -26,8 +26,7 @@ class Transaction(transactionID: String, dateAndTime: Date) {
   def getTransactionID = trID
   def getDateAndTime = dAT
   def setDate(d :Date) {this.dAT = d}
-  def getStock = stock
-  def setStock(st: Stock) {this.stock = st}
+  def getStock = stocks
   def getDiscount = discount
   def setDiscount {this.discount = discount}
 
