@@ -1,4 +1,5 @@
-import scala.collection.mutable.ListBuffer
+package main.scala
+
 import scalafx.Includes._
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.event.ActionEvent
