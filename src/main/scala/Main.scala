@@ -25,10 +25,4 @@ object Main extends JFXApp with MainVariables{
 			case "3" =>
 		}
 	}
-	
-	def login(username:String, Password:String):Boolean = true
-	
-	def logout:Unit = {
-		loggedIn = null
-	}
 }
