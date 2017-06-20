@@ -10,7 +10,11 @@ trait MainVariables {
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
-  val loggedIn: Employee = null
+  var loggedIn: Employee = new Employee(0, "Duane", )
 
   def login(username: String, Password: String): Boolean = false
+  
+  def logout():Unit ={
+		loggedIn = null
+	}
 }
