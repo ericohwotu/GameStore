@@ -31,5 +31,5 @@ object Main extends JFXApp with MainVariables{
 		}
 		mainStage.centerOnScreen()
 	}
-	def closeWindow = mainStage.close()
+	def closeWindow():Unit = mainStage.close()
 }
