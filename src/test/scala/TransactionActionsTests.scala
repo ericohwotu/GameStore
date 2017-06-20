@@ -16,11 +16,13 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   it should "return false if the employee is null is passed to it" in {
+    transactions.clear()
     val employee = null
     createTransaction(1,employee,new Date()) should be (false)
   }
 
   it should "add the transaction to the transaction list" in{
+    transactions.clear()
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date())
     createTransaction(2,employee,new Date())
@@ -39,9 +41,10 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   it should "throw an IndexOutOfBoundException if the ID doesn't exist" in {
-    a [IndexOutOfBoundsException] should be thrownBy {
-      getTransaction(1)
-    }
+    transactions.clear()
+
+    getTransaction(1) should be (null)
+
   }
 
   "deleting a transaction" should "return true if successful" in {
@@ -52,6 +55,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   it should "remove the transaction from the list" in {
+    transactions.clear()
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
 
     createTransaction(1,employee,new Date())
@@ -62,6 +66,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   it should "return false if id doesnt exist" in {
+    transactions.clear()
     val result = deleteTransaction(1)
     result should be (false)
   }
