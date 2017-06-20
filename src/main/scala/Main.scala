@@ -3,11 +3,11 @@
   */
 
 import java.util.Date
-import javax.xml.stream.XMLReporter
 
 import scala.collection.mutable.ListBuffer
+import scalafx.application.JFXApp
 
-object Main {
+object Main extends JFXApp{
 
   //variable declaration
   val transactions: ListBuffer[Transaction] = new ListBuffer[Transaction]
@@ -16,10 +16,11 @@ object Main {
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
   val loggedIn: Employee = null
-
-  //entry point
-  def main(args: Array[String]): Unit = {}
-
+  var loginWindow:UIloginWindow = new UIloginWindow
+  stage = loginWindow
+  
+  def Main(args: Array[String]): Unit = {}
+  
 
   def login(username: String, Password: String): Boolean = false
 

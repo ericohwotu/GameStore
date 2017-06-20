@@ -8,7 +8,7 @@ trait ReportActions {
   * Report functions
   *
   * */
-  def createReport(id: Int, dateFrom: Date, dateTo: Date) = Boolean
+  def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = false
 
   def getReport(id: Int): Report = null
 
