@@ -17,7 +17,7 @@ trait ReportActions extends MainVariables{
 
   def deleteReport(id: Int): Boolean = false
 
-  def saveReport: Boolean = {
+  def writeReportToFile: Boolean = {
     try {
       val save = new ObjectOutputStream(new FileOutputStream("report.dat"))
       save.writeObject(reports)
@@ -28,7 +28,7 @@ trait ReportActions extends MainVariables{
     }
   }
 
-  def loadReport: Boolean = {
+  def readReportFromFile: Boolean = {
     try {
       val load = new ObjectInputStream(new FileInputStream("report.dat"))
       val report = load.readObject.asInstanceOf[ListBuffer[Report]]
