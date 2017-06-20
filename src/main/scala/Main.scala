@@ -2,6 +2,8 @@
   * Created by Administrator on 19/06/2017.
   */
 import scalafx.application.JFXApp
+import scalafx.application.JFXApp.PrimaryStage
+
 
 object Main extends JFXApp with MainVariables{
 	
