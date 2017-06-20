@@ -24,7 +24,7 @@ trait MainVariables {
   def logout(): Boolean ={
 		loggedIn match {
       case null => false
-      case _: Person => true
+      case _: Person => loggedIn=null; true
       case _ => false
     }
 	}
