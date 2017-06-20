@@ -61,9 +61,9 @@ class UIloginWindow extends PrimaryStage{
 		
 		//================================================= Functionality =================================================
 		loginButton.onAction = (ae:ActionEvent) => {
-			var attempt:Boolean = UIAppMain.mainInfo.login(usernameInput.text.value, passwordInput.text.value)
+			var attempt:Boolean = Main.login(usernameInput.text.value, passwordInput.text.value)
 			if(attempt){
-				UIAppMain.setWindow("main")
+				Main.setWindow("main")
 			} else {
 				new Alert(AlertType.Error, "Wrong username and password").showAndWait()
 			}

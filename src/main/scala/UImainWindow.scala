@@ -25,7 +25,7 @@ class UImainWindow extends PrimaryStage {
 		logoutButton.relocate(940, 7)
 		
 		salesIcon.onMouseClicked = (e:MouseEvent) =>{
-			UIAppMain.setWindow("transaction")
+			Main.setWindow("transaction")
 		}
 		
 		content = List(salesIcon, logoutButton)

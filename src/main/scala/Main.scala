@@ -8,15 +8,8 @@ import scala.collection.mutable.ListBuffer
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 
-object Main extends JFXApp {
+object Main extends JFXApp with MainVariables{
 	
-	//variable declaration
-	val transactions:ListBuffer[Transaction] = new ListBuffer[Transaction]
-	val stocks:ListBuffer[Stock] = new ListBuffer[Stock]
-	val employees:ListBuffer[Employee] = new ListBuffer[Employee]
-	val managers:ListBuffer[Manager] = new ListBuffer[Manager]
-	val reports:ListBuffer[Report] = new ListBuffer[Report]
-	var loggedIn:Employee = null
 	setWindow("login")
 	
 	def Main(args:Array[String]):Unit = {}
