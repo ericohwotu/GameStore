@@ -10,7 +10,7 @@ trait MainVariables {
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
-  var loggedIn: Employee = null
+  var loggedIn: Person = null
 	
 	def login(username: String, password: String): Boolean = {
 		val getUser = (employees++managers).filter(person => person.loginName==username&&person.password==password)
