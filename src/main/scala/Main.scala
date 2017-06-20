@@ -24,4 +24,5 @@ object Main extends JFXApp{
 
   def login(username: String, Password: String): Boolean = false
 
+  def setWindow(str: String):Unit ={}
 }
