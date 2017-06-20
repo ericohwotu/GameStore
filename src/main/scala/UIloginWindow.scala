@@ -4,15 +4,13 @@ import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control.{Alert, Button, PasswordField, TextField}
-import scalafx.scene.layout.BackgroundFill
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 import scalafx.scene.text.{Font, Text}
 
 class UIloginWindow extends PrimaryStage{
 	
-	title="Elliot & Friends™"
-	val windowBG:BackgroundFill = new BackgroundFill(Color.DarkGrey, null, null)
+	title="Elliot & Friends™ Login"
 	
 	scene = new Scene(400, 400) {
 		fill = Color.DarkGrey.darker.darker.darker
@@ -63,9 +61,9 @@ class UIloginWindow extends PrimaryStage{
 		
 		//================================================= Functionality =================================================
 		loginButton.onAction = (ae:ActionEvent) => {
-			var attempt:Boolean = Main.login(usernameInput.text.value, passwordInput.text.value)
+			var attempt:Boolean = UIAppMain.mainInfo.login(usernameInput.text.value, passwordInput.text.value)
 			if(attempt){
-				close()
+				UIAppMain.setWindow("main")
 			} else {
 				new Alert(AlertType.Error, "Wrong username and password").showAndWait()
 			}
