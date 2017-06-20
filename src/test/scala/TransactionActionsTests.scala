@@ -11,7 +11,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
 
   //creating the transaction
   "creating new Transaction" should "return true if successful" in {
-    val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date()) should be (true)
   }
 
@@ -21,7 +21,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   it should "add the transaction to the transaction list" in{
-    val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date())
     createTransaction(2,employee,new Date())
     transactions.length should be (2)

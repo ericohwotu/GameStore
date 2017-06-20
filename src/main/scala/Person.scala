@@ -11,6 +11,8 @@ abstract class Person {
   def fullName: String =  s"$fName $lName"
   val Age: Int
   val Gender: String
+  val loginName: String
+  val password: String
 
 
 }

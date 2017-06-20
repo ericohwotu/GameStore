@@ -45,7 +45,7 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
 
   it should "throw a NullPointerException if the report doesn't exist" in {
     a[NullPointerException] should be thrownBy {
-      getReport(null)
+      getReport(1)
     }
   }
 
@@ -68,7 +68,7 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
 
   it should "throw a NullPointerException if the report doesn't exist" in {
     a[NullPointerException] should be thrownBy {
-      deleteReport(null)
+      deleteReport(1)
     }
   }
 
