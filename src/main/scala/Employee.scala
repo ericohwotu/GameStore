@@ -5,5 +5,4 @@ import java.util.Date
   */
 case class Employee (ID: Int, fName: String, lName: String, Age: Int, Gender: String,salary: Int, loginName: String, password: String) extends Person {
 
-
 }
