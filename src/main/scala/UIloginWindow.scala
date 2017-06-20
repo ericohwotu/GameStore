@@ -9,6 +9,8 @@ import scalafx.scene.text.{Font, Text}
 
 class UIloginWindow extends Scene{
 	
+	def update():Unit = {}
+	
 	fill = Color.DarkGrey.darker.darker.darker
 	val textColour:Color = Color.White
 	//================================================= Text =================================================
@@ -60,7 +62,7 @@ class UIloginWindow extends Scene{
 		var attempt:Boolean = Main.login(usernameInput.text.value, passwordInput.text.value)
 		passwordInput.text = ""
 		if(attempt){
-			usernameInput.text = ""
+			usernameInput.text = "Enter username"
 			Main.setWindow("main")
 		} else {
 			new Alert(AlertType.Error, "Wrong username and/or password").showAndWait()

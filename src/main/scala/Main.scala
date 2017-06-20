@@ -19,10 +19,12 @@ object Main extends JFXApp with MainVariables{
 				mainStage.width = 400
 				mainStage.height = 400
 				mainStage.title = "Elliot and Friends™ Login"
+				loginWindow.update()
 			case "main" => mainStage.scene = mainWindow
 				mainStage.width = 1000
 				mainStage.height = 800
 				mainStage.title = "Elliot and Friends™ Home"
+				mainWindow.update()
 			case "transaction" => println("Transaction open")
 			case "report" => println("Report open")
 			case "stock" => println("Stock list open")
