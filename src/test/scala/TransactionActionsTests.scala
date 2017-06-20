@@ -66,5 +66,12 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     result should be (false)
   }
 
+  "outputting transactions to file" should "return true if successful" in {
+    createTransaction(1, "Jason")
+    createTransaction()
+    createTransaction()
+    outputTransactionsToFile should be (true)
+  }
+
   //======================================= end ======================================================//
 }
