@@ -8,7 +8,7 @@ import org.scalatest._
   * Created by alfie on 20/06/2017.
   */
 
-class TransactionTestCases extends FlatSpec with Matchers {
+class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
 
   //========================================= Add employee ==================================================//
 
@@ -92,5 +92,13 @@ class TransactionTestCases extends FlatSpec with Matchers {
     }
   }
 
+  //========================================= Add transaction ==================================================//
+
+  "Add transaction" should "add a transaction to the transactions list" in {
+    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
+    val trans = Transaction(1, alf, new Date())
+    trans.addTransaction(trans)
+    transactions.length should be (1)
+  }
 
 }

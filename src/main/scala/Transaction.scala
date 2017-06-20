@@ -9,10 +9,8 @@ import java.util.Date;
 
 case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
 
-  //var customer: Customer
   var stocks: List[Stock] = List.empty
   var transactionHistory: List[Transaction] = List.empty
-  //var customerID: String
   var price: Double = 0.0
   var discount: Double = 0.0
 
@@ -59,6 +57,14 @@ case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date
     */
 
   def calculatePrice(price: Double, discount: Option[Double]): Double = {price}
+
+  /**
+    * Method to add a transaction to a transaction List.
+    *
+    * @param transaction
+    */
+
+  def addTransaction(transaction: Transaction): Unit = {}
 
   /**
     * Method to print a receipt for the transaction.
