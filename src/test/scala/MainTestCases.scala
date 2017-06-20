@@ -7,12 +7,17 @@ import java.util.Date
 import org.scalatest._
 import Main._
 
-class MainTestCases extends FlatSpec with Matchers with TransactionActions with EmployeeActions{
+class MainTestCases extends FlatSpec with Matchers with TransactionActions with EmployeeActions with MainVariables{
 
   //========================================= Logging In ==================================================//
 
   "logging in" should "return true if successful" in {
-    login("Eric", "NoneYaBusiness") should be(true)
+    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
+    login("CallMeMaster", "NoneYaBusiness") should be (true)
+  }
+
+  it should "return false if the username and password doesnt exist" in {
+    login("CallMeMaster", "NoneYaBusiness") should be (false)
   }
 
   it should "return false if empty strings are passed as username" in {
@@ -24,11 +29,9 @@ class MainTestCases extends FlatSpec with Matchers with TransactionActions with 
   }
 
   it should "set the current logged in user" in {
-    login("Eric", "NoneYaBusiness")
+    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
+    login("CallMeMaster", "NoneYaBusiness")
     loggedIn should not be (null)
   }
-
-
-
 }
 
