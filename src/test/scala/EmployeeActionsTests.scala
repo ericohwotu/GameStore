@@ -7,9 +7,8 @@ import org.scalatest._
 
 
 class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions with MainVariables {
-  //============================================ Employee Actions =====================================================/
 
-  //creating employees
+  //========================================================= Adding Employees ===============================================================//
   "creating an employee" should "return true if successful" in {
     employees.clear()
     val result = createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
@@ -55,7 +54,9 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     managers.length should be (2)
   }
 
+  //========================================================= Getting Employees ===============================================================//
   "getting a manager" should "return a Manager" in{
+    managers.clear()
     createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.MANAGER)
     val result = getManager(1)
     val isManagerInstance = result.isInstanceOf[Manager]
@@ -65,7 +66,8 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   }
 
   "getting an Employee" should "return an employee" in{
-    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.MANAGER)
+    employees.clear()
+    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
     val result = getEmployee(1)
     val isEmployeeInstance = result.isInstanceOf[Employee]
 
@@ -73,7 +75,9 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     isEmployeeInstance should be (true)
   }
 
+  //========================================================= Deleting Employees ===============================================================//
   "deleting an employee" should "return true if succesful" in {
+    employees.clear()
     createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
     val result = deleteEmployee(1)
     result should be (true)
@@ -87,22 +91,22 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   }
 
   "deleting a Manager" should "return true if succesful" in {
-    employees.clear()
+    managers.clear()
     createEmployee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness", EmployeeType.MANAGER)
     val result = deleteManager(1)
     result should be (true)
   }
 
   it should "remove them from the Managers list" in {
-    employees.clear()
+    managers.clear()
     createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.MANAGER)
     deleteManager(1)
     managers.length should be (0)
   }
 
   it should "return false if id doesnt exist" in {
-    employees.clear()
-    val result = deleteEmployee(1)
+    managers.clear()
+    val result = deleteManager(1)
     result should be (false)
   }
   //======================================================= Done =======================================================//

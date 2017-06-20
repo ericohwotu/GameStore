@@ -70,5 +70,12 @@ trait EmployeeActions extends MainVariables {
     }
   }
 
-  def deleteManager(id: Int): Boolean = false
+  def deleteManager(id: Int): Boolean ={
+    val result = managers.filter(_.ID == id)
+    result.length match {
+      case 0 => println("Sorry Manager Doesnt Exist"); false
+      case 1 => managers -= result.head; true
+      case x if x > 1 => println("Multiple Found"); false
+    }
+  }
 }
