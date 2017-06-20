@@ -1,4 +1,3 @@
-
 /**
   * Class that will be invoked when a sales report has been requested for print.
   *
@@ -8,7 +7,7 @@
 
 abstract class Report(reportID: Int, transaction: List[Transaction]) {
 
-   val trans: Transaction
+  val trans: Transaction
 
   override def toString: String = trans.toString
 
