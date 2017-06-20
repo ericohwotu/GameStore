@@ -8,6 +8,8 @@ object Main extends JFXApp with MainVariables{
 	
 	val mainWindow:UImainWindow = new UImainWindow
 	val loginWindow:UIloginWindow = new UIloginWindow
+	val transactionWindow:UItransactionWindow = new UItransactionWindow
+	val staffWindow:UIstaffWindow = new UIstaffWindow
 	var mainStage:PrimaryStage = new PrimaryStage
 	setWindow("login")
 	
@@ -25,10 +27,18 @@ object Main extends JFXApp with MainVariables{
 				mainStage.height = 800
 				mainStage.title = "Elliot and Friends™ Home"
 				mainWindow.update()
-			case "transaction" => println("Transaction open")
-			case "report" => println("Report open")
+			case "transaction" => mainStage.scene = transactionWindow
+				mainStage.width = 1000
+				mainStage.height = 800
+				mainStage.title = "Elliot and Friends™ Transaction"
+				transactionWindow.update()
+			case "report" => print("Report list open")
 			case "stock" => println("Stock list open")
-			case "staff" => println("Staff list open")
+			case "staff" => mainStage.scene = staffWindow
+				mainStage.width = 1000
+				mainStage.height = 800
+				mainStage.title = "Elliot and Friends™ Staff"
+				staffWindow.update()
 			case "3" =>
 		}
 		mainStage.centerOnScreen()
