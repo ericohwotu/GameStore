@@ -10,22 +10,22 @@ trait MainVariables {
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
-  var loggedIn: Person = null
-
-  def login(username: String, password: String): Boolean = {
-    val getUser = (employees++managers).filter(person => person.loginName==username&&person.password==password)
-    getUser.length match {
-      case 0 => println("No User Found"); false
-      case 1 => println(getUser.head.loginName); loggedIn = getUser.head; true
-      case x if x > 1 => println(s"Too Many Users Found $x"); false
-    }
-  }
-  
-  def logout(): Boolean ={
+  var loggedIn: Employee = null
+	
+	def login(username: String, password: String): Boolean = {
+		val getUser = (employees++managers).filter(person => person.loginName==username&&person.password==password)
+		getUser.length match {
+			case 0 => println("No User Found"); false
+			case 1 => println(getUser.head.loginName); loggedIn = getUser.head; true
+			case x if x > 1 => println(s"Too Many Users Found $x"); false
+		}
+	}
+	
+	def logout(): Boolean ={
 		loggedIn match {
-      case null => false
-      case _: Person => loggedIn=null; true
-      case _ => false
-    }
+			case null => false
+			case _: Person => loggedIn=null; true
+			case _ => false
+		}
 	}
 }
