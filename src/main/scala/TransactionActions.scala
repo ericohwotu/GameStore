@@ -1,4 +1,7 @@
+import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
 import java.util.Date
+
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by Administrator on 19/06/2017.
@@ -32,6 +35,27 @@ trait TransactionActions extends MainVariables {
       true
     } else {
       false
+    }
+  }
+  def outputTransactionsToFile: Boolean ={
+    try {
+      val transactionsOutputStream = new ObjectOutputStream(new FileOutputStream("transaction.dat"))
+      transactionsOutputStream.writeObject(transactions)
+      transactionsOutputStream.flush()
+      true
+    }catch{
+      case x: Exception => false
+    }
+  }
+
+  def readTransactionsFromFile: Boolean = {
+    try {
+      val transactionInputStream = new ObjectInputStream(new FileInputStream("transactions.dat"))
+      transactions.clear()
+      transactions ++ transactionInputStream.readObject.asInstanceOf[ListBuffer[Transaction]]
+      true
+    } catch {
+      case x: Exception => false
     }
   }
 
