@@ -13,4 +13,5 @@ trait ReportActions {
   def getReport(id: Int): Report = null
 
   def deleteReport(id: Int): Boolean = false
+
 }

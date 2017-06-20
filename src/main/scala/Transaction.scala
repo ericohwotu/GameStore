@@ -7,14 +7,12 @@ import java.util.Date;
   *
   */
 
-class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
+case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
 
-  var trID: Int = transactionID
   //var customer: Customer
-  var worker: Employee = employee
   var stocks: List[Stock] = List.empty
+  var transactionHistory: List[Transaction] = List.empty
   //var customerID: String
-  var dAT: Date = dateAndTime
   var price: Double = 0.0
   var discount: Double = 0.0
 
@@ -23,10 +21,8 @@ class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
     * @return
     */
 
-  def getTransactionID = trID
-  def getDateAndTime = dAT
-  def setDate(d :Date) {this.dAT = d}
   def getStock = stocks
+  def getTransactionHistory = transactionHistory
   def getDiscount = discount
   def setDiscount {this.discount = discount}
 
@@ -36,7 +32,7 @@ class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
     * @param employee
     */
 
-  def addEmployee(employee: Employee): Unit = {}
+  def addEmployee(employee: Employee): Boolean = {true}
 
   /**
     * Method to remove employees from any transactions.
@@ -44,7 +40,7 @@ class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
     * @param employee
     */
 
-  def removeEmployee(employee: Employee): Unit = {}
+  def removeEmployee(employee: Employee): Boolean = {true}
 
   /**
     * Method to update employees related to any transactions.
@@ -52,7 +48,7 @@ class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
     * @param employee
     */
 
-  def updateEmployee(employee: Employee): Unit = {}
+  def updateEmployee(employee: Employee): Boolean = {true}
 
   /**
     * Method to calculate the price of the transaction by multiplying the price by the discount value (if any...)
