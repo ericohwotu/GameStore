@@ -6,7 +6,6 @@ import java.util.Date
 
 import scala.collection.mutable.ListBuffer
 import scalafx.application.JFXApp
-import scalafx.application.JFXApp.PrimaryStage
 
 object Main extends JFXApp with MainVariables{
 	
