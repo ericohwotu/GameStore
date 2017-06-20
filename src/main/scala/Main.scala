@@ -16,8 +16,8 @@ object Main extends JFXApp{
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
   val loggedIn: Employee = null
-  var loginWindow:UIloginWindow = new UIloginWindow
-  stage = loginWindow
+  //var loginWindow:UIloginWindow = new UIloginWindow
+  //stage = loginWindow
   
   def Main(args: Array[String]): Unit = {}
   
