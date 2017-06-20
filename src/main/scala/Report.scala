@@ -40,7 +40,7 @@ class Report(reportID: Int, transaction: ListBuffer[Transaction]) extends MainVa
     // Check through the transactions list and look for the start date that matches dateFrom
     // in function parameters. Return ListBuffer of transactions between date range
 
-    transList = transactions.filter(_ == dateFrom).filter(_ == dateTo)
+    transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
 
     // Create the report
 
