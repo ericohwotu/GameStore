@@ -3,7 +3,6 @@
   */
 
 import java.util.Date
-import javax.xml.stream.XMLReporter
 
 import scala.collection.mutable.ListBuffer
 import scalafx.application.JFXApp
