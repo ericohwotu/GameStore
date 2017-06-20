@@ -67,7 +67,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
 
   "getting stock by ID" should "return true if successfull" in {
     stocks.clear
-    createStock(1,"game name","game desc", 100, 12, "game genre", null)
+    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
     val result = getStock(1)
     result should not be(null)
     result.isInstanceOf[Stock] should be(true)
@@ -82,14 +82,30 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
 
   "deleting stock by ID" should "return true if successfull" in {
     stocks.clear
-    createStock(7,"game name","game desc", 100, 12, "game genre", null)
-    val result = deleteStock(7)
+    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    val result = deleteStock(1)
     result should be(true)
-//    getStock(7) should not be(true)
+    getStock(1) should not be(true)
   }
   it should "return false if the stock doesn't exist" in {
     val result = getStock(8)
     result should not be (true)
+  }
+
+
+  "saving stock to file" should "return true if successful" in {
+    stocks.clear()
+    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    createStock(2,"HW name","HW desc", 100, "HW config",HardwareType.CONSOLE)
+    createStock(3,"HW name","HW desc", 100, "HW config",HardwareType.LAPTOP)
+    writeStockToFile should be(true)
+  }
+  it should "then return true if the stock is cleared and reloaded" in {
+    stocks.clear()
+    readStockFromFile should be(true)
+  }
+  it should "then maintain a size of 3" in {
+    stocks.length should be(3)
   }
 
 

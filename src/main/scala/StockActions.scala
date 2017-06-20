@@ -1,3 +1,7 @@
+import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+
+import scala.collection.mutable.ListBuffer
+
 /**
   * Created by Administrator on 19/06/2017.
   */
@@ -37,8 +41,9 @@ trait StockActions extends MainVariables{
     }
   }
 
+//  GAMES NEED TO BE LOOKED AT AS THEY TAKE A CONSOLE AS AN ARGUMENT, BUT THIS DOES NOT MAKE SENSE
   def createStock(id: Int, name: String, desc: String, price: Double, rating: Int, genre: String, console: Console): Boolean = {
-    if (stocks.find(s => s.id == id) != None || console == null) {
+    if (stocks.find(s => s.id == id) != None/* || console == null*/) {
       false
     }else{
       stocks += new Game(id, name, desc, price, rating, genre, console)
@@ -62,6 +67,31 @@ trait StockActions extends MainVariables{
       true
     }else {
       false
+    }
+  }
+
+
+  def writeStockToFile: Boolean ={
+    try {
+      val save = new ObjectOutputStream(new FileOutputStream("stock.dat"))
+      save.writeObject(stocks)
+      save.close
+      true
+    }catch{
+      case e: Exception => false
+    }
+  }
+
+  def readStockFromFile: Boolean ={
+    try {
+      val load = new ObjectInputStream(new FileInputStream("stock.dat"))
+      val tempStocks = load.readObject.asInstanceOf[ListBuffer[Stock]]
+      stocks.clear()
+      tempStocks.foreach(s => stocks += s)
+      load.close
+      true
+    }catch{
+      case e: Exception => false
     }
   }
 
