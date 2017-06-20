@@ -18,7 +18,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   it should "have a different size reflecting the amount of stock added" in {
     createStock(1,"HW name","HW desc", 100, "HW config")
     createStock(2,"HW name","HW desc", 100, "HW config")
-    stocks.length==2
+    stocks.length should be(2)
   }
 
   "creating new misc item" should "return true if successful" in {
@@ -33,7 +33,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   it should "have a different size reflecting the amount of stock added" in {
     createStock(3,"misc name","misc desc", 100, ItemType.SHIRT)
     createStock(4,"misc name","misc desc", 100, ItemType.SHIRT)
-    stocks.length==2
+    stocks.length should be(2)
   }
 
 
@@ -50,7 +50,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   it should "have a different size reflecting the amount of stock added" in {
     createStock(6,"game name","game desc", 100, 12, "game genre", null)
     createStock(7,"game name","game desc", 100, 12, "game genre", null)
-    stocks.length==2
+    stocks.length should be(2)
   }
 
 
@@ -77,9 +77,6 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
     val result = getStock(8)
     result should not be (true)
   }
-
-
-
 
 
 }
