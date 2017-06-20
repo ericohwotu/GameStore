@@ -9,13 +9,15 @@ trait TransactionActions extends MainVariables {
   *
   * */
   def createTransaction(id: Int, employee: Employee, dateAndTime: Date): Boolean = {
-    if (employee == null) false
-    else {
+    if (transactions.find(t => t.transactionID == id) != None || employee == null) {
+      false
+    } else {
       transactions += new Transaction(id, employee, dateAndTime)
       true
     }
-
   }
+
+
 
   def getTransaction(id: Int): Transaction = {
     val transactionSearch = transactions.find(t => t.transactionID == id).getOrElse(null)
@@ -23,8 +25,15 @@ trait TransactionActions extends MainVariables {
   }
 
 
-
-  def deleteTransaction(id: Int): Boolean = false
+  def deleteTransaction(id: Int): Boolean = {
+    val transactionSearch = transactions.find(t => t.transactionID == id)
+    if (transactionSearch != None) {
+      transactions -= transactionSearch.get
+      true
+    } else {
+      false
+    }
+  }
 
 
 }
