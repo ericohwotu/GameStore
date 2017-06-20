@@ -37,7 +37,7 @@ class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
     val js = Employee(1,"John","Smith",24,"Male",23000,"JSmith","Smooth")
     val trans =  Transaction(1, alf, new Date())
-    trans.removeEmployee(js) should be false
+    trans.removeEmployee(js) should be (false)
   }
 
   it should "return false if no employee is passed" in {
