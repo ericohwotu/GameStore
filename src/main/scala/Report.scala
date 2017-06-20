@@ -35,14 +35,7 @@ class Report(reportID: Int, transaction: ListBuffer[Transaction]) extends MainVa
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
 
-    // Need to get date from transactions.
-
-    // Check through the transactions list and look for the start date that matches dateFrom
-    // in function parameters. Return ListBuffer of transactions between date range
-
     transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-
-    // Create the report
 
     generatedReport = new Report(count + 1, transList)
     println(s"Successfully generated report: $generatedReport")

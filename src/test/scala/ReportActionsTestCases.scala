@@ -78,4 +78,16 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
     }
 
   }
+
+  //========================================= Serialization ==================================================//
+
+  "Serialization" should "return true if successful" in {
+    writeReportToFile should be(true)
+  }
+
+  it should "return false if unsuccessful" in {
+    readReportFromFile should be(false)
+  }
+
+
 }
