@@ -44,7 +44,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   it should "return false if you are not a manager" in {
     stocks.clear
     loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    val result = createStock(3,"misc name","misc desc", 100, ItemType.SHIRT)
     result should be(false)
   }
   it should "return false if stock item with this id already exists" in {
@@ -69,6 +69,12 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
     val result = createStock(5,"game name","game desc", 100, 12, "game genre", "game console")
     result should be(true)
+  }
+  it should "return false if you are not a manager" in {
+    stocks.clear
+    loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
+    val result = createStock(6,"game name2","game desc2", 100, 12, "game genre2", "game console")
+    result should be(false)
   }
   it should "return false if stock with this id already exists" in {
     stocks.clear
@@ -101,13 +107,21 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   }
 
 
-  "deleting stock by ID" should "return true if successfull" in {
+  "deleting stock by ID" should "return true if you are a manager and are successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
     createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
     val result = deleteStock(1)
     result should be(true)
     getStock(1) should not be(true)
+  }
+  "deleting stock by ID" should "return false if you are not a manager" in {
+    stocks.clear
+    loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
+    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    loggedIn = Employee(101, "fname", "lname", 100, "male", 10000, "loginName", "password")
+    val result = deleteStock(1)
+    result should be(false)
   }
   it should "return false if the stock doesn't exist" in {
     val result = getStock(8)
@@ -117,6 +131,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
 
   "saving stock to file" should "return true if successful" in {
     stocks.clear()
+    loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
     createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
     createStock(2,"HW name","HW desc", 100, "HW config",HardwareType.CONSOLE)
     createStock(3,"HW name","HW desc", 100, "HW config",HardwareType.LAPTOP)

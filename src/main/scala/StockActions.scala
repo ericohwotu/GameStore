@@ -43,11 +43,11 @@ trait StockActions extends MainVariables{
 
 //  GAMES NEED TO BE LOOKED AT AS THEY TAKE A CONSOLE AS AN ARGUMENT, BUT THIS DOES NOT MAKE SENSE
   def createStock(id: Int, name: String, desc: String, price: Double, rating: Int, genre: String, console: String): Boolean = {
-    if (stocks.find(s => s.id == id) != None && loggedIn.isInstanceOf[Manager]) {
-      false
-    }else{
+    if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
       stocks += new Game(id, name, desc, price, rating, genre, console)
       true
+    }else{
+      false
     }
   }
 
