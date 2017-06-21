@@ -109,5 +109,26 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     val result = deleteManager(1)
     result should be (false)
   }
-  //======================================================= Done =======================================================//
+  //========================================================= Read Employees From File ===============================================================//
+
+  "outputing employees to file" should "return true if successful" in {
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE)
+    outputEmployeesToFile should be (true)
+  }
+  "outputing managers to file" should "return true if successful" in {
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.MANAGER)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.MANAGER)
+    outputManagersToFile should be (true)
+  }
+  "reading employees to file" should "return true if successful" in {
+    employees.clear()
+    readEmployeesFromFile
+    employees.length should not be (0)
+  }
+  "reading managers to file" should "return true if successful" in {
+    managers.clear()
+    readManagersFromFile
+    managers.length should not be (0)
+  }
 }

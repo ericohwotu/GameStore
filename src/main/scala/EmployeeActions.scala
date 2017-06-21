@@ -1,3 +1,7 @@
+import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+
+import scala.collection.mutable.ListBuffer
+
 /**
   * Created by Administrator on 19/06/2017.
   */
@@ -76,6 +80,51 @@ trait EmployeeActions extends MainVariables {
       case 0 => println("Sorry Manager Doesnt Exist"); false
       case 1 => Main.managers -= result.head; true
       case x if x > 1 => println("Multiple Found"); false
+    }
+  }
+
+  def outputEmployeesToFile: Boolean = {
+    try {
+      val employeeOutputStream = new ObjectOutputStream(new FileOutputStream("employees.dat"))
+      employeeOutputStream.writeObject(employees)
+      employeeOutputStream.flush()
+      true
+    } catch {
+      case x: Exception => false
+    }
+
+  }
+
+  def outputManagersToFile: Boolean = {
+    try {
+      val managerOutputStream = new ObjectOutputStream(new FileOutputStream("managers.dat"))
+      managerOutputStream.writeObject(managers)
+      managerOutputStream.flush()
+      true
+    } catch {
+      case x: Exception => false
+    }
+  }
+
+  def readEmployeesFromFile: Boolean = {
+    try {
+      val employeeInputStream = new ObjectInputStream(new FileInputStream("employees.dat"))
+      employees.clear()
+      employees ++= employeeInputStream.readObject.asInstanceOf[ListBuffer[Employee]]
+      true
+    } catch {
+      case x: Exception => false
+    }
+  }
+  def readManagersFromFile: Boolean = {
+    try {
+      val managerInputStream = new ObjectInputStream(new FileInputStream("managers.dat"))
+      managers.clear()
+      var newList = managerInputStream.readObject.asInstanceOf[ListBuffer[Manager]]
+      managers ++= newList
+      true
+    } catch {
+      case x: Exception => false
     }
   }
 }
