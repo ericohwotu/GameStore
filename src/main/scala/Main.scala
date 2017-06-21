@@ -61,4 +61,6 @@ object Main extends JFXApp with MainVariables with EmployeeActions{
 		mainStage.centerOnScreen()
 	}
 	def closeWindow():Unit = mainStage.close()
+	
+	
 }

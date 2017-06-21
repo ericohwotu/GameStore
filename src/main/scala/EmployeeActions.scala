@@ -12,11 +12,11 @@ trait EmployeeActions extends MainVariables {
 
       case EmployeeType.MANAGER =>
 
-        val isInList = Main.managers.filter(_.ID==id).length > 0
+        val isInList = managers.filter(_.ID==id).length > 0
 
         isInList match {
           case false =>
-            Main.managers += new Manager (id, fName, lName, Age, Gender, salary, loginName, password)
+            managers += new Manager (id, fName, lName, Age, Gender, salary, loginName, password)
             true
 
           case true =>
@@ -26,11 +26,11 @@ trait EmployeeActions extends MainVariables {
 
       case EmployeeType.EMPLOYEE =>
 
-        val isInList = Main.employees.filter(_.ID==id).length > 0
+        val isInList = employees.filter(_.ID==id).length > 0
 
         isInList match {
           case false =>
-            Main.employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
+            employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
             true
 
           case true =>
@@ -44,7 +44,7 @@ trait EmployeeActions extends MainVariables {
   }
 
   def getEmployee(id: Int): Employee = {
-    val result = Main.employees.filter(_.ID == id)
+    val result = employees.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Employee Doesnt Exist"); null
       case 1 => result.head
@@ -53,16 +53,16 @@ trait EmployeeActions extends MainVariables {
   }
 
   def deleteEmployee(id: Int): Boolean = {
-    val result = Main.employees.filter(_.ID == id)
+    val result = employees.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Employee Doesnt Exist"); false
-      case 1 => Main.employees -= result.head; true
+      case 1 => employees -= result.head; true
       case x if x > 1 => println("Multiple Found"); false
     }
   }
 
   def getManager(id: Int): Manager ={
-    val result = Main.managers.filter(_.ID == id)
+    val result = managers.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Manager Doesnt Exist"); null
       case 1 => result.head
@@ -71,10 +71,10 @@ trait EmployeeActions extends MainVariables {
   }
 
   def deleteManager(id: Int): Boolean ={
-    val result = Main.managers.filter(_.ID == id)
+    val result = managers.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Manager Doesnt Exist"); false
-      case 1 => Main.managers -= result.head; true
+      case 1 => managers -= result.head; true
       case x if x > 1 => println("Multiple Found"); false
     }
   }

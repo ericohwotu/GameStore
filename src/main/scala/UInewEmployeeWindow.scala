@@ -1,4 +1,3 @@
-import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
@@ -129,6 +128,9 @@ class UInewEmployeeWindow extends Scene {
 		if(e.code == KeyCode.Enter) {
 			createEmployee()
 		}
+	}
+	eCreateButton.onAction = (e:ActionEvent) => {
+		createEmployee()
 	}
 	
 	content = List(divider, bg1, employeeTitle, employeeInfoPane, topBar, divider2, loggedInText, logoutButton, returnButton)
