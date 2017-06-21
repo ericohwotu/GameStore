@@ -57,10 +57,18 @@ class UInewStockWindow extends Scene {
 		val config:String = eSpecs.text.value
 		
 		if(ePrice.text.value.length > 0) {
-			price = ePrice.text.value.toDouble
+			try {
+				price = ePrice.text.value.toDouble
+			} catch {
+				case e:Exception => println("wrong price input")
+			}
 		}
 		if(eAmount.text.value.length > 0) {
-			amount = eAmount.text.value.toInt
+			try {
+				amount = eAmount.text.value.toInt
+			} catch {
+				case e:Exception => println("wrong amount input")
+			}
 		}
 		
 		if(name.length == 0) {eNameLabel.fill = Color.Red} else {eNameLabel.fill = Color.White}
@@ -125,6 +133,8 @@ class UInewStockWindow extends Scene {
 	//========================================================= Search Pane
 	//============================================================ Variables ============================
 	//============================================================ Functions ============================
+
+
 	onKeyPressed = (e:KeyEvent) => {
 		if(e.code == KeyCode.Enter) {
 			createStock()
