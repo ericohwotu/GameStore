@@ -11,51 +11,50 @@ trait EmployeeActions extends MainVariables {
    *
    * */
   def createEmployee(id: Int, fName: String, lName: String, Age: Int, Gender: String, salary: Int, loginName: String, password: String, employeeType: EmployeeType.Value): Boolean = {
-
+    val username = getNewUserName(loginName)
     if (loggedIn.isInstanceOf[Manager]) {
       println(employees ++ managers)
-      if ((managers ++ employees).filter(x => x.loginName == loginName).length == 0) {
-        employeeType match {
 
-          case EmployeeType.MANAGER =>
+      employeeType match {
 
-            val isInList = managers.filter(_.ID == id).length > 0
-            isInList match {
-              case false =>
-                managers += new Manager(id, fName, lName, Age, Gender, salary, loginName, password)
-                writeManagersToFile
-                readManagersFromFile
-                true
-              case true =>
-                println("Sorry Id already exists")
-                false
-            }
+        case EmployeeType.MANAGER =>
 
-          case EmployeeType.EMPLOYEE =>
+          val isInList = managers.filter(_.ID == id).length > 0
+          isInList match {
+            case false =>
+              managers += new Manager(id, fName, lName, Age, Gender, salary, username, password)
+              writeManagersToFile
+              readManagersFromFile
+              true
+            case true =>
+              println("Sorry Id already exists")
+              false
+          }
 
-            val isInList = employees.filter(_.ID == id).length > 0
+        case EmployeeType.EMPLOYEE =>
 
-            isInList match {
-              case false =>
-                employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
-                writeEmployeesToFile
-                readEmployeesFromFile
-                true
+          val isInList = employees.filter(_.ID == id).length > 0
 
-              case true =>
-                println("Sorry Id already exists")
-                false
-            }
+          isInList match {
+            case false =>
+              employees += new Employee(id, fName, lName, Age, Gender, salary, username, password)
+              writeEmployeesToFile
+              readEmployeesFromFile
+              true
 
-          case _ => false
-        }
-      } else {
-        println("username already exists")
-        false
+            case true =>
+              println("Sorry Id already exists")
+              false
+          }
+
+        case _ => false
       }
     } else {
+      println("Insufficient Priviledges")
       false
     }
+
+
   }
 
   def getEmployee(id: Int): Employee = {

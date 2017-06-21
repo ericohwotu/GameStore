@@ -10,6 +10,7 @@ trait MainVariables {
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
+	var newUsername: String = ""
   var loggedIn: Person = null
 	
 	def login(username: String, password: String): Boolean = {
@@ -19,6 +20,19 @@ trait MainVariables {
 			case 1 => println(getUser.head.loginName); loggedIn = getUser.head; true
 			case x if x > 1 => println(s"Too Many Users Found $x"); false
 		}
+	}
+
+	def getNewUserName(oldStr: String):String ={
+		var usrName = oldStr
+		var acc = 1
+
+		while(!(employees++managers).forall(_.loginName!=usrName)){
+			if (acc > 1) usrName = usrName.dropRight((acc-1).toString.length)
+			usrName = s"${usrName}$acc"
+			acc+=1
+			println(s"${(acc-1).toString.length} >>> $usrName >>> ${(employees++managers).forall(_.loginName!=usrName)} >>> ${employees++managers}")
+		}
+		usrName
 	}
 	
 	def logout(): Boolean ={

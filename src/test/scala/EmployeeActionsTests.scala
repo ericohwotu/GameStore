@@ -8,6 +8,18 @@ import org.scalatest._
 
 class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions with MainVariables {
 
+  //
+  "getting a new user name" should "return a non existing username if username is already taken" in {
+    employees.clear()
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMe","NoneYa")
+    createEmployee(100,"Eric","Ohwotu",28,"Male",23000,"Sting","ness", EmployeeType.EMPLOYEE)
+    createEmployee(101,"Eric","Ohwotu",28,"Male",23000,"String","ness", EmployeeType.EMPLOYEE)
+    createEmployee(102,"Eric","Ohwotu",28,"Male",23000,"String","ness", EmployeeType.EMPLOYEE)
+    createEmployee(103,"Eric","Ohwotu",28,"Male",23000,"String","ness", EmployeeType.EMPLOYEE)
+
+    getNewUserName("Sting") should be ("Sting1")
+
+  }
   //========================================================= Adding Employees ===============================================================//
   "creating an employee" should "return true if logged in is Manager" in {
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMe","NoneYa")
@@ -43,8 +55,8 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   }
 
   it should "return false if id already exists" in {
-    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE) should be (false)
-    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE) should be (false)
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "Cjgfjgr", "Nosdfhshdfshness", EmployeeType.EMPLOYEE) should be (false)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "Cdgfdfgdfdfdfg", "Nosdfssddfgdssdssdfgsdf", EmployeeType.EMPLOYEE) should be (false)
   }
 
   "creating a Manager" should "return true if successful" in {
