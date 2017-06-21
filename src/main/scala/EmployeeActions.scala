@@ -72,7 +72,7 @@ trait EmployeeActions extends MainVariables {
       val result = employees.filter(_.ID == id)
       result.length match {
         case 0 => println("Sorry Employee Doesnt Exist"); false
-        case 1 => employees -= result.head; true
+        case 1 => employees -= result.head;writeEmployeesToFile;readEmployeesFromFile; true
         case x if x > 1 => println("Multiple Found"); false
       }
     } else {
@@ -95,7 +95,7 @@ trait EmployeeActions extends MainVariables {
       val result = managers.filter(_.ID == id)
       result.length match {
         case 0 => println("Sorry Manager Doesnt Exist"); false
-        case 1 => managers -= result.head; true
+        case 1 => managers -= result.head;writeManagersToFile;readManagersFromFile; true
         case x if x > 1 => println("Multiple Found"); false
       }
     } else {
