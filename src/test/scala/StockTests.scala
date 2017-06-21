@@ -76,7 +76,7 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val price = 400.0
       val rating = 12
       val genre = "game genre"
-      val console = new Console(40, "name", "desc", 1000, "config")
+      val console = "game console"
 
       When("New game is created")
       val game = new Game(id, name, desc, price, rating, genre, console)
