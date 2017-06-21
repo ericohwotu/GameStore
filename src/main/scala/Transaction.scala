@@ -7,12 +7,15 @@ import java.util.Date;
   *
   */
 
-case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date) {
+case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date, stocks: List[Stock]) {
 
+/*
   var stocks: List[Stock] = List.empty
+*/
   var transactionHistory: List[Transaction] = List.empty
   var price: Double = 0.0
   var discount: Double = 0.0
+  var isPreOrder: Boolean = false
 
   /**
     * Getters and setters for parameters

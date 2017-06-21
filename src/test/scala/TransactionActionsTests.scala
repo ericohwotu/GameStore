@@ -13,25 +13,28 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   "creating new Transaction" should "return true if successful" in {
 //    loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
-    createTransaction(1,employee,new Date()) should be (true)
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX"))) should be (true)
   }
 
   it should "return false if the employee is null is passed to it" in {
+    transactions.clear()
     val employee = null
-    createTransaction(1,employee,new Date()) should be (false)
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX"))) should be (false)
   }
 
   it should "add the transaction to the transaction list" in{
+    transactions.clear()
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
-    createTransaction(1,employee,new Date())
-    createTransaction(2,employee,new Date())
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
+    createTransaction(2,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
     transactions.length should be (2)
   }
 
   //getting transactions
   "getting a transaction" should "return a Transaction" in {
+    transactions.clear()
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-    createTransaction(1,employee,new Date())
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
     val result = getTransaction(1)
     val isTransactionInstance = result.isInstanceOf[Transaction]
 
@@ -47,17 +50,19 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   "deleting a transaction" should "return true if successful" in {
+    transactions.clear
     loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-    createTransaction(1,employee,new Date())
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
     val result = deleteTransaction(1)
     result should be (true)
   }
 
   it should "remove the transaction from the list" in {
+    transactions.clear
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
 
-    createTransaction(1,employee,new Date())
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
     transactions.length should be (1)
 
     deleteTransaction(1)
@@ -77,9 +82,9 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   "outputting transactions to file" should "return true if successful" in {
       transactions.clear()
       val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-      createTransaction(1,employee ,new Date())
-      createTransaction(2,employee ,new Date())
-      createTransaction(3,employee ,new Date())
+    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
+    createTransaction(2,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
+    createTransaction(3,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")))
       outputTransactionsToFile should be(true)
     }
     it should "then return true if the transaction is cleared and reloaded" in {
