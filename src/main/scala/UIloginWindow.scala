@@ -3,13 +3,26 @@ import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control.{Alert, Button, PasswordField, TextField}
+import scalafx.scene.input.{KeyCode, KeyEvent}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 import scalafx.scene.text.{Font, Text}
 
 class UIloginWindow extends Scene{
 	
-	def update():Unit = {}
+	def update():Unit = {
+		usernameInput.requestFocus()
+	}
+	def sendLogin():Unit = {
+		val attempt:Boolean = Main.login(usernameInput.text.value, passwordInput.text.value)
+		passwordInput.text = ""
+		if(attempt){
+			usernameInput.text = "Enter username"
+			Main.setWindow("main")
+		} else {
+			new Alert(AlertType.Error, "Wrong username and/or password").showAndWait()
+		}
+	}
 	
 	fill = Color.DarkGrey.darker.darker.darker
 	val textColour:Color = Color.White
@@ -59,16 +72,17 @@ class UIloginWindow extends Scene{
 	
 	//================================================= Functionality =================================================
 	loginButton.onAction = (ae:ActionEvent) => {
-		var attempt:Boolean = Main.login(usernameInput.text.value, passwordInput.text.value)
-		passwordInput.text = ""
-		if(attempt){
-			usernameInput.text = "Enter username"
-			Main.setWindow("main")
-		} else {
-			new Alert(AlertType.Error, "Wrong username and/or password").showAndWait()
-		}
+		sendLogin()
 	}
 	cancelButton.onAction = (ae:ActionEvent) => {
 		Main.closeWindow
+	}
+	onKeyPressed = (e:KeyEvent) => {
+		if(e.code == KeyCode.Enter && (usernameInput.focused.value || passwordInput.focused.value || loginButton.focused.value)) {
+			sendLogin()
+		}
+		if(e.code == KeyCode.Enter && cancelButton.focused.value) {
+			Main.closeWindow()
+		}
 	}
 }

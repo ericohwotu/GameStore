@@ -5,14 +5,17 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 
 
-object Main extends JFXApp with MainVariables{
+object Main extends JFXApp with MainVariables with EmployeeActions{
 	
 	val mainWindow:UImainWindow = new UImainWindow
 	val loginWindow:UIloginWindow = new UIloginWindow
 	val transactionWindow:UItransactionWindow = new UItransactionWindow
 	val staffWindow:UIstaffWindow = new UIstaffWindow
+	val newEmployeeWindow:UInewEmployeeWindow = new UInewEmployeeWindow
+	val reportWindow:UIreportWindow = new UIreportWindow
+	val stockWindow:UIstockWindow = new UIstockWindow
 	var mainStage:PrimaryStage = new PrimaryStage
-	setWindow("login")
+	setWindow("newE")
 	
 	def Main(args:Array[String]):Unit = {}
 	
@@ -33,14 +36,27 @@ object Main extends JFXApp with MainVariables{
 				mainStage.height = 800
 				mainStage.title = "Elliot and Friends™ Transaction"
 				transactionWindow.update()
-			case "report" => print("Report list open")
-			case "stock" => println("Stock list open")
+			case "report" => mainStage.scene = reportWindow
+				mainStage.width = 1000
+				mainStage.height = 800
+				mainStage.title = "Elliot and Friends™ Report"
+				reportWindow.update()
+			case "stock" => mainStage.scene = stockWindow
+				mainStage.width = 1000
+				mainStage.height = 800
+				mainStage.title = "Elliot and Friends™ Stock"
+				stockWindow.update()
 			case "staff" => mainStage.scene = staffWindow
 				mainStage.width = 1000
 				mainStage.height = 800
 				mainStage.title = "Elliot and Friends™ Staff"
 				staffWindow.update()
-			case "3" =>
+			case "newE" => mainStage.scene = newEmployeeWindow
+				mainStage.width = 1000
+				mainStage.height = 800
+				mainStage.title = "Elliot and Friends™ New Staff"
+				newEmployeeWindow.update()
+			case _ => println("Not a valid window")
 		}
 		mainStage.centerOnScreen()
 	}
