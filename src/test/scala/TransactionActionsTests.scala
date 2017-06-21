@@ -62,10 +62,15 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     transactions.length should be (0)
   }
 
-  it should "return false if id doesnt exist" in {
+/*  //**it should "return false if id doesnt exist" in {
     val result = deleteTransaction(1)
     result should be (false)
   }
+
+  it should "Only allow manager to delete a transaction" in{
+    deleteTransaction(1) by Manager
+    */
+  }*/
 
   "outputting transactions to file" should "return true if successful" in {
       transactions.clear()
