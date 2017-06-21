@@ -80,9 +80,12 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
 
   def calculatePrice(price: Double, discount: Double): Double = {
     var finalPrice: Double = 0
-    finalPrice = price * discount
-    finalPrice
+    Double match{
+      case a if discount==0  => finalPrice = price;
+      case _ => finalPrice = price * discount;
     }
+    finalPrice
+  }
 
   /**
     * Method to add a transaction to a transaction List.
@@ -91,10 +94,10 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
     */
 
   def addTransaction(transaction: Transaction): Unit = {
-    if(!transactionHistory.contains(transaction)) {
-      transactionHistory += transaction
+    transaction match{
+      case a if !transactionHistory.contains(transaction) => transactionHistory += transaction
+      case _ => println("Transaction already exists.")
     }
-    println(s"Error: $transaction already exists.")
   }
 
   /**
