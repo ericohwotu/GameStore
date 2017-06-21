@@ -175,9 +175,10 @@ class UIstaffWindow extends Scene {
 		maxHeight = 200;minHeight = 200;minWidth = 270;maxWidth = 270;layoutX()=0;layoutY()=380
 	}
 	searchResults.onMouseClicked = (e:MouseEvent) => {
-		updateSelected(searchList(searchResults.getSelectionModel().getSelectedIndex))
+		if(searchList.nonEmpty) {
+			updateSelected(searchList(searchResults.getSelectionModel().getSelectedIndex))
+		}
 	}
-	
 	searchPane.children.addAll(sFNameLabel, sFName, sLNameLabel, sLName, sGenderLabel, sGender, sJobLabel, sJob, searchResults, searchButton, clearButton)
 	
 	//============================================================ Variables ============================
