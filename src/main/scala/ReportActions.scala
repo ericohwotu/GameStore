@@ -12,7 +12,7 @@ trait ReportActions extends MainVariables{
   *
   * */
 
-  var generatedReport: Report = null
+  var generatedReport: Report = _
 
   /**
     * Method that will allow other classes to get a report generated.
@@ -21,11 +21,10 @@ trait ReportActions extends MainVariables{
     */
 
   def getReport(id: Int): Report = {
-    val reportOne = reports.find(r => r.reportID == id )
-    if(reportOne!=None){
-      reportOne.get
-    }else{
-      null
+  val reportOne = reports.find(r => r.reportID == id)
+    Report match{
+      case a if(reportOne!=None) => reportOne.get
+      case _ => null
     }
   }
 
@@ -41,25 +40,21 @@ trait ReportActions extends MainVariables{
   def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = {
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
-    if ((dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] && id.toChar < 10) {
-      transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-      generatedReport = Report(count + 1, transList)
-      println(s"Successfully generated report: $generatedReport")
-      reports += generatedReport
-      true
-    } else {
-      false
+    Boolean match{
+      case a if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] && id.toChar < 10 =>
+        transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
+        generatedReport = Report(count + 1, transList); println(s"Successfully generated report: $generatedReport"); reports += generatedReport; true
+      case _ => false
     }
   }
 
   def deleteReport(id: Int): Boolean ={
     val reportID = reports.find(r => r.reportID == id )
-    if(reportID!=None && loggedIn.isInstanceOf[Manager]) {
-      val reportToDelete = reports.filter(_ == id)
-      println(s"Report $reportToDelete has been successfully deleted")
-      true
-    } else {
-      false
+    Boolean match {
+      case a if reportID != None && loggedIn.isInstanceOf[Manager] => val reportToDelete = reports.filter(_ == id)
+        println(s"Report $reportToDelete has been successfully deleted");
+        true
+      case _ => false
     }
   }
 
