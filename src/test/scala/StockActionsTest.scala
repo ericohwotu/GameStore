@@ -12,6 +12,12 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
     val result = createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
     result should be(true)
   }
+  it should "return false if you are not a manager" in {
+    stocks.clear
+    loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
+    val result = createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    result should be(false)
+  }
   it should "return false if stock with this is id already exists" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
@@ -34,6 +40,12 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
     val result = createStock(3,"misc name","misc desc", 100, ItemType.SHIRT)
     result should be(true)
+  }
+  it should "return false if you are not a manager" in {
+    stocks.clear
+    loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
+    val result = createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    result should be(false)
   }
   it should "return false if stock item with this id already exists" in {
     stocks.clear
@@ -105,7 +117,6 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
 
   "saving stock to file" should "return true if successful" in {
     stocks.clear()
-    loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
     createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
     createStock(2,"HW name","HW desc", 100, "HW config",HardwareType.CONSOLE)
     createStock(3,"HW name","HW desc", 100, "HW config",HardwareType.LAPTOP)
