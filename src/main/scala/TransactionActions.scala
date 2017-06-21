@@ -41,7 +41,7 @@ trait TransactionActions extends MainVariables {
     try {
       val transactionsOutputStream = new ObjectOutputStream(new FileOutputStream("transaction.dat"))
       transactionsOutputStream.writeObject(transactions)
-      transactionsOutputStream.flush()
+      transactionsOutputStream.close()
       true
     }catch{
       case x: Exception => false
