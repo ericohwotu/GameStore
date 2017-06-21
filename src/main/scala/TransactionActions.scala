@@ -12,12 +12,14 @@ trait TransactionActions extends MainVariables {
   *
   * */
   def createTransaction(id: Int, employee: Employee, dateAndTime: Date): Boolean = {
-    if (transactions.find(t => t.transactionID == id) != None || employee == null) {
-      false
-    } else {
-      transactions += new Transaction(id, employee, dateAndTime)
-      true
-    }
+    if (loggedIn.isInstanceOf[Manager]) {
+      if (transactions.find(t => t.transactionID == id) != None || employee == null) {
+        false
+      } else {
+        transactions += new Transaction(id, employee, dateAndTime)
+        true
+      }
+    }else false
   }
 
 
@@ -28,19 +30,14 @@ trait TransactionActions extends MainVariables {
 
 
   def deleteTransaction(id: Int): Boolean = {
-      val transactionSearch = transactions.find(t => t.transactionID == id)
-    if(loggedIn.isInstanceOf[Manager]){
+    val transactionSearch = transactions.find(t => t.transactionID == id)
+    if (loggedIn.isInstanceOf[Manager]) {
 
-
-    if (transactionSearch != None) {
-      transactions -= transactionSearch.get
-      true
-    } else {
-      false
-    } else {
-        throw new IOException("Unauthorized access; not allowed")
-      }
-    }
+      if (transactionSearch != None) {
+        transactions -= transactionSearch.get
+        true
+      } else false
+    } else false
   }
 
   def outputTransactionsToFile: Boolean = {

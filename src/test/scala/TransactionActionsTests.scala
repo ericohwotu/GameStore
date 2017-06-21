@@ -11,6 +11,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
 
   //creating the transaction
   "creating new Transaction" should "return true if successful" in {
+    loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date()) should be (true)
   }
@@ -46,6 +47,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   "deleting a transaction" should "return true if successful" in {
+    loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date())
     val result = deleteTransaction(1)
