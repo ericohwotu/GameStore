@@ -82,14 +82,23 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   }
 
   //========================================================= Deleting Employees ===============================================================//
-  "deleting an employee" should "return true if succesful" in {
+  "deleting an employee" should "return true if succesful and manager is logged in" in {
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMe","NoneYa")
     employees.clear()
     createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
     val result = deleteEmployee(1)
     result should be (true)
   }
+  it should "return false if an employee is logged in" in {
+    loggedIn = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMe","NoneYa")
+    employees.clear()
+    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
+    val result = deleteEmployee(1)
+    result should be (false)
+  }
 
   it should "remove them from the employees list" in {
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMe","NoneYa")
     employees.clear()
     createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.EMPLOYEE)
     deleteEmployee(1)
@@ -120,12 +129,12 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   "outputing employees to file" should "return true if successful" in {
     createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMster", "NoneYaBiness", EmployeeType.EMPLOYEE)
     createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CalMaster", "NoaBusiness", EmployeeType.EMPLOYEE)
-    outputEmployeesToFile should be (true)
+    writeEmployeesToFile should be (true)
   }
   "outputing managers to file" should "return true if successful" in {
     createEmployee(1, "Eric", "Ohwotu", 28, "Male", 27000, "CallMe", "NoneYa", EmployeeType.MANAGER)
     createEmployee(2, "Eric", "Ohwotu", 22, "Male", 27000, "CallMeMaster", "NoneYaBusiness", EmployeeType.MANAGER)
-    outputManagersToFile should be (true)
+    writeManagersToFile should be (true)
   }
   "reading employees to file" should "return true if successful" in {
     employees.clear()
