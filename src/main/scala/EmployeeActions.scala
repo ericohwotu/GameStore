@@ -11,10 +11,10 @@ trait EmployeeActions extends MainVariables {
    *
    * */
   def createEmployee(id: Int, fName: String, lName: String, Age: Int, Gender: String, salary: Int, loginName: String, password: String, employeeType: EmployeeType.Value): Boolean = {
-    println(s"${loggedIn.getClass}, $loggedIn")
+    println(s"${loggedIn.getClass}, $loggedIn, $employees, ${(managers ++ employees).filter(x => x.loginName == loginName).length}")
     if (loggedIn.isInstanceOf[Manager]) {
       println(employees++managers)
-      if ((managers ++ employees).filter(x => x.loginName == loginName).length > 0) {
+      if ((managers ++ employees).filter(x => x.loginName == loginName).length == 0) {
         employeeType match {
 
           case EmployeeType.MANAGER =>

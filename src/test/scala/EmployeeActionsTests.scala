@@ -38,7 +38,7 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   it should "add the employee to the employees list" in {
     employees.clear()
     createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE)
-    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMter", "NoneYaBusiness", EmployeeType.EMPLOYEE)
     employees.length should be (2)
   }
 
@@ -49,20 +49,21 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
 
   "creating a Manager" should "return true if successful" in {
     managers.clear()
-    val result = createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.MANAGER)
+    val result = createEmployee(2,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster23","NoneYaBusiness", EmployeeType.MANAGER)
     result should be (true)
   }
 
   it should "add the manager to the managers list" in {
-    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.MANAGER)
-    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.MANAGER)
+    managers.clear()
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeM", "NoneYaBusiness", EmployeeType.MANAGER)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster33", "NoneYaBusines43s", EmployeeType.MANAGER)
     managers.length should be (2)
   }
 
   //========================================================= Getting Employees ===============================================================//
   "getting a manager" should "return a Manager" in{
     managers.clear()
-    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness", EmployeeType.MANAGER)
+    createEmployee(1,"Eric","Ohwotu",28,"Male",23000,"Caster","NoneYaBusiness", EmployeeType.MANAGER)
     val result = getManager(1)
     val isManagerInstance = result.isInstanceOf[Manager]
 
