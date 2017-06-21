@@ -76,7 +76,6 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
 
   it should "return false if the report doesn't exist" in {
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-
     deleteReport(27) should be (false)
   }
 
