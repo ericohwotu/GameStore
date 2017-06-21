@@ -12,6 +12,8 @@ import scalafx.scene.text.{Font, Text}
 class UInewStockWindow extends Scene {
 	val titleFont:Font = new Font("Times New Roman", 40)
 	val mainFont:Font = new Font("Times New Roman", 14)
+  var txt = ""
+  var txt2 = ""
 	val textColour:Color = Color.White
 	fill = Color.DarkGrey.darker.darker
 	
@@ -47,6 +49,8 @@ class UInewStockWindow extends Scene {
 		ePrice.text = ""
 		eSpecsLabel.visible = false
 		eSpecs.visible = false
+
+
 	}
 	def createStock(): Unit = {
 		val name:String = eName.text.value
@@ -70,6 +74,8 @@ class UInewStockWindow extends Scene {
 				case e:Exception => println("wrong amount input")
 			}
 		}
+
+
 		
 		if(name.length == 0) {eNameLabel.fill = Color.Red} else {eNameLabel.fill = Color.White}
 		if(price == 0) {ePriceLabel.fill = Color.Red} else {ePriceLabel.fill = Color.White}
@@ -90,6 +96,8 @@ class UInewStockWindow extends Scene {
 		}
 		
 	}
+  //==============================================================Test ==========================//
+
 	//============================================================ Background Layout ============================
 	val divider = Rectangle(300, 0, 2, 800)
 	divider.fill = Color.Gray.brighter
@@ -122,7 +130,7 @@ class UInewStockWindow extends Scene {
 	
 	val eAmountLabel:Text = new Text("Amount"){relocate(0, 100);fill=textColour;font=mainFont}
 	val eAmount:TextField = new TextField(){relocate(0,120);maxWidth=200;minWidth=200}
-	
+
 	val eSpecsLabel:Text = new Text("Specifications"){relocate(0, 340);fill=textColour;font=mainFont}
 	val eSpecs:TextArea = new TextArea(){relocate(0,360);maxWidth=600;minWidth=600;maxHeight=300;minHeight=300}
 	
@@ -140,6 +148,20 @@ class UInewStockWindow extends Scene {
 			createStock()
 		}
 	}
+
+
+  eAmount.onKeyReleased = (e:KeyEvent)=>{
+    println(e.code)
+    if (eAmount.text.value.matches("[0-9]*"))txt=eAmount.text.value
+    else {eAmount.text = txt; eAmount.positionCaret(txt.length)}
+  }
+
+  ePrice.onKeyReleased = (e:KeyEvent)=>{
+    println(e.code)
+    if (ePrice.text.value.matches("[0-9]*"))txt2=ePrice.text.value
+    else {ePrice.text = txt2; ePrice.positionCaret(txt2.length)}
+  }
+
 	createStockButton.onMouseClicked = (e:MouseEvent) => {
 		createStock()
 	}
