@@ -38,6 +38,16 @@ class UIstaffWindow extends Scene {
 	createNewButton.relocate(741, 7)
 	createNewButton.onMouseClicked = (e:MouseEvent) => Main.setWindow("newE")
 	
+	val deleteButton:Button = new Button("Delete Employee")
+	deleteButton.relocate(635, 7)
+	deleteButton.onMouseClicked = (e:MouseEvent) => {if(currentlySelected != null) {
+		currentlySelected.getClass.getSimpleName match {
+			case "Employee" => Main.deleteEmployee(currentlySelected.asInstanceOf[Employee].ID)
+			case "Manager" => Main.deleteManager(currentlySelected.asInstanceOf[Employee].ID)
+			case _ =>
+		}
+	}}
+	
 	def update():Unit = {
 		if(Main.loggedIn != null) {
 			loggedInText.text = s"Logged in as: ${Main.loggedIn.fName} ${Main.loggedIn.lName}"
@@ -55,8 +65,8 @@ class UIstaffWindow extends Scene {
 			createNewButton.visible = false
 		} else {
 			Main.loggedIn.getClass.getSimpleName match {
-				case "Manager" => createNewButton.visible = true
-				case _ => createNewButton.visible = false
+				case "Manager" => createNewButton.visible = true; deleteButton.visible = true
+				case _ => createNewButton.visible = false; deleteButton.visible = false
 			}
 		}
 		allEmployees = ListBuffer()
@@ -200,5 +210,5 @@ class UIstaffWindow extends Scene {
 		}
 	}
 	
-	content = List(divider, bg1, employeeTitle, searchTitle, employeeInfoPane, searchPane, employeeList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton)
+	content = List(divider, bg1, employeeTitle, searchTitle, employeeInfoPane, searchPane, employeeList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton, deleteButton)
 }
