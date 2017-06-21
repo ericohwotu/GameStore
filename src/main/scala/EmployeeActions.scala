@@ -16,11 +16,11 @@ trait EmployeeActions extends MainVariables {
 
       case EmployeeType.MANAGER =>
 
-        val isInList = managers.filter(_.ID == id).length > 0
+        val isInList = managers.filter(_.ID==id).length > 0
 
         isInList match {
           case false =>
-            managers += new Manager(id, fName, lName, Age, Gender, salary, loginName, password)
+            managers += new Manager (id, fName, lName, Age, Gender, salary, loginName, password)
             true
 
           case true =>
@@ -30,7 +30,7 @@ trait EmployeeActions extends MainVariables {
 
       case EmployeeType.EMPLOYEE =>
 
-        val isInList = employees.filter(_.ID == id).length > 0
+        val isInList = employees.filter(_.ID==id).length > 0
 
         isInList match {
           case false =>
@@ -65,7 +65,7 @@ trait EmployeeActions extends MainVariables {
     }
   }
 
-  def getManager(id: Int): Manager = {
+  def getManager(id: Int): Manager ={
     val result = managers.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Manager Doesnt Exist"); null
@@ -74,7 +74,7 @@ trait EmployeeActions extends MainVariables {
     }
   }
 
-  def deleteManager(id: Int): Boolean = {
+  def deleteManager(id: Int): Boolean ={
     val result = managers.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Manager Doesnt Exist"); false

@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
   * Created by Administrator on 20/06/2017.
   */
 trait MainVariables {
-
+	
   val transactions: ListBuffer[Transaction] = new ListBuffer[Transaction]
   val stocks: ListBuffer[Stock] = new ListBuffer[Stock]
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
