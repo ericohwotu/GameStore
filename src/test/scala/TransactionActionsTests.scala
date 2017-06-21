@@ -13,7 +13,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   "creating new Transaction" should "return true if successful" in {
 //    loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
-    createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX"))) should be (true)
+    createTransaction(1,employee,new Date(), (Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX"))) should be (true)
   }
 
   it should "return false if the employee is null is passed to it" in {
