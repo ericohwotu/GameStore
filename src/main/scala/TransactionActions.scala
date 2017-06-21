@@ -12,14 +12,14 @@ trait TransactionActions extends MainVariables {
   *
   * */
   def createTransaction(id: Int, employee: Employee, dateAndTime: Date): Boolean = {
-    if (loggedIn.isInstanceOf[Manager]) {
+//    if (loggedIn.isInstanceOf[Manager]) {
       if (transactions.find(t => t.transactionID == id) != None || employee == null) {
         false
       } else {
         transactions += new Transaction(id, employee, dateAndTime)
         true
       }
-    }else false
+//    }else false
   }
 
 
