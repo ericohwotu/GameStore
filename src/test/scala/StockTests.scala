@@ -17,10 +17,11 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val name = "console name"
       val desc = "console description"
       val price = 100.0
+      val count = 10000
       val config = "console config"
 
       When("New Console is created")
-      val console = new Console(id, name, desc, price, config)
+      val console = new Console(id, name, desc, price, count, config)
 
       Then("new console with supplied details should exist")
       assert(console.id==1)
@@ -36,10 +37,11 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val name = "laptop name"
       val desc = "laptop description"
       val price = 200.0
+      val count = 10000
       val config = "laptop config"
 
       When("New laptop is created")
-      val laptop = new Laptop(id, name, desc, price, config)
+      val laptop = new Laptop(id, name, desc, price, count, config)
 
       Then("new laptop with supplied details should exist")
       assert(laptop.id==2)
@@ -55,10 +57,11 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val name = "phone name"
       val desc = "phone description"
       val price = 300.0
+      val count = 10000
       val config = "phone config"
 
       When("New phone is created")
-      val phone = new Phone(id, name, desc, price, config)
+      val phone = new Phone(id, name, desc, price, count, config)
 
       Then("new phone with supplied details should exist")
       assert(phone.id==3)
@@ -74,12 +77,13 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val name = "game name"
       val desc = "game description"
       val price = 400.0
+      val count = 10000
       val rating = 12
       val genre = "game genre"
       val console = "game console"
 
       When("New game is created")
-      val game = new Game(id, name, desc, price, rating, genre, console)
+      val game = new Game(id, name, desc, price, count, rating, genre, console)
 
       Then("new phone with supplied details should exist")
       assert(game.id==4)
@@ -99,9 +103,10 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val name = "misc item name"
       val desc = "misc item description"
       val price = 500.0
+      val count = 10000
 
       When("New misc item is created")
-      val misc = new Misc(id, name, desc, price, ItemType.MUG)
+      val misc = new Misc(id, name, desc, price, count, ItemType.MUG)
 
       Then("new phone with supplied details should exist")
       assert(misc.id==5)

@@ -9,27 +9,27 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "creating new hardware as a manager" should "return true if successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    val result = createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
     result should be(true)
   }
   it should "return false if you are not a manager" in {
     stocks.clear
     loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    val result = createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
     result should be(false)
   }
   it should "return false if stock with this is id already exists" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(2,"HW name","HW desc", 100, "HW config",HardwareType.CONSOLE)
-    val result = createStock(2,"HW name2","HW desc2", 100, "HW config2",HardwareType.LAPTOP)
+    createStock(2,"HW name","HW desc", 100, 10000, "HW config",HardwareType.CONSOLE)
+    val result = createStock(2,"HW name2","HW desc2", 100, 10000, "HW config2",HardwareType.LAPTOP)
     result should not be(true)
   }
   it should "have a different size reflecting the amount of stock added" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
-    createStock(2,"HW name","HW desc", 100, "HW config",HardwareType.CONSOLE)
+    createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
+    createStock(2,"HW name","HW desc", 100, 10000, "HW config",HardwareType.CONSOLE)
     stocks.length should be(2)
   }
 
@@ -38,27 +38,27 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "creating new misc item" should "return true if successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(3,"misc name","misc desc", 100, ItemType.SHIRT)
+    val result = createStock(3,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
     result should be(true)
   }
   it should "return false if you are not a manager" in {
     stocks.clear
     loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(3,"misc name","misc desc", 100, ItemType.SHIRT)
+    val result = createStock(3,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
     result should be(false)
   }
   it should "return false if stock item with this id already exists" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(4,"misc name","misc desc", 100, ItemType.SHIRT)
-    val result = createStock(4,"misc name2","misc desc2", 100, ItemType.SHIRT)
+    createStock(4,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
+    val result = createStock(4,"misc name2","misc desc2", 100, 10000, ItemType.SHIRT)
     result should not be(true)
   }
   it should "have a different size reflecting the amount of stock added" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(3,"misc name","misc desc", 100, ItemType.SHIRT)
-    createStock(4,"misc name","misc desc", 100, ItemType.SHIRT)
+    createStock(3,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
+    createStock(4,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
     stocks.length should be(2)
   }
 
@@ -67,34 +67,34 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "creating new game" should "return true if successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(5,"game name","game desc", 100, 12, "game genre", "game console")
+    val result = createStock(5,"game name","game desc", 100, 10000, 12, "game genre", "game console")
     result should be(true)
   }
   it should "return false if you are not a manager" in {
     stocks.clear
     loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(6,"game name2","game desc2", 100, 12, "game genre2", "game console")
+    val result = createStock(6,"game name2","game desc2", 100, 10000, 12, "game genre2", "game console")
     result should be(false)
   }
   it should "return false if stock with this id already exists" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(6,"game name","game desc", 100, 12, "game genre", "game console")
-    val result = createStock(6,"game name2","game desc2", 100, 12, "game genre2", "game console")
+    createStock(6,"game name","game desc", 100, 10000, 12, "game genre", "game console")
+    val result = createStock(6,"game name2","game desc2", 100, 10000, 12, "game genre2", "game console")
     result should not be(true)
   }
   it should "have a different size reflecting the amount of stock added" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(6,"game name","game desc", 100, 12, "game genre", "game console")
-    createStock(7,"game name","game desc", 100, 12, "game genre", "game console")
+    createStock(6,"game name","game desc", 100, 10000, 12, "game genre", "game console")
+    createStock(7,"game name","game desc", 100, 10000, 12, "game genre", "game console")
     stocks.length should be(2)
   }
 
 
   "getting stock by ID" should "return true if successfull" in {
     stocks.clear
-    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
     val result = getStock(1)
     result should not be(null)
     result.isInstanceOf[Stock] should be(true)
@@ -110,7 +110,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "deleting stock by ID" should "return true if you are a manager and are successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
     val result = deleteStock(1)
     result should be(true)
     getStock(1) should not be(true)
@@ -118,7 +118,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "deleting stock by ID" should "return false if you are not a manager" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
+    createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
     loggedIn = Employee(101, "fname", "lname", 100, "male", 10000, "loginName", "password")
     val result = deleteStock(1)
     result should be(false)
@@ -132,9 +132,9 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "saving stock to file" should "return true if successful" in {
     stocks.clear()
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(1,"HW name","HW desc", 100, "HW config",HardwareType.PHONE)
-    createStock(2,"HW name","HW desc", 100, "HW config",HardwareType.CONSOLE)
-    createStock(3,"HW name","HW desc", 100, "HW config",HardwareType.LAPTOP)
+    createStock(1,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
+    createStock(2,"HW name","HW desc", 100, 10000, "HW config",HardwareType.CONSOLE)
+    createStock(3,"HW name","HW desc", 100, 10000, "HW config",HardwareType.LAPTOP)
     writeStockToFile should be(true)
   }
   it should "then return true if the stock is cleared and reloaded" in {
