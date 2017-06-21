@@ -1,3 +1,4 @@
+import java.io.IOException
 import java.util.Date
 
 import scala.collection.mutable.ListBuffer
@@ -9,7 +10,7 @@ import scala.collection.mutable.ListBuffer
   */
 
 
-class Report(reportID: Int, transaction: ListBuffer[Transaction]) extends MainVariables{
+case class Report(reportID: Int, transaction: ListBuffer[Transaction]) extends MainVariables{
 
   var generatedReport: Report = null
 
@@ -35,24 +36,25 @@ class Report(reportID: Int, transaction: ListBuffer[Transaction]) extends MainVa
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
 
-    transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-
-    generatedReport = new Report(count + 1, transList)
-    println(s"Successfully generated report: $generatedReport")
-
-    reports += generatedReport
-
+    if(loggedIn.isInstanceOf[Manager]) {
+      transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
+      generatedReport = new Report(count + 1, transList)
+      println(s"Successfully generated report: $generatedReport")
+      reports += generatedReport
+    } else {
+      throw new IOException("You are not authorized to access this function")
+    }
   }
 
   def deleteReport(id: Int): Unit ={
-
-    val reportToDelete = reports.filter(_ == id)
-    println(s"Report $reportToDelete has been successfully deleted")
-
+    if(loggedIn.isInstanceOf[Manager]) {
+      val reportToDelete = reports.filter(_ == id)
+      println(s"Report $reportToDelete has been successfully deleted")
+    } else {
+      throw new IOException("You are not authorized to access this function")
+    }
   }
 
-
-
-  override def toString: String = s"Report ID: $reportID" + transaction.toString
+  override def toString: String = s"Report ID: $reportID" + transaction
 
 }

@@ -21,7 +21,6 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
     reports.length should be(1)
   }
 
-
   it should "return false if dateFrom is left empty" in {
     createReport(1, null, new Date()) should be(false)
   }
