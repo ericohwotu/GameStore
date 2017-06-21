@@ -1,4 +1,3 @@
-import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
