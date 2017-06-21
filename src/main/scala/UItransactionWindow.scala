@@ -46,7 +46,7 @@ class UItransactionWindow extends Scene {
 			loggedInText.text = "Log in error"
 		}
 		stockList.selectionModel().clearSelection()
-		eName.text = ""
+		eEmployee.text = ""
 		clearSearch()
 
 		allStock = ListBuffer()
@@ -59,8 +59,8 @@ class UItransactionWindow extends Scene {
 		stockList.items = new ComboBox(stock).getItems
 	}
 	def clearSearch():Unit ={
-		sName.text = ""
-		sPrice.text = ""
+		sEmployee.text = ""
+		sDateTime.text = ""
 		searchResults.items = new ListView[String]().getItems
 	}
 	def searchStock(name:String, price:String):Unit = {
@@ -144,7 +144,7 @@ class UItransactionWindow extends Scene {
 	val sDateTimeLabel:Text = new Text("Price"){relocate(0, 100);fill=textColour;font=mainFont}
 	val sDateTime:TextField = new TextField(){relocate(0,120);maxWidth=200;minWidth=200}
 
-	val searchButton:Button = new Button("Search"){relocate(0, 160);onAction = (e:ActionEvent) => searchStock(sName.text.value, sPrice.text.value)}
+	val searchButton:Button = new Button("Search"){relocate(0, 160);onAction = (e:ActionEvent) => searchStock(sEmployee.text.value, sDateTime.text.value)}
 	val clearButton:Button = new Button("Clear"){relocate(52, 160);onAction = (e:ActionEvent) => clearSearch()}
 
 	var searchResults:ListView[String] = new ListView[String]() {
