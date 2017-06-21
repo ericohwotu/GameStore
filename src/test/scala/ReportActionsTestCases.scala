@@ -13,80 +13,90 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
   //========================================= Create Report ==================================================//
 
   "Create report" should "return true if successful" in {
-    createReport(1, new Date(), new Date()) should be(true)
+    reports.clear
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    val reportOne = createReport(1, new Date(), new Date())
+    reportOne should be(true)
   }
 
-  it should "add the report to a reports list" in {
-    createReport(1, new Date(), new Date())
+  it should "add the report to a reports list and reflect the quantity of reports" in {
+    reports.clear
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    val reportOne = createReport(1, new Date(), new Date())
     reports.length should be(1)
   }
 
   it should "return false if dateFrom is left empty" in {
-    createReport(1, null, new Date()) should be(false)
+    reports.clear
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    val noDate = null
+    val reportOne = createReport(1, noDate, new Date())
+    reportOne should be(false)
   }
 
   it should "return false if toDate is left empty" in {
-    createReport(1, new Date(), null) should be(false)
+    reports.clear
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    val noDate = null
+    val reportOne = createReport(1, new Date(), noDate)
+    reportOne should be(false)
   }
 
-  it should "throw an IndexOutOfBoundException if the ID doesn't exist" in {
-    a[IndexOutOfBoundsException] should be thrownBy {
-      createReport(10000000, new Date(), new Date())
+  it should "return false if the ID is 10 characters or more" in {
+    reports.clear
+      createReport(10000000, new Date(), new Date()) should be (false)
     }
-  }
+
 
   //========================================= Get Report ==================================================//
 
 
   "Get report" should "return a report if successful" in {
+    reports.clear
+    val reportOne = createReport(1, new Date(), new Date())
     getReport(1)
   }
 
-  it should "throw a NullPointerException if the report doesn't exist" in {
-    a[NullPointerException] should be thrownBy {
-      getReport(1)
-    }
+  it should "return false if the ID doesn't exist" in {
+    reports.clear
+    getReport(5) should be (null)
   }
 
-  it should "throw an IndexOutOfBoundException if the ID doesn't exist" in {
-    a[IndexOutOfBoundsException] should be thrownBy {
-      getReport(10000000)
-    }
-  }
 
   //========================================= Delete Report ==================================================//
 
   "Delete report" should "return true if successful" in {
-    deleteReport(1) should be (true)
+    reports.clear
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+    createReport(1, new Date(), new Date())
+    val r = getReport(1)
+    r should not be(null)
+    r.isInstanceOf[Report] should be (true)
   }
 
-  it should "delete a report from the reports list" in {
-    deleteReport(1)
-    reports.length should be (0)
-  }
+  it should "return false if the report doesn't exist" in {
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
 
-  it should "throw a NullPointerException if the report doesn't exist" in {
-    a[NullPointerException] should be thrownBy {
-      deleteReport(1)
-    }
-  }
-
-  it should "throw an IndexOutOfBoundException if the ID doesn't exist" in {
-    a[IndexOutOfBoundsException] should be thrownBy {
-      deleteReport(10000000)
-    }
-
+    deleteReport(27) should be (false)
   }
 
   //========================================= Serialization ==================================================//
 
-  "Serialization" should "return true if successful" in {
-    writeReportToFile should be(true)
+  "Saving report to file" should "return true if successful" in {
+    reports.clear()
+    createReport(1, new Date(), new Date())
+    createReport(2, new Date(), new Date())
+    createReport(3, new Date(), new Date())
+    writeReportToFile should be (true)
   }
 
-  it should "return false if unsuccessful" in {
-    readReportFromFile should be(false)
+  it should "then return true if the report is cleared and reloaded" in {
+    reports.clear()
+    readReportFromFile should be(true)
   }
 
+  it should "then maintain a size of 3" in {
+    reports.length should be(3)
+  }
 
 }

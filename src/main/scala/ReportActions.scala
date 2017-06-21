@@ -15,6 +15,21 @@ trait ReportActions extends MainVariables{
   var generatedReport: Report = null
 
   /**
+    * Method that will allow other classes to get a report generated.
+    *
+    * @param id
+    */
+
+  def getReport(id: Int): Report = {
+    val reportOne = reports.find(r => r.reportID == id )
+    if(reportOne!=None){
+      reportOne.get
+    }else{
+      null
+    }
+  }
+
+  /**
     * Method that will take 3 parameters and generate a report which will display transactions between a date
     * range.
     *
@@ -24,37 +39,26 @@ trait ReportActions extends MainVariables{
     */
 
   def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = {
-
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
-
-    if(loggedIn.isInstanceOf[Manager]) {
+    if ((dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] && id.toChar < 10) {
       transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-      generatedReport = new Report(count + 1, transList)
+      generatedReport = Report(count + 1, transList)
       println(s"Successfully generated report: $generatedReport")
       reports += generatedReport
       true
     } else {
-      throw new IOException("Unauthorized access!")
       false
     }
   }
 
-  /**
-    * Method that will allow other classes to get a report generated.
-    *
-    * @param id
-    */
-
-  def getReport(id: Int) = generatedReport
-
   def deleteReport(id: Int): Boolean ={
-    if(loggedIn.isInstanceOf[Manager]) {
+    val reportID = reports.find(r => r.reportID == id )
+    if(reportID!=None && loggedIn.isInstanceOf[Manager]) {
       val reportToDelete = reports.filter(_ == id)
       println(s"Report $reportToDelete has been successfully deleted")
       true
     } else {
-      throw new IOException("Unauthorized access!")
       false
     }
   }
@@ -63,7 +67,7 @@ trait ReportActions extends MainVariables{
     try {
       val save = new ObjectOutputStream(new FileOutputStream("report.dat"))
       save.writeObject(reports)
-      save.close
+      save.flush()
       true
     } catch {
       case e: Exception => false
@@ -75,8 +79,7 @@ trait ReportActions extends MainVariables{
       val load = new ObjectInputStream(new FileInputStream("report.dat"))
       val report = load.readObject.asInstanceOf[ListBuffer[Report]]
       reports.clear()
-      report.foreach(r => report += r)
-      load.close
+      reports ++= report
       true
     } catch {
       case e :Exception => false
