@@ -38,10 +38,11 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     isTransactionInstance should be (true)
   }
 
-  it should "throw an IndexOutOfBoundException if the ID doesn't exist" in {
-    a [IndexOutOfBoundsException] should be thrownBy {
-      getTransaction(1)
-    }
+  it should "return false if the transaction doesnt exist" in {
+    transactions.clear
+    val result = getTransaction(1)
+    result should be (null)
+    result.isInstanceOf[Transaction] should not be(true)
   }
 
   "deleting a transaction" should "return true if successful" in {
@@ -67,11 +68,21 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
   }
 
   "outputting transactions to file" should "return true if successful" in {
-    createTransaction(1, "Jason")
-    createTransaction()
-    createTransaction()
-    outputTransactionsToFile should be (true)
-  }
+      transactions.clear()
+      val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+      createTransaction(1,employee ,new Date())
+      createTransaction(2,employee ,new Date())
+      createTransaction(3,employee ,new Date())
+      outputTransactionsToFile should be(true)
+    }
+    it should "then return true if the transaction is cleared and reloaded" in {
+      transactions.clear()
+      readTransactionsFromFile should be(true)
+    }
+    it should "then maintain a size of 3" in {
+      transactions.length should be(3)
+    }
+
 
   //======================================= end ======================================================//
 }

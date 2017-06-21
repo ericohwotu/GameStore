@@ -21,7 +21,6 @@ trait TransactionActions extends MainVariables {
   }
 
 
-
   def getTransaction(id: Int): Transaction = {
     val transactionSearch = transactions.find(t => t.transactionID == id).getOrElse(null)
     transactionSearch
@@ -37,27 +36,27 @@ trait TransactionActions extends MainVariables {
       false
     }
   }
-  def outputTransactionsToFile: Boolean ={
+
+  def outputTransactionsToFile: Boolean = {
     try {
       val transactionsOutputStream = new ObjectOutputStream(new FileOutputStream("transaction.dat"))
       transactionsOutputStream.writeObject(transactions)
       transactionsOutputStream.close()
-      true
-    }catch{
-      case x: Exception => false
-    }
-  }
-
-  def readTransactionsFromFile: Boolean = {
-    try {
-      val transactionInputStream = new ObjectInputStream(new FileInputStream("transactions.dat"))
-      transactions.clear()
-      transactions ++ transactionInputStream.readObject.asInstanceOf[ListBuffer[Transaction]]
       true
     } catch {
       case x: Exception => false
     }
   }
 
+  def readTransactionsFromFile: Boolean = {
+    try {
+      val transactionInputStream = new ObjectInputStream(new FileInputStream("transaction.dat"))
+      transactions.clear()
+      transactions ++= transactionInputStream.readObject.asInstanceOf[ListBuffer[Transaction]]
+      true
+    } catch {
+      case x: Exception => false
+    }
+  }
 
 }
