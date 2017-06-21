@@ -12,38 +12,49 @@ trait EmployeeActions extends MainVariables {
    * */
   def createEmployee(id: Int, fName: String, lName: String, Age: Int, Gender: String, salary: Int, loginName: String, password: String, employeeType: EmployeeType.Value): Boolean = {
 
-    employeeType match {
+    if (loggedIn.isInstanceOf[Manager]) {
+      println(employees ++ managers)
+      if ((managers ++ employees).filter(x => x.loginName == loginName).length == 0) {
+        employeeType match {
 
-      case EmployeeType.MANAGER =>
+          case EmployeeType.MANAGER =>
 
-        val isInList = managers.filter(_.ID==id).length > 0
+            val isInList = managers.filter(_.ID == id).length > 0
+            isInList match {
+              case false =>
+                managers += new Manager(id, fName, lName, Age, Gender, salary, loginName, password)
+                writeManagersToFile
+                readManagersFromFile
+                true
+              case true =>
+                println("Sorry Id already exists")
+                false
+            }
 
-        isInList match {
-          case false =>
-            managers += new Manager (id, fName, lName, Age, Gender, salary, loginName, password)
-            true
+          case EmployeeType.EMPLOYEE =>
 
-          case true =>
-            println("Sorry Id already exists")
-            false
+            val isInList = employees.filter(_.ID == id).length > 0
+
+            isInList match {
+              case false =>
+                employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
+                writeEmployeesToFile
+                readEmployeesFromFile
+                true
+
+              case true =>
+                println("Sorry Id already exists")
+                false
+            }
+
+          case _ => false
         }
-
-      case EmployeeType.EMPLOYEE =>
-
-        val isInList = employees.filter(_.ID==id).length > 0
-
-        isInList match {
-          case false =>
-            employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
-            true
-
-          case true =>
-            println("Sorry Id already exists")
-            false
-        }
-
-      case _ => false
-
+      } else {
+        println("username already exists")
+        false
+      }
+    } else {
+      false
     }
   }
 
@@ -57,15 +68,20 @@ trait EmployeeActions extends MainVariables {
   }
 
   def deleteEmployee(id: Int): Boolean = {
-    val result = employees.filter(_.ID == id)
-    result.length match {
-      case 0 => println("Sorry Employee Doesnt Exist"); false
-      case 1 => employees -= result.head; true
-      case x if x > 1 => println("Multiple Found"); false
+    if (loggedIn.isInstanceOf[Manager]) {
+      val result = employees.filter(_.ID == id)
+      result.length match {
+        case 0 => println("Sorry Employee Doesnt Exist"); false
+        case 1 => employees -= result.head; true
+        case x if x > 1 => println("Multiple Found"); false
+      }
+    } else {
+      println("You have insufficient priviledges to delete")
+      false
     }
   }
 
-  def getManager(id: Int): Manager ={
+  def getManager(id: Int): Manager = {
     val result = managers.filter(_.ID == id)
     result.length match {
       case 0 => println("Sorry Manager Doesnt Exist"); null
@@ -74,16 +90,21 @@ trait EmployeeActions extends MainVariables {
     }
   }
 
-  def deleteManager(id: Int): Boolean ={
-    val result = managers.filter(_.ID == id)
-    result.length match {
-      case 0 => println("Sorry Manager Doesnt Exist"); false
-      case 1 => managers -= result.head; true
-      case x if x > 1 => println("Multiple Found"); false
+  def deleteManager(id: Int): Boolean = {
+    if (loggedIn.isInstanceOf[Manager]) {
+      val result = managers.filter(_.ID == id)
+      result.length match {
+        case 0 => println("Sorry Manager Doesnt Exist"); false
+        case 1 => managers -= result.head; true
+        case x if x > 1 => println("Multiple Found"); false
+      }
+    } else {
+      println("You have insufficient priviledges to delete")
+      false
     }
   }
 
-  def outputEmployeesToFile: Boolean = {
+  def writeEmployeesToFile: Boolean = {
     try {
       val employeeOutputStream = new ObjectOutputStream(new FileOutputStream("employees.dat"))
       employeeOutputStream.writeObject(employees)
@@ -95,7 +116,7 @@ trait EmployeeActions extends MainVariables {
 
   }
 
-  def outputManagersToFile: Boolean = {
+  def writeManagersToFile: Boolean = {
     try {
       val managerOutputStream = new ObjectOutputStream(new FileOutputStream("managers.dat"))
       managerOutputStream.writeObject(managers)
@@ -116,6 +137,7 @@ trait EmployeeActions extends MainVariables {
       case x: Exception => false
     }
   }
+
   def readManagersFromFile: Boolean = {
     try {
       val managerInputStream = new ObjectInputStream(new FileInputStream("managers.dat"))

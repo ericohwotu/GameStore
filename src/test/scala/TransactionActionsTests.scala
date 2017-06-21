@@ -11,6 +11,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
 
   //creating the transaction
   "creating new Transaction" should "return true if successful" in {
+    loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date()) should be (true)
   }
@@ -38,13 +39,15 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     isTransactionInstance should be (true)
   }
 
-  it should "throw an IndexOutOfBoundException if the ID doesn't exist" in {
-    a [IndexOutOfBoundsException] should be thrownBy {
-      getTransaction(1)
-    }
+  it should "return false if the transaction doesnt exist" in {
+    transactions.clear
+    val result = getTransaction(1)
+    result should be (null)
+    result.isInstanceOf[Transaction] should not be(true)
   }
 
   "deleting a transaction" should "return true if successful" in {
+    loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date())
     val result = deleteTransaction(1)
@@ -61,10 +64,32 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     transactions.length should be (0)
   }
 
-  it should "return false if id doesnt exist" in {
+/*  //**it should "return false if id doesnt exist" in {
     val result = deleteTransaction(1)
     result should be (false)
   }
+
+  it should "Only allow manager to delete a transaction" in{
+    deleteTransaction(1) by Manager
+    */
+  }*/
+
+  "outputting transactions to file" should "return true if successful" in {
+      transactions.clear()
+      val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
+      createTransaction(1,employee ,new Date())
+      createTransaction(2,employee ,new Date())
+      createTransaction(3,employee ,new Date())
+      outputTransactionsToFile should be(true)
+    }
+    it should "then return true if the transaction is cleared and reloaded" in {
+      transactions.clear()
+      readTransactionsFromFile should be(true)
+    }
+    it should "then maintain a size of 3" in {
+      transactions.length should be(3)
+    }
+
 
   //======================================= end ======================================================//
 }
