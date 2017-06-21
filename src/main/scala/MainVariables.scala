@@ -11,9 +11,7 @@ trait MainVariables {
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
   val reports: ListBuffer[Report] = new ListBuffer[Report]
   var loggedIn: Person = null
-	managers += new Manager(0, "Duane", "Miles", 24, "Male", 40000, "dmm", "BL@CKr0se")
-	managers += new Manager(0, "Jason", "Bourne", 41, "Male", 120000, "jb", "ikillpeople")
-	loggedIn = managers(0)
+	
 	def login(username: String, password: String): Boolean = {
 		val getUser = (employees++managers).filter(person => person.loginName==username&&person.password==password)
 		getUser.length match {

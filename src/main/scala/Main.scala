@@ -15,7 +15,7 @@ object Main extends JFXApp with MainVariables with EmployeeActions{
 	val reportWindow:UIreportWindow = new UIreportWindow
 	val stockWindow:UIstockWindow = new UIstockWindow
 	var mainStage:PrimaryStage = new PrimaryStage
-	setWindow("newE")
+	setWindow("login")
 	
 	def Main(args:Array[String]):Unit = {}
 	
