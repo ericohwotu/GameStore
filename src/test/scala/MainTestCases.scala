@@ -47,5 +47,6 @@ class MainTestCases extends FlatSpec with Matchers with TransactionActions with 
     loggedIn = null
     logout() should be (false)
   }
+
 }
 
