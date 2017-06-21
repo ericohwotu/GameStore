@@ -1,4 +1,4 @@
-import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+import java.io._
 import java.util.Date
 
 import scala.collection.mutable.ListBuffer
@@ -28,12 +28,18 @@ trait TransactionActions extends MainVariables {
 
 
   def deleteTransaction(id: Int): Boolean = {
-    val transactionSearch = transactions.find(t => t.transactionID == id)
+      val transactionSearch = transactions.find(t => t.transactionID == id)
+    if(loggedIn.isInstanceOf[Manager]){
+
+
     if (transactionSearch != None) {
       transactions -= transactionSearch.get
       true
     } else {
       false
+    } else {
+        throw new IOException("Unauthorized access; not allowed")
+      }
     }
   }
 
