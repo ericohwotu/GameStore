@@ -72,12 +72,12 @@ class UInewStockWindow extends Scene {
 		if(name.length > 0 && price != 0 && iType != "" && desc.length > 0) {
 			iType match {
 				case "Game" => Main.createStock(Main.stocks.length, name, desc, price, 0, "", null)
-				case "Console" => Main.createStock(Main.stocks.length, name, desc, price, config, HardwareType.CONSOLE)
-				case "Laptop" => Main.createStock(Main.stocks.length, name, desc, price, config, HardwareType.LAPTOP)
-				case "Phone" => Main.createStock(Main.stocks.length, name, desc, price, config, HardwareType.PHONE)
-				case "Mug" => Main.createStock(Main.stocks.length, name, desc, price, ItemType.MUG)
-				case "Poster" => Main.createStock(Main.stocks.length, name, desc, price, ItemType.POSTER)
-				case "Shirt" => Main.createStock(Main.stocks.length, name, desc, price, ItemType.SHIRT)
+				case "Console" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.CONSOLE)
+				case "Laptop" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.LAPTOP)
+				case "Phone" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.PHONE)
+				case "Mug" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.MUG)
+				case "Poster" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.POSTER)
+				case "Shirt" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.SHIRT)
 			}
 		}
 		
