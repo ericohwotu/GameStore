@@ -11,39 +11,46 @@ trait EmployeeActions extends MainVariables {
    *
    * */
   def createEmployee(id: Int, fName: String, lName: String, Age: Int, Gender: String, salary: Int, loginName: String, password: String, employeeType: EmployeeType.Value): Boolean = {
+    println(s"${loggedIn.getClass}, $loggedIn")
+    if (loggedIn.isInstanceOf[Manager]) {
+      println(employees++managers)
+      if ((managers ++ employees).filter(x => x.loginName == loginName).length > 0) {
+        employeeType match {
 
-    employeeType match {
+          case EmployeeType.MANAGER =>
 
-      case EmployeeType.MANAGER =>
+            val isInList = managers.filter(_.ID == id).length > 0
+            isInList match {
+              case false =>
+                managers += new Manager(id, fName, lName, Age, Gender, salary, loginName, password)
+                true
+              case true =>
+                println("Sorry Id already exists")
+                false
+            }
 
-        val isInList = managers.filter(_.ID == id).length > 0
+          case EmployeeType.EMPLOYEE =>
 
-        isInList match {
-          case false =>
-            managers += new Manager(id, fName, lName, Age, Gender, salary, loginName, password)
-            true
+            val isInList = employees.filter(_.ID == id).length > 0
 
-          case true =>
-            println("Sorry Id already exists")
-            false
+            isInList match {
+              case false =>
+                employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
+                true
+
+              case true =>
+                println("Sorry Id already exists")
+                false
+            }
+
+          case _ => false
         }
-
-      case EmployeeType.EMPLOYEE =>
-
-        val isInList = employees.filter(_.ID == id).length > 0
-
-        isInList match {
-          case false =>
-            employees += new Employee(id, fName, lName, Age, Gender, salary, loginName, password)
-            true
-
-          case true =>
-            println("Sorry Id already exists")
-            false
-        }
-
-      case _ => false
-
+      }else{
+        println("username already exists")
+        false
+      }
+    } else {
+      false
     }
   }
 
@@ -116,6 +123,7 @@ trait EmployeeActions extends MainVariables {
       case x: Exception => false
     }
   }
+
   def readManagersFromFile: Boolean = {
     try {
       val managerInputStream = new ObjectInputStream(new FileInputStream("managers.dat"))
