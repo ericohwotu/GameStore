@@ -1,4 +1,4 @@
-import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+import java.io._
 import java.util.Date
 
 import scala.collection.mutable.ListBuffer
@@ -11,11 +11,53 @@ trait ReportActions extends MainVariables{
   * Report functions
   *
   * */
-  def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = false
 
-  def getReport(id: Int): Report = null
+  var generatedReport: Report = null
 
-  def deleteReport(id: Int): Boolean = false
+  /**
+    * Method that will take 3 parameters and generate a report which will display transactions between a date
+    * range.
+    *
+    * @param id
+    * @param dateFrom
+    * @param dateTo
+    */
+
+  def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = {
+
+    var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
+    val count = 0
+
+    if(loggedIn.isInstanceOf[Manager]) {
+      transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
+      generatedReport = new Report(count + 1, transList)
+      println(s"Successfully generated report: $generatedReport")
+      reports += generatedReport
+      true
+    } else {
+      throw new IOException("Unauthorized access!")
+      false
+    }
+  }
+
+  /**
+    * Method that will allow other classes to get a report generated.
+    *
+    * @param id
+    */
+
+  def getReport(id: Int) = generatedReport
+
+  def deleteReport(id: Int): Boolean ={
+    if(loggedIn.isInstanceOf[Manager]) {
+      val reportToDelete = reports.filter(_ == id)
+      println(s"Report $reportToDelete has been successfully deleted")
+      true
+    } else {
+      throw new IOException("Unauthorized access!")
+      false
+    }
+  }
 
   def writeReportToFile: Boolean = {
     try {
