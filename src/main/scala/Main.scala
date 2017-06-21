@@ -1,6 +1,7 @@
 /**
   * Created by Administrator on 19/06/2017.
   */
+
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 
@@ -16,7 +17,7 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 	val stockWindow:UIstockWindow = new UIstockWindow
 	val newStockWindow:UInewStockWindow = new UInewStockWindow
 	var mainStage:PrimaryStage = new PrimaryStage
-	setWindow("login")
+	setWindow("stock")
 	readManagersFromFile
 	readEmployeesFromFile
 	
