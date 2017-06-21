@@ -10,19 +10,19 @@ trait StockActions extends MainVariables{
     * Transaction functions
     *
     * */
-  def createStock(id: Int, name: String, desc: String, price: Double, config: String, hardwareType: HardwareType.Value): Boolean = {
-    if (stocks.find(s => s.id == id) == None) {
+  def createStock(id: Int, name: String, desc: String, price: Double, count:Int, config: String, hardwareType: HardwareType.Value): Boolean = {
+    if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
       hardwareType match{
         case HardwareType.CONSOLE => {
-          stocks += new Console(id, name, desc, price, config)
+          stocks += new Console(id, name, desc, price, count, config)
           true
         }
         case HardwareType.LAPTOP =>{
-          stocks += new Laptop(id, name, desc, price, config)
+          stocks += new Laptop(id, name, desc, price, count,config)
           true
         }
         case HardwareType.PHONE =>{
-          stocks += new Phone(id,name,desc,price,config)
+          stocks += new Phone(id,name,desc,price, count,config)
           true
         }
         case _ => false
@@ -32,9 +32,9 @@ trait StockActions extends MainVariables{
     }
   }
 
-  def createStock(id: Int, name: String, desc: String, price: Double, itemType: ItemType.Value): Boolean = {
-    if (stocks.find(s => s.id == id) == None) {
-      stocks += new Misc(id, name, desc, price, itemType)
+  def createStock(id: Int, name: String, desc: String, price: Double, count:Int, itemType: ItemType.Value): Boolean = {
+    if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
+      stocks += new Misc(id, name, desc, price, count, itemType)
       true
     }else{
       false
@@ -42,12 +42,12 @@ trait StockActions extends MainVariables{
   }
 
 //  GAMES NEED TO BE LOOKED AT AS THEY TAKE A CONSOLE AS AN ARGUMENT, BUT THIS DOES NOT MAKE SENSE
-  def createStock(id: Int, name: String, desc: String, price: Double, rating: Int, genre: String, console: Console): Boolean = {
-    if (stocks.find(s => s.id == id) != None/* || console == null*/) {
-      false
-    }else{
-      stocks += new Game(id, name, desc, price, rating, genre, console)
+  def createStock(id: Int, name: String, desc: String, price: Double, count:Int, rating: Int, genre: String, console: String): Boolean = {
+    if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
+      stocks += new Game(id, name, desc, price, count, rating, genre, console)
       true
+    }else{
+      false
     }
   }
 
@@ -62,7 +62,7 @@ trait StockActions extends MainVariables{
 
   def deleteStock(id: Int): Boolean = {
     val stock = stocks.find(s => s.id==id)
-    if(stock!=None){
+    if(stock!=None && loggedIn.isInstanceOf[Manager]){
       stocks -= stock.get
       true
     }else {
