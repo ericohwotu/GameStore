@@ -11,12 +11,16 @@ trait TransactionActions extends MainVariables {
   * Transaction functions
   *
   * */
-  def createTransaction(id: Int, employee: Employee, dateAndTime: Date): Boolean = {
+  val trans: Transaction = null
+
+  def createTransaction(id: Int, employee: Employee, dateAndTime: Date, list: List[Stock] ): Boolean = {
+
 //    if (loggedIn.isInstanceOf[Manager]) {
+      println(transactions.find(t => t.transactionID == id) + " employee: " + employee)
       if (transactions.find(t => t.transactionID == id) != None || employee == null) {
         false
       } else {
-        transactions += new Transaction(id, employee, dateAndTime)
+        transactions += Transaction(id, employee, dateAndTime, list)
         true
       }
 //    }else false

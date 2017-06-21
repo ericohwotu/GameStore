@@ -1,6 +1,4 @@
-import java.util.Date
-
-import scala.collection.mutable.ListBuffer;
+import java.util.Date;
 
 /**
   * Created by alfie on 19/06/2017.
@@ -9,41 +7,33 @@ import scala.collection.mutable.ListBuffer;
   *
   */
 
-case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: Date, stock :List[Stock]) {
+case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date, stocks: List[Stock]) {
 
- // var stocks: List[Stock] = List.empty
-  var transactionHistory: ListBuffer[Transaction] = new ListBuffer[Transaction]
+/*
+  var stocks: List[Stock] = List.empty
+*/
+  var transactionHistory: List[Transaction] = List.empty
   var price: Double = 0.0
   var discount: Double = 0.0
-//  var employeeList: ListBuffer[Employee] = new ListBuffer[Employee]
+  var isPreOrder: Boolean = false
 
   /**
     * Getters and setters for parameters
     * @return
     */
 
-  //def getStock = stocks
+  def getStock = stocks
   def getTransactionHistory = transactionHistory
   def getDiscount = discount
   def setDiscount {this.discount = discount}
 
- /* /**
+  /**
     * Method to add employees to any transactions.
-    *
-    * if the employee doesn't exist in the employees list add to the list.
     *
     * @param employee
     */
 
-  def addEmployee(employee: Employee): Boolean = {
-    val findEmployee = employeeList.find(t => t == employee)
-    if (findEmployee.contains(employee)) {
-      employeeList += employee
-      true
-    }else{
-      false
-    }
-  }*/
+  def addEmployee(employee: Employee): Boolean = {true}
 
   /**
     * Method to remove employees from any transactions.
@@ -51,15 +41,7 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
     * @param employee
     */
 
- /* def removeEmployee(employee: Employee): Boolean = {
-    val findEmployee = employeeList.find(t => t == employee)
-    if(findEmployee.contains(employee)) {
-      employeeList -= employee
-      true
-    } else {
-      false
-    }
-  }*/
+  def removeEmployee(employee: Employee): Boolean = {true}
 
   /**
     * Method to update employees related to any transactions.
@@ -67,8 +49,7 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
     * @param employee
     */
 
-  def updateEmployee(employee: Employee): Unit = {
-    this.employee = employee}
+  def updateEmployee(employee: Employee): Boolean = {true}
 
   /**
     * Method to calculate the price of the transaction by multiplying the price by the discount value (if any...)
@@ -78,14 +59,7 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
     * @return price with discount applied (if any...)
     */
 
-  def calculatePrice(price: Double, discount: Double): Double = {
-    var finalPrice: Double = 0
-    Double match{
-      case a if discount==0  => finalPrice = price;
-      case _ => finalPrice = price * discount;
-    }
-    finalPrice
-  }
+  def calculatePrice(price: Double, discount: Option[Double]): Double = {price}
 
   /**
     * Method to add a transaction to a transaction List.
@@ -93,12 +67,7 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
     * @param transaction
     */
 
-  def addTransaction(transaction: Transaction): Unit = {
-    transaction match{
-      case a if !transactionHistory.contains(transaction) => transactionHistory += transaction
-      case _ => println("Transaction already exists.")
-    }
-  }
+  def addTransaction(transaction: Transaction): Unit = {}
 
   /**
     * Method to print a receipt for the transaction.
