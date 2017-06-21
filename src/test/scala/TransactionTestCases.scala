@@ -8,9 +8,9 @@ import org.scalatest._
   * Created by alfie on 20/06/2017.
   */
 
-class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
+class TransactionTestCases extends FlatSpec with Matchers with Transaction with MainVariables{
 
-  //========================================= Add employee ==================================================//
+  /*//========================================= Add employee ==================================================//
 
   "Add employee" should "return true if successful" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
@@ -45,9 +45,9 @@ class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
     val nobody = null
     val trans = Transaction(1, alf, new Date())
     trans.removeEmployee(nobody) should be (false)
-  }
+  }*/
 
-  //========================================= Update employee ==================================================//
+ /* //========================================= Update employee ==================================================//
 
   "Update employee" should "return true if successful" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
@@ -68,37 +68,27 @@ class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
     val nobody = null
     val trans = Transaction(1, alf, new Date())
     trans.updateEmployee(nobody) should be (false)
-  }
+  }*/
 
   //========================================= Calculate price ==================================================//
 
   "calculate price" should "return correct price if successful" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val trans = Transaction(1, alf, new Date())
-    trans.calculatePrice(39.99, None) should be (39.99)
+    transactions.clear()
+    calculatePrice(40,0) should be (36)
   }
 
   it should "return the correct discounted price" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val trans = Transaction(1, alf, new Date())
-    trans.calculatePrice(39.99, Some(10)) should be (35.99)
-  }
-
-  it should "throw an error when the discount value entered is too much (i.e. <20)" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val trans = Transaction(1, alf, new Date())
-    a [Error] should be thrownBy {
-      trans.calculatePrice(39.99, Some(20)) should be(35.99)
-    }
+    transactions.clear()
+    calculatePrice(40, 10) should be (36)
   }
 
   //========================================= Add transaction ==================================================//
 
-  "Add transaction" should "add a transaction to the transactions list" in {
+ /* "Add transaction" should "add a transaction to the transactions list" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
     val trans = Transaction(1, alf, new Date())
     trans.addTransaction(trans)
     transactions.length should be (1)
-  }
+  }*/
 
 }
