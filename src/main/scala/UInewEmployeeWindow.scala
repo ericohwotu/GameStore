@@ -114,6 +114,7 @@ class UInewEmployeeWindow extends Scene {
 				println("Created")
 				println(s"New username: ${fName(0).toString}${lName(0).toString}")
 				Main.createEmployee(newID, fName, lName, nAge, gender, nSalary, s"${fName(0).toString}${lName(0).toString}", "password", eType)
+				Main.setWindow("staff")
 			}
 		}
 		if(fName.length == 0) {eFNameLabel.fill = Color.Red} else {eFNameLabel.fill = Color.White}
