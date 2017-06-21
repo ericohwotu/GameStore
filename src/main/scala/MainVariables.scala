@@ -32,6 +32,7 @@ trait MainVariables {
 			acc+=1
 			println(s"${(acc-1).toString.length} >>> $usrName >>> ${(employees++managers).forall(_.loginName!=usrName)} >>> ${employees++managers}")
 		}
+		newUsername = usrName
 		usrName
 	}
 	
