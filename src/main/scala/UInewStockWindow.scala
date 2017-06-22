@@ -1,3 +1,5 @@
+import java.util.Date
+
 import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
@@ -81,10 +83,11 @@ class UInewStockWindow extends Scene {
 		if(price == 0) {ePriceLabel.fill = Color.Red} else {ePriceLabel.fill = Color.White}
 		if(amount == 0) {eAmountLabel.fill = Color.Red} else {eAmountLabel.fill = Color.White}
 		if(iType == "") {eItemTypeLabel.fill = Color.Red} else {eItemTypeLabel.fill = Color.White}
+		if(eDate.value.value == null) {eDateLabel.fill = Color.Red} else {eDateLabel.fill = Color.White}
 
-		if(name.length > 0 && price != 0 && iType != "" && desc.length > 0) {
+		if(name.length > 0 && price != 0 && iType != "" && desc.length > 0 && eDate.value.value != null) {
 			iType match {
-				case "Game" => Main.createStock(Main.stocks.length, name, desc, price, amount, 18, "", null);println("Item added")
+				case "Game" => Main.createStock(Main.stocks.length, name, desc, price, amount, 18, "", null, convertToDate(eDate));println("Item added")
 				case "Console" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.CONSOLE);println("Item added")
 				case "Laptop" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.LAPTOP);println("Item added")
 				case "Phone" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.PHONE);println("Item added")
@@ -133,9 +136,12 @@ class UInewStockWindow extends Scene {
 	val eSpecsLabel:Text = new Text("Specifications"){relocate(0, 340);fill=textColour;font=mainFont}
 	val eSpecs:TextArea = new TextArea(){relocate(0,360);maxWidth=600;minWidth=600;maxHeight=300;minHeight=300}
 
+	val eDateLabel:Text = new Text("Release Date"){relocate(425, 100);fill=textColour;font=mainFont}
+	val eDate:DatePicker = new DatePicker(){relocate(425,120)}
+
 	val createStockButton:Button = new Button("Add Stock"){relocate(530, 50)}
 
-	stockInfoPane.children.addAll(eName, eNameLabel, ePrice, ePriceLabel, eDescLabel, eDesc, eAmountLabel, eAmount, eSpecsLabel, eSpecs, eItemType, eItemTypeLabel, createStockButton)
+	stockInfoPane.children.addAll(eName, eNameLabel, ePrice, ePriceLabel, eDescLabel, eDesc, eAmountLabel, eAmount, eSpecsLabel, eSpecs, eItemType, eItemTypeLabel, createStockButton, eDateLabel, eDate)
 
 	//========================================================= Search Pane
 	//============================================================ Variables ============================
@@ -172,6 +178,12 @@ class UInewStockWindow extends Scene {
 		}
 		eSpecsLabel.visible = specShow
 		eSpecs.visible = specShow
+	}
+	def convertToDate(datePicker:DatePicker):Date = {
+		var day:Int = datePicker.value.value.getDayOfMonth
+		var month:Int = datePicker.value.value.getMonthValue
+		var year:Int = datePicker.value.value.getYear
+		new Date(year-1900,month-1,day)
 	}
 	content = List(divider, bg1, stockTitle, stockInfoPane, topBar, divider2, loggedInText, logoutButton, returnButton)
 }

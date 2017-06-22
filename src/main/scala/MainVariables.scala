@@ -41,7 +41,6 @@ trait MainVariables {
 		loggedIn match {
 			case null => false
 			case _: Person => loggedIn=null; true
-			case _ => false
 		}
 	}
 }

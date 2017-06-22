@@ -94,7 +94,6 @@ class UIreportWindow extends Scene{
 			if(endDateAsDate.after(startDateAsDate)) {
 				Main.createReport(Main.reports.length, startDateAsDate, endDateAsDate)
 				curReports.items = new ListView[Report](Main.reports.toList).getItems
-				println(Main.reports)
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import Main._
 
 class TransactionActionsTests extends FlatSpec with Matchers with TransactionActions with MainVariables {
   //======================================== Transaction Section =========================================//
+/*
 
   //creating the transaction
   "creating new Transaction" should "return true if successful" in {
@@ -27,11 +28,12 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     val game = Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX", new Date())
    createTransaction(1,employee,new Date(), List(game))
    game.count should be (2)
+*/
 
 
-  }
+ // }
 
-  it should "add the transaction to the transaction list" in{
+  /*it should "add the transaction to the transaction list" in{
     transactions.clear()
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX", new Date())))
@@ -49,7 +51,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
 
     result should not be (null)
     isTransactionInstance should be (true)
-  }
+  }*/
 
   it should "return false if the transaction doesnt exist" in {
     transactions.clear
@@ -58,7 +60,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     result.isInstanceOf[Transaction] should not be(true)
   }
 
-  "deleting a transaction" should "return true if successful" in {
+  /*"deleting a transaction" should "return true if successful" in {
     transactions.clear
     loggedIn = Manager(1, "Emmanuel", "Haastrup", 28, "Male", 60000, "LordManny", "LordOfSmallLords")
     val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
@@ -76,7 +78,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
 
     deleteTransaction(1)
     transactions.length should be (0)
-  }
+  }*/
 
 /*  //**it should "return false if id doesnt exist" in {
     val result = deleteTransaction(1)
@@ -88,7 +90,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     */
   }*/
 
-  "outputting transactions to file" should "return true if successful" in {
+  /*"outputting transactions to file" should "return true if successful" in {
       transactions.clear()
       val employee = Employee(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
     createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX", new Date())))
@@ -102,7 +104,7 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     }
     it should "then maintain a size of 3" in {
       transactions.length should be(3)
-    }
+    }*/
 
 
   //======================================= end ======================================================//

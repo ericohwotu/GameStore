@@ -18,7 +18,7 @@ abstract class Stock{
     }else false
   }
 
-  def setPrice(newPrice:Int): Unit ={
+  def setPrice(newPrice:Double): Unit ={
     price = newPrice
   }
   def setName(newName:String): Unit ={

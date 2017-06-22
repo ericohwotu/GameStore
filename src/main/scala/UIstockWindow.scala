@@ -46,6 +46,12 @@ class UIstockWindow extends Scene {
 		}
 		stockList.selectionModel().clearSelection()
 		eName.text = ""
+		eItemType.text = ""
+		eSpecs.text = ""
+		eDesc.text=""
+		eAmount.text = ""
+		ePrice.text = ""
+		eDate.text = ""
 		clearSearch()
 		
 		allStock = ListBuffer()
@@ -56,6 +62,7 @@ class UIstockWindow extends Scene {
 			println("Item added")
 		})
 		stockList.items = new ComboBox(stock).getItems
+		currentlySelected = null
 	}
 	def clearSearch():Unit ={
 		sName.text = ""
@@ -131,7 +138,14 @@ class UIstockWindow extends Scene {
 	val eSpecsLabel:Text = new Text("Specifications"){relocate(0, 340);fill=textColour;font=mainFont}
 	val eSpecs:TextArea = new TextArea(){relocate(0,360);editable=false;maxWidth=600;minWidth=600;maxHeight=300;minHeight=300}
 	
-	stockInfoPane.children.addAll(eName, eNameLabel, ePrice, ePriceLabel, eDescLabel, eDesc, eAmountLabel, eAmount, eSpecsLabel, eSpecs, eItemType, eItemTypeLabel)
+	val eDateLabel:Text = new Text("Release Date"){relocate(425, 100);fill=textColour;font=mainFont}
+	val eDate:TextField = new TextField(){relocate(425,120);editable=false;minWidth=200;maxWidth=200}
+	
+	val eEditButton:Button = new Button("Edit Stock"){relocate(425,50);visible=false}
+	val eSaveButton:Button = new Button("Save Changes"){relocate(425, 50);visible=false}
+	val eDiscardButton:Button = new Button("Discard Changes"){relocate(515, 50);visible=false}
+	
+	stockInfoPane.children.addAll(eName, eNameLabel, ePrice, ePriceLabel, eDescLabel, eDesc, eAmountLabel, eAmount, eSpecsLabel, eSpecs, eItemType, eItemTypeLabel, eDateLabel, eDate, eEditButton, eSaveButton, eDiscardButton)
 	
 	//========================================================= Search Pane
 	var searchPane:Pane = new Pane(){relocate(15, 150)}
@@ -160,6 +174,14 @@ class UIstockWindow extends Scene {
 	var currentlySelected:Stock = null
 	var searchList:ListBuffer[Stock] = ListBuffer()
 	
+	//For save security
+	var tempName:String = ""
+	var tempPrice:String = ""
+	var tempDesc:String = ""
+	var tempItemType:String = ""
+	var tempAmount:String = ""
+	var tempSpecs:String = ""
+	var tempDate:String = ""
 	//============================================================ Functions ============================
 	def updateSelected(e:Stock):Unit = {
 		var newSpecs:String = ""
@@ -173,6 +195,12 @@ class UIstockWindow extends Scene {
 		eDesc.text = e.desc
 		eSpecs.text = newSpecs
 		eItemType.text = e.getClass.getSimpleName
+		if(e.getClass.getSimpleName == "Game") {
+			eDate.text = e.asInstanceOf[Game].releaseDate.toString
+		}
+		eEditButton.visible = true
+		eSaveButton.visible = false
+		eDiscardButton.visible = false
 	}
 	
 	onKeyPressed = (e:KeyEvent) => {
@@ -180,6 +208,88 @@ class UIstockWindow extends Scene {
 			searchStock(sName.text.value, sPrice.text.value)
 		}
 	}
-	
-	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, stockList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton)
+	eEditButton.onMouseClicked = (e:MouseEvent) => {
+		tempName = eName.text.value
+		tempPrice = ePrice.text.value
+		tempDesc = eDesc.text.value
+		tempItemType = eItemType.text.value
+		tempAmount = eAmount.text.value
+		tempSpecs = eSpecs.text.value
+		tempDate = eDate.text.value
+		
+		eName.editable = true
+		ePrice.editable = true
+		eDesc.editable = true
+		eAmount.editable = true
+		eSpecs.editable = true
+		
+		eEditButton.visible = false
+		eSaveButton.visible = true
+		eDiscardButton.visible = true
+	}
+	eSaveButton.onMouseClicked = (e:MouseEvent) => {
+		val name:String = eName.text.value
+		var price:Double = 0
+		var amount:Int = 0
+		val desc:String = eDesc.text.value
+		val config:String = eSpecs.text.value
+		
+		if(ePrice.text.value.length > 0) {
+			try {
+				price = ePrice.text.value.toDouble
+			} catch {
+				case e:Exception => println("wrong price input")
+			}
+		}
+		if(eAmount.text.value.length > 0) {
+			try {
+				amount = eAmount.text.value.toInt
+			} catch {
+				case e:Exception => println("wrong amount input")
+			}
+		}
+		
+		
+		
+		if(name.length == 0) {eNameLabel.fill = Color.Red} else {eNameLabel.fill = Color.White}
+		if(price == 0) {ePriceLabel.fill = Color.Red} else {ePriceLabel.fill = Color.White}
+		if(amount == 0) {eAmountLabel.fill = Color.Red} else {eAmountLabel.fill = Color.White}
+		
+		if(name.length > 0 && price != 0) {
+			currentlySelected.getClass.getSimpleName match {
+				case "Console" | "Laptop" | "Phone" =>	currentlySelected.setName(eName.text.value);currentlySelected.setPrice(price);currentlySelected.count=eAmount.text.value.toInt;currentlySelected.asInstanceOf[Hardware].setConfig(eSpecs.text.value)
+				case _ => currentlySelected.setName(eName.text.value);currentlySelected.setPrice(ePrice.text.value.toDouble);currentlySelected.count=eAmount.text.value.toInt
+			}
+		}
+		eName.editable = false
+		ePrice.editable = false
+		eDesc.editable = false
+		eAmount.editable = false
+		eSpecs.editable = false
+		
+		eEditButton.visible = true
+		eSaveButton.visible = false
+		eDiscardButton.visible = false
+		Main.writeStockToFile
+	}
+	eDiscardButton.onMouseClicked = (e:MouseEvent) => {
+		eName.text = tempName
+		ePrice.text = tempPrice
+		eDesc.text = tempDesc
+		eItemType.text = tempItemType
+		eAmount.text = tempAmount
+		eSpecs.text = tempSpecs
+		eDate.text = tempDate
+		
+		eName.editable = false
+		ePrice.editable = false
+		eDesc.editable = false
+		eAmount.editable = false
+		eSpecs.editable = false
+		
+		eEditButton.visible = true
+		eSaveButton.visible = false
+		eDiscardButton.visible = false
+	}
+	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, stockList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton, stockTitle)
 }
