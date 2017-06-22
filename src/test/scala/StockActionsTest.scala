@@ -64,6 +64,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
 
 
 
+
   "creating new game" should "return true if successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
@@ -145,5 +146,31 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
     stocks.length should be(3)
   }
 
+  "changing stock values" should "return true if the values are successfully changed" in {
+    stocks.clear
+    loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
+    createStock(1,"game name","game desc", 100, 10000, 12, "game genre", "game console")
+    createStock(2,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
+    createStock(3,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
+
+    getStock(1).setPrice(300)
+    getStock(1).asInstanceOf[Game].setRating(8)
+    getStock(1).asInstanceOf[Game].setGenre("new genre")
+    getStock(1).asInstanceOf[Game].setConsole("new console")
+    getStock(1).price should be(300)
+    getStock(1).asInstanceOf[Game].rating should be(8)
+    getStock(1).asInstanceOf[Game].genre should be("new genre")
+    getStock(1).asInstanceOf[Game].console should be("new console")
+
+    getStock(2).setDesc("new desc")
+    getStock(2).asInstanceOf[Hardware].setConfig("new config")
+    getStock(2).desc should be("new desc")
+    getStock(2).asInstanceOf[Hardware].config should be ("new config")
+
+    getStock(3).setName("new name")
+    getStock(3).name should be ("new name")
+
+
+  }
 
 }
