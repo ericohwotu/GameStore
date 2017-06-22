@@ -1,3 +1,5 @@
+import java.util.Date
+
 import org.scalatest.{FeatureSpec, GivenWhenThen}
 
 /**
@@ -83,7 +85,7 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       val console = "game console"
 
       When("New game is created")
-      val game = new Game(id, name, desc, price, count, rating, genre, console)
+      val game = new Game(id, name, desc, price, count, rating, genre, console, new Date())
 
       Then("new phone with supplied details should exist")
       assert(game.id==4)
