@@ -1,5 +1,3 @@
-import java.time.LocalDate
-import java.time.chrono.{ChronoLocalDate, Chronology}
 import java.util.Date
 
 import scalafx.Includes._
@@ -98,6 +96,12 @@ class UIreportWindow extends Scene{
 				curReports.items = new ListView[Report](Main.reports.toList).getItems
 				println(Main.reports)
 			}
+		}
+	}
+	openReport.onMouseClicked = (e:MouseEvent) => {
+		if(curReports.getSelectionModel().getSelectedItem != null) {
+			Main.reportViewWindow.openReport(curReports.getSelectionModel().getSelectedItem)
+			Main.setWindow("reportV")
 		}
 	}
 }

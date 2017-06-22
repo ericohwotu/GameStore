@@ -66,7 +66,7 @@ class UIviewReport extends Scene{
 	val stockTitle:Text = new Text("Transaction Details")
 	stockTitle.font = titleFont
 	stockTitle.fill = textColour
-	stockTitle.relocate(415, 235)
+	stockTitle.relocate(415, 215)
 	val searchTitle:Text = new Text("Report History")
 	searchTitle.font = titleFont
 	searchTitle.fill = textColour
@@ -79,24 +79,27 @@ class UIviewReport extends Scene{
 	val eEmployeeLabel:Text = new Text("Employee"){relocate(0, 100);fill=textColour;font=mainFont}
 	val eEmployee:TextField = new TextField(){relocate(0,120);editable=false;maxWidth=200;minWidth=200}
 	
-	val eFromDateLabel:Text = new Text("From"){relocate(0, 30);fill=textColour;font=mainFont}
-	val eFromDate:TextField = new TextField(){relocate(0,50);editable=false;maxWidth=200;minWidth=200}
-	
-	val eToDateLabel:Text = new Text("To"){relocate(210, 30);fill=textColour;font=mainFont}
-	val eToDate:TextField = new TextField(){relocate(210,50);editable=false;maxWidth=200;minWidth=200}
-	
 	val eDateTimeLabel:Text = new Text("Transaction Date"){relocate(210, 100);fill=textColour;font=mainFont}
 	val eDateTime:TextField = new TextField(){relocate(210,120);editable=false;maxWidth=200;minWidth=200}
 	
 	val eSaleListLabel:Text = new Text("Sales List"){relocate(0, 170);fill=textColour;font=mainFont}
-	val eSaleList:ListView[Stock] = new ListView[Stock](){relocate(0,190);editable=false;maxWidth=500;minWidth=500;minHeight=458;maxHeight=458}
+	val eSaleList:ListView[Stock] = new ListView[Stock](){relocate(0,190);editable=false;maxWidth=500;minWidth=500;minHeight=358;maxHeight=358}
 	
 	stockInfoPane.children.addAll(eEmployee, eEmployeeLabel, eDateTime, eDateTimeLabel, eSaleListLabel, eSaleList)
 	
 	
-	var reportHeaderPane:Pane = new Pane(){}
+	//========================================================= Report Header Pane
+	var reportHeaderPane:Pane = new Pane(){relocate(420,80)}
 	
-	reportHeaderPane.children.addAll(eFromDate, eFromDateLabel, eToDate, eToDateLabel)
+	val reportTitle:Text = new Text("Report Period"){font=titleFont;fill=textColour}
+	
+	val eFromDateLabel:Text = new Text("From"){relocate(0, 40);fill=textColour;font=mainFont}
+	val eFromDate:TextField = new TextField(){relocate(0,60);editable=false;maxWidth=200;minWidth=200}
+	
+	val eToDateLabel:Text = new Text("To"){relocate(210, 40);fill=textColour;font=mainFont}
+	val eToDate:TextField = new TextField(){relocate(210,60);editable=false;maxWidth=200;minWidth=200}
+	
+	reportHeaderPane.children.addAll(eFromDate, eFromDateLabel, eToDate, eToDateLabel, reportTitle)
 	
 	//========================================================= Search Pane
 	var searchPane:Pane = new Pane(){relocate(15, 120)}
@@ -122,10 +125,15 @@ class UIviewReport extends Scene{
 		eDateTime.text = e.iDate.toString
 		eSaleList.items = new ListView[Stock](e.transactionHistory).getItems
 	}
+	def openReport(r:Report):Unit = {
+		prevTransactions.items = new ListView[Transaction](r.transaction.toList).getItems
+		eFromDate.text = "Not implemented"
+		eToDate.text = "Not implemented"
+	}
 	onKeyPressed = (e:KeyEvent) => {
 		if(e.code == KeyCode.Enter) {
 		
 		}
 	}
-	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, stockTitle, secondDivider)
+	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, stockTitle, secondDivider, reportHeaderPane)
 }
