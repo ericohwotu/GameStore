@@ -45,6 +45,7 @@ class UIreportWindow extends Scene{
 		}
 		startDatePicker.value = null
 		endDatePicker.value = null
+		curReports.items = new ListView[Report](Main.reports.toList).getItems
 	}
 	
 	//======================================================== Create Pane ====================
@@ -62,14 +63,14 @@ class UIreportWindow extends Scene{
 	
 	startDatePicker.onAction = (e:ActionEvent) => {
 		var day:Int = startDatePicker.value.value.getDayOfMonth
-		var month:Int = startDatePicker.value.value.getMonthValue
-		var year:Int = startDatePicker.value.value.getYear
-		startDateAsDate = new Date(year,month,day)
+		var month:Int = startDatePicker.value.value.getMonthValue-1
+		var year:Int = startDatePicker.value.value.getYear-1900
+		startDateAsDate = new Date(year, month, day)
 	}
 	endDatePicker.onAction = (e:ActionEvent) => {
 		var day:Int = endDatePicker.value.value.getDayOfMonth
-		var month:Int = endDatePicker.value.value.getMonthValue
-		var year:Int = endDatePicker.value.value.getYear
+		var month:Int = endDatePicker.value.value.getMonthValue-1
+		var year:Int = endDatePicker.value.value.getYear-1900
 		endDateAsDate = new Date(year,month,day)
 	}
 	createPane.children.addAll(reportTitle, startDateLabel, endDateLabel, startDatePicker, endDatePicker, createReportButton)

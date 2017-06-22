@@ -15,15 +15,17 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 	val staffWindow:UIstaffWindow = new UIstaffWindow
 	val newEmployeeWindow:UInewEmployeeWindow = new UInewEmployeeWindow
 	val reportWindow:UIreportWindow = new UIreportWindow
+	val reportViewWindow:UIviewReport = new UIviewReport
 	val stockWindow:UIstockWindow = new UIstockWindow
 	val newStockWindow:UInewStockWindow = new UInewStockWindow
 	var mainStage:PrimaryStage = new PrimaryStage
-	setWindow("report")
 	readManagersFromFile
 	readEmployeesFromFile
 	readStockFromFile
 	readTransactionsFromFile
 	readReportFromFile
+	
+	setWindow("reportV")
 	
 	def Main(args:Array[String]):Unit = {}
 	
@@ -47,7 +49,7 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 			case "report" => mainStage.scene = reportWindow
 				mainStage.width = 1000
 				mainStage.height = 800
-				mainStage.title = "Elliot and Friends™ Report"
+				mainStage.title = "Elliot and Friends™ Reports"
 				reportWindow.update()
 			case "stock" => mainStage.scene = stockWindow
 				mainStage.width = 1000
@@ -74,6 +76,11 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 				mainStage.height = 800
 				mainStage.title = "Elliot and Friends™ New Transaction"
 				newTransactionWindow.update()
+			case "reportV" => mainStage.scene = reportViewWindow
+				mainStage.width = 1000
+				mainStage.height = 800
+				mainStage.title = "Elliot and Friends™ Report View"
+				reportViewWindow.update()
 			case _ => println("Not a valid window")
 		}
 		mainStage.centerOnScreen()
