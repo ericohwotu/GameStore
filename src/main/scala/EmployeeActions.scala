@@ -53,8 +53,6 @@ trait EmployeeActions extends MainVariables {
       println("Insufficient Priviledges")
       false
     }
-
-
   }
 
   def getEmployee(id: Int): Employee = {
