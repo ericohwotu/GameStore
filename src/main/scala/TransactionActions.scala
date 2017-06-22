@@ -16,15 +16,18 @@ trait TransactionActions extends MainVariables {
 
   def createTransaction(id: Int, employee: Employee, dateAndTime: Date, list: List[Stock] ): Boolean = {
 
-//    if (loggedIn.isInstanceOf[Manager]) {
       println(transactions.find(t => t.transactionID == id) + " employee: " + employee)
       if (transactions.find(t => t.transactionID == id) != None || employee == null) {
         false
       } else {
         transactions += Transaction(id, employee, dateAndTime, list)
+        list.foreach(stock => stock.decreaseCount(1))
+        outputTransactionsToFile
+        readTransactionsFromFile
         true
+
       }
-//    }else false
+
   }
 
 

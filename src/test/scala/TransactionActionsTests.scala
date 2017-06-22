@@ -21,6 +21,15 @@ class TransactionActionsTests extends FlatSpec with Matchers with TransactionAct
     val employee = null
     createTransaction(1,employee,new Date(), List(Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX"))) should be (false)
   }
+ it should "reduce the stock count" in {
+    transactions.clear()
+    val employee = Employee(1,"Eric","Ohwotu",28,"Male",67000,"CallMeMaster","NoneYaBusiness")
+    val game = Game(1, "FIFA '17", "the best game", 20, 3,12,"SPORTS","XBOX")
+   createTransaction(1,employee,new Date(), List(game))
+   game.count should be (2)
+
+
+  }
 
   it should "add the transaction to the transaction list" in{
     transactions.clear()
