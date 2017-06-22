@@ -45,6 +45,7 @@ class UIreportWindow extends Scene{
 		}
 		startDatePicker.value = null
 		endDatePicker.value = null
+		curReports.items = new ListView[Report](Main.reports.toList).getItems
 	}
 	
 	//======================================================== Create Pane ====================
@@ -93,7 +94,6 @@ class UIreportWindow extends Scene{
 	createReportButton.onMouseClicked = (e:MouseEvent) => {
 		if(startDatePicker.value.value != null && endDatePicker.value.value != null) {
 			if(endDateAsDate.after(startDateAsDate)) {
-				println(startDateAsDate + " " + endDateAsDate)
 				Main.createReport(Main.reports.length, startDateAsDate, endDateAsDate)
 				curReports.items = new ListView[Report](Main.reports.toList).getItems
 				println(Main.reports)
