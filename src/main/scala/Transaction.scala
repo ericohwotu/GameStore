@@ -12,6 +12,7 @@ import scala.collection.mutable.ListBuffer;
 case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: Date, stocks: List[Stock]){
 
   var transactionHistory: ListBuffer[Transaction] = new ListBuffer[Transaction]
+  var salesHistory: ListBuffer[Double] = new ListBuffer[Double]
   var price: Double = 0.0
   var discount: Double = 0.0
   var isPreOrder: Boolean = false
@@ -30,6 +31,8 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
       case _ => totalPrice = price * (100 - discount) / 100
     }
     BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
+    salesHistory += totalPrice
+    BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
   }
 
   def addTransaction(transaction: Transaction): ListBuffer[Transaction] = {
@@ -38,6 +41,11 @@ case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: 
       case _ => println(s"Transaction $transaction is already added.")
     }
     transactionHistory
+  }
+
+  def totalPrices(): Double = {
+    var sum: Double = 0
+    salesHistory.foreach(elem => sum += elem); sum
   }
 
   def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
