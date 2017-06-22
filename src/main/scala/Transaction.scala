@@ -7,7 +7,7 @@ import java.util.Date;
   *
   */
 
-case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date, stocks: List[Stock]) {
+case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, stocks: List[Stock]) {
 
 /*
   var stocks: List[Stock] = List.empty
@@ -75,4 +75,8 @@ case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date
     */
 
   def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
+  
+  override def toString():String = {
+    f"${employee.fullName}, ${price}, ${dateAndTime}"
+  }
 }

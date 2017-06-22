@@ -27,6 +27,7 @@ trait StockActions extends MainVariables{
         }
         case _ => false
       }
+      writeStockToFile
     }else{
       false
     }
@@ -35,6 +36,7 @@ trait StockActions extends MainVariables{
   def createStock(id: Int, name: String, desc: String, price: Double, count:Int, itemType: ItemType.Value): Boolean = {
     if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
       stocks += new Misc(id, name, desc, price, count, itemType)
+      writeStockToFile
       true
     }else{
       false
@@ -45,6 +47,7 @@ trait StockActions extends MainVariables{
   def createStock(id: Int, name: String, desc: String, price: Double, count:Int, rating: Int, genre: String, console: String): Boolean = {
     if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
       stocks += new Game(id, name, desc, price, count, rating, genre, console)
+      writeStockToFile
       true
     }else{
       false

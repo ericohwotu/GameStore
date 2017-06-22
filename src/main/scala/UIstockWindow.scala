@@ -52,7 +52,7 @@ class UIstockWindow extends Scene {
 		stock = ListBuffer()
 		Main.stocks.foreach(i => allStock += i)
 		allStock.foreach(i => {
-			stock += f"${i.name}, Price: £${i.price}%2.2f, Amount: ####"
+			stock += f"${i.name}, Price: £${i.price}%2.2f, Amount: ${i.count}"
 			println("Item added")
 		})
 		stockList.items = new ComboBox(stock).getItems
