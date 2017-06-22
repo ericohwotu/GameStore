@@ -10,7 +10,7 @@ class PersonTest extends FeatureSpec with GivenWhenThen {
 
   feature("Add user") {
 
-    scenario("User creates new Manager") {
+    scenario("new Manager is instantiated") {
       Given("All Managers details are supplied")
       val ID = 1
       val fName = "Armani"
@@ -35,7 +35,23 @@ class PersonTest extends FeatureSpec with GivenWhenThen {
 
     }
 
-    scenario("User creates new Employee") {
+    scenario("Person is edited"){
+      Given("An employee")
+      val employee = Manager(ID=33,Gender = "Male",lName = "Bond", fName = "Jamima", loginName = "you-cant-see-me", password = "hahahahahertyuiop",Age = 14,salary = 350090)
+
+      When("There Details are changed")
+      employee.editFirstName("James")
+      employee.editLastName("Buckets")
+      employee.editPassword("rt*^^*l)..3tu")
+      employee.editUsername("H3r3254ve")
+
+      Then("employee should take on new details")
+      assert(employee.fName=="James")
+      assert(employee.lName=="Buckets")
+      assert(employee.password=="rt*^^*l)..3tu")
+      assert(employee.loginName=="H3r3254ve")
+    }
+    scenario("new employee is instantiated") {
       Given("All employees details are supplied")
       val ID = 2
       val fName = "Jason"
