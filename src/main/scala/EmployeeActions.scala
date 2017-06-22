@@ -33,7 +33,7 @@ trait EmployeeActions extends MainVariables {
 
         case EmployeeType.EMPLOYEE =>
 
-          val isInList = customers.filter(_.ID == id).length > 0
+          val isInList = employees.filter(_.ID == id).length > 0
 
           isInList match {
             case false =>
@@ -58,7 +58,7 @@ trait EmployeeActions extends MainVariables {
 
   def createEmployee(id: Int, fName: String, lName: String, age: Int, gender: String, salary: Int, points: Int): Boolean = {
     if (!loggedIn.isInstanceOf[Customer]) {
-      val isInList = employees.filter(_.ID == id).length > 0
+      val isInList = customers.filter(_.ID == id).length > 0
 
       isInList match {
         case false =>

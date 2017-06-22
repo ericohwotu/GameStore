@@ -43,7 +43,7 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
   it should "return false if employee id already exists" in {
     employees.clear()
     createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE)
-    val result = createEmployee(1, "Eric", "DejmbaDejmba", 28, "Male", 23000, "CallMeMaster", "NoneYaBusiness", EmployeeType.EMPLOYEE)
+    val result = createEmployee(1, "Eric", "DejmbaDejmba", 28, "Male", 23000, "CallMeMasterdfg", "NoneYaBusinesssdfgfs", EmployeeType.EMPLOYEE)
     result should be(false)
   }
 
@@ -71,6 +71,19 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, "CallMeMaster33", "NoneYaBusines43s", EmployeeType.MANAGER)
     managers.length should be (2)
   }
+  "creating a Customer" should "return true if successful" in {
+    loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMe","NoneYa")
+    customers.clear()
+    val result = createEmployee(1,"Eric","Ohwotu",28,"Male",23000, 25)
+    result should be (true)
+  }
+
+  it should "add the customer to the customers list" in {
+    customers.clear()
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, 25)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, 25)
+    customers.length should be (2)
+  }
 
   //========================================================= Getting Employees ===============================================================//
   "getting a manager" should "return a Manager" in{
@@ -91,6 +104,16 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
 
     result should not be (null)
     isEmployeeInstance should be (true)
+  }
+
+  "getting an Customer" should "return a Customer" in{
+    customers.clear()
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, 25)
+    val result = getCustomer(1)
+    val isCustomerInstance = result.isInstanceOf[Customer]
+
+    result should not be (null)
+    isCustomerInstance should be (true)
   }
 
   //========================================================= Deleting Employees ===============================================================//
@@ -136,6 +159,25 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     val result = deleteManager(1)
     result should be (false)
   }
+  "deleting a Customer" should "return true if succesful" in {
+    customers.clear()
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, 25)
+    val result = deleteCustomer(1)
+    result should be (true)
+  }
+
+  it should "remove them from the Managers list" in {
+    customers.clear()
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, 25)
+    deleteCustomer(1)
+    customers.length should be (0)
+  }
+
+  it should "return false if id doesnt exist" in {
+    customers.clear()
+    val result = deleteCustomer(1)
+    result should be (false)
+  }
   //========================================================= Read Employees From File ===============================================================//
 
   "outputing employees to file" should "return true if successful" in {
@@ -148,6 +190,13 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     createEmployee(2, "Eric", "Ohwotu", 22, "Male", 27000, "CallMeMaster", "NoneYaBusiness", EmployeeType.MANAGER)
     writeManagersToFile should be (true)
   }
+  "outputing customers to file" should "return true if successful" in {
+    createEmployee(1, "Eric", "Ohwotu", 28, "Male", 23000, 25)
+    createEmployee(2, "Eric", "Ohwotu", 22, "Male", 23000, 25)
+    println(customers)
+    writeCustomersToFile should be (true)
+    println(customers)
+  }
   "reading employees to file" should "return true if successful" in {
     employees.clear()
     readEmployeesFromFile
@@ -158,5 +207,10 @@ class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions w
     managers.clear()
     readManagersFromFile
     managers.length should not be (0)
+  }
+  "reading customers to file" should "return true if successful" in {
+    customers.clear()
+    readCustomersFromFile
+    customers.length should not be (0)
   }
 }
