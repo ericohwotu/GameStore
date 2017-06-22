@@ -1,6 +1,6 @@
 import java.util.Date
 
-import scala.collection.mutable.ListBuffer;
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by alfie on 19/06/2017.
@@ -11,17 +11,19 @@ import scala.collection.mutable.ListBuffer;
 
 case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, stocks: List[Stock]) {
 
-  var transactionHistory: ListBuffer[Transaction] = new ListBuffer[Transaction]
+  var transactionHistory: List[Stock] = stocks
   var price: Double = 0.0
   var discount: Double = 0.0
   var isPreOrder: Boolean = false
+  var employeeV:Person = employee
+	var iDate:Date = dateAndTime
 
   def getStock = stocks
   def getTransactionHistory = transactionHistory
   def getDiscount = discount
   def setDiscount {this.discount = discount}
 
-  def updateEmployee(employee: Employee): Unit = this.employee = employee
+  def updateEmployee(employee: Employee): Unit = this.employeeV = employee
 
   def calculatePrice(price: Double, discount: Double): Double = {
     var totalPrice: Double = 0
@@ -32,13 +34,19 @@ case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, 
     BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
   }
 
-  def addTransaction(transaction: Transaction): ListBuffer[Transaction] = {
+  /*def addTransaction(transaction: Transaction): ListBuffer[Transaction] = {
     Transaction match {
       case a if !transactionHistory.contains(transaction) => transactionHistory += transaction
       case _ => println(s"Transaction $transaction is already added.")
     }
     transactionHistory
-  }
-
+  }*/
+	
   def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
+	
+	override def toString ():String ={
+		var tot:Double = 0
+		transactionHistory.foreach(i => tot += i.price)
+		s"${employeeV.fName} ${employeeV.lName}, $tot, $dateAndTime"
+	}
 }

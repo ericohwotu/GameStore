@@ -169,9 +169,10 @@ class UIstockWindow extends Scene {
 		}
 		eName.text = e.name
 		ePrice.text = e.price.toString
-		eAmount.text = ""
+		eAmount.text = e.count.toString
 		eDesc.text = e.desc
 		eSpecs.text = newSpecs
+		eItemType.text = e.getClass.getSimpleName
 	}
 	
 	onKeyPressed = (e:KeyEvent) => {

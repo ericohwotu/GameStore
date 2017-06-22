@@ -18,11 +18,12 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 	val stockWindow:UIstockWindow = new UIstockWindow
 	val newStockWindow:UInewStockWindow = new UInewStockWindow
 	var mainStage:PrimaryStage = new PrimaryStage
-	setWindow("transaction")
+	setWindow("login")
 	readManagersFromFile
 	readEmployeesFromFile
 	readStockFromFile
 	readTransactionsFromFile
+	readReportFromFile
 	
 	def Main(args:Array[String]):Unit = {}
 	

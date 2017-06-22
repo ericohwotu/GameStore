@@ -33,11 +33,11 @@ class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
 
   //========================================= Add transaction ==================================================//
 
-  "Add transaction" should "add a transaction to the transactions list" in {
+  /*"Add transaction" should "add a transaction to the transactions list" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
     val trans = Transaction(1, alf, new Date(), stocks = List.empty)
     trans.addTransaction(trans)
     trans.transactionHistory.length should be (1)
-  }
+  }*/
 
 }

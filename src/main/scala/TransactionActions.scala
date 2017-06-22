@@ -23,7 +23,6 @@ trait TransactionActions extends MainVariables {
         transactions += Transaction(id, employee, dateAndTime, list)
         list.foreach(stock => stock.decreaseCount(1))
         outputTransactionsToFile
-        readTransactionsFromFile
         true
 
       }
@@ -53,6 +52,7 @@ trait TransactionActions extends MainVariables {
       val transactionsOutputStream = new ObjectOutputStream(new FileOutputStream("transaction.dat"))
       transactionsOutputStream.writeObject(transactions)
       transactionsOutputStream.close()
+      Main.writeStockToFile
       true
     } catch {
       case x: Exception => false

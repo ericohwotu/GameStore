@@ -33,7 +33,14 @@ class UItransactionWindow extends Scene {
 	val returnButton:Button = new Button("Return")
 	returnButton.relocate(874, 7)
 	returnButton.onMouseClicked = (e:MouseEvent) => Main.setWindow("newT")
-
+	
+	val deleteButton:Button = new Button("Delete Transaction")
+	deleteButton.relocate(759, 7)
+	deleteButton.onMouseClicked = (e:MouseEvent) => {if(currentlySelected != null) {
+		Main.deleteTransaction(currentlySelected.transactionID)
+		prevTransactions.items = new ListView[Transaction](Main.transactions).getItems
+	}}
+	
 	def update():Unit = {
 		if(Main.loggedIn != null) {
 			loggedInText.text = s"Logged in as: ${Main.loggedIn.fName} ${Main.loggedIn.lName}"
@@ -41,6 +48,7 @@ class UItransactionWindow extends Scene {
 			loggedInText.text = "Log in error"
 		}
 		eEmployee.text = ""
+		eDateTime.text = ""
 		prevTransactions.items = new ListView[Transaction](Main.transactions).getItems
 	}
 	//============================================================ Background Layout ============================
@@ -74,7 +82,7 @@ class UItransactionWindow extends Scene {
 	val eDateTime:TextField = new TextField(){relocate(210,50);editable=false;maxWidth=200;minWidth=200}
 
 	val eSaleListLabel:Text = new Text("Sales List"){relocate(0, 100);fill=textColour;font=mainFont}
-	val eSaleList:ListView[Transaction] = new ListView[Transaction](){relocate(0,120);editable=false;maxWidth=500;minWidth=500;minHeight=518;maxHeight=518}
+	val eSaleList:ListView[Stock] = new ListView[Stock](){relocate(0,120);editable=false;maxWidth=500;minWidth=500;minHeight=518;maxHeight=518}
 	
 	stockInfoPane.children.addAll(eEmployee, eEmployeeLabel, eDateTime, eDateTimeLabel, eSaleListLabel, eSaleList)
 
@@ -85,28 +93,27 @@ class UItransactionWindow extends Scene {
 		maxHeight = 600;minHeight = 600;minWidth = 370;maxWidth = 370;layoutX() = 0;layoutY() = 0
 	}
 	prevTransactions.onMouseClicked = (e:MouseEvent) => {
-		if(searchList.nonEmpty) {
-			eSaleList.items = new ListView[Transaction](prevTransactions.getSelectionModel().getSelectedItem.transactionHistory).getItems
+		if(Main.transactions.nonEmpty) {
+			updateSelected(prevTransactions.getSelectionModel().getSelectedItem)
 		}
 	}
 	
 	searchPane.children.addAll(prevTransactions)
 
 	//============================================================ Variables ============================
-	var currentlySelected:Stock = null
-	var searchList:ListBuffer[Stock] = ListBuffer()
-
+	var currentlySelected:Transaction = null
+	
 	//============================================================ Functions ============================
 	def updateSelected(e:Transaction):Unit = {
-		eEmployee.text = s"${e.employee.fName} ${e.employee.lName}"
-		eDateTime.text = e.dateAndTime.toString
+		currentlySelected = e
+		eEmployee.text = s"${e.employeeV.fName} ${e.employeeV.lName}"
+		eDateTime.text = e.iDate.toString
+		eSaleList.items = new ListView[Stock](e.transactionHistory).getItems
 	}
-
 	onKeyPressed = (e:KeyEvent) => {
 		if(e.code == KeyCode.Enter) {
 		
 		}
 	}
-
-	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton)
+	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, deleteButton)
 }

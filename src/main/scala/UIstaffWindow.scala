@@ -46,6 +46,7 @@ class UIstaffWindow extends Scene {
 			case "Manager" => Main.deleteManager(currentlySelected.asInstanceOf[Employee].ID)
 			case _ =>
 		}
+		update()
 	}}
 	
 	def update():Unit = {
