@@ -1,3 +1,5 @@
+import java.util.Date
+
 import org.scalatest._
 
 /**
@@ -65,32 +67,32 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
 
 
 
-  /*"creating new game" should "return true if successful" in {
+  "creating new game" should "return true if successful" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(5,"game name","game desc", 100, 10000, 12, "game genre", "game console")
+    val result = createStock(5,"game name","game desc", 100, 10000, 12, "game genre", "game console", new Date())
     result should be(true)
   }
   it should "return false if you are not a manager" in {
     stocks.clear
     loggedIn = Employee(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    val result = createStock(6,"game name2","game desc2", 100, 10000, 12, "game genre2", "game console")
+    val result = createStock(6,"game name2","game desc2", 100, 10000, 12, "game genre2", "game console", new Date())
     result should be(false)
   }
   it should "return false if stock with this id already exists" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(6,"game name","game desc", 100, 10000, 12, "game genre", "game console")
-    val result = createStock(6,"game name2","game desc2", 100, 10000, 12, "game genre2", "game console")
+    createStock(6,"game name","game desc", 100, 10000, 12, "game genre", "game console", new Date())
+    val result = createStock(6,"game name2","game desc2", 100, 10000, 12, "game genre2", "game console", new Date())
     result should not be(true)
   }
   it should "have a different size reflecting the amount of stock added" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    createStock(6,"game name","game desc", 100, 10000, 12, "game genre", "game console")
-    createStock(7,"game name","game desc", 100, 10000, 12, "game genre", "game console")
+    createStock(6,"game name","game desc", 100, 10000, 12, "game genre", "game console", new Date())
+    createStock(7,"game name","game desc", 100, 10000, 12, "game genre", "game console", new Date())
     stocks.length should be(2)
-  }*/
+  }
 
 
   "getting stock by ID" should "return true if successfull" in {
@@ -149,7 +151,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
   "changing stock values" should "return true if the values are successfully changed" in {
     stocks.clear
     loggedIn = Manager(100, "fname", "lname", 100, "male", 10000, "loginName", "password")
-    //createStock(1,"game name","game desc", 100, 10000, 12, "game genre", "game console")
+    createStock(1,"game name","game desc", 100, 10000, 12, "game genre", "game console", new Date())
     createStock(2,"HW name","HW desc", 100, 10000, "HW config",HardwareType.PHONE)
     createStock(3,"misc name","misc desc", 100, 10000, ItemType.SHIRT)
 
