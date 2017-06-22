@@ -56,6 +56,6 @@ case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, 
 	override def toString ():String ={
 		var tot:Double = 0
 		transactionHistory.foreach(i => tot += i.price)
-		s"${employeeV.fName} ${employeeV.lName}, $tot, $dateAndTime"
+		s"${employeeV.fName} ${employeeV.lName}, £$tot, $dateAndTime"
 	}
 }

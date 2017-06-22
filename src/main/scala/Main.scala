@@ -1,9 +1,11 @@
 /**
   * Created by Administrator on 19/06/2017.
   */
-
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.stage.StageStyle
 
 
 object Main extends JFXApp with MainVariables with EmployeeActions with StockActions with TransactionActions with ReportActions{
@@ -18,20 +20,23 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 	val reportViewWindow:UIviewReport = new UIviewReport
 	val stockWindow:UIstockWindow = new UIstockWindow
 	val newStockWindow:UInewStockWindow = new UInewStockWindow
+	val splashWindow:UIsplashScreen = new UIsplashScreen
 	var mainStage:PrimaryStage = new PrimaryStage
 	readManagersFromFile
 	readEmployeesFromFile
+	readCustomersFromFile
 	readStockFromFile
 	readTransactionsFromFile
 	readReportFromFile
 	
-	setWindow("stock")
+	setWindow("splash")
 	
 	def Main(args:Array[String]):Unit = {}
 	
 	def setWindow(window:String):Unit = {
 		window match {
-			case "login" => mainStage.scene = loginWindow
+			case "login" =>
+				mainStage.scene = loginWindow
 				mainStage.width = 400
 				mainStage.height = 400
 				mainStage.title = "Elliot and Friends™ Login"
@@ -81,11 +86,16 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 				mainStage.height = 800
 				mainStage.title = "Elliot and Friends™ Report View"
 				reportViewWindow.update()
+			case "splash" => mainStage.scene = splashWindow
+				mainStage.width = 894
+				mainStage.height = 1040
+				mainStage.title = "Elliot and Friends™ Report Splash"
+				mainStage.initStyle(StageStyle.Transparent)
 			case _ => println("Not a valid window")
 		}
 		mainStage.centerOnScreen()
 	}
-	def closeWindow():Unit = mainStage.close()
 	
+	def closeWindow():Unit = mainStage.close()
 	
 }

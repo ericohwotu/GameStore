@@ -38,24 +38,24 @@ class UIloginWindow extends Scene {
 	val standardFont: Font = new Font("Times New Roman", 18)
 
 	val headerText: Text = new Text("Elliot & Friends™")
-	headerText.x = 10
+	headerText.x = 70
 	headerText.y = 37
 	headerText.font = headerFont
 	headerText.fill = textColour
 	val divider = Rectangle(0, 50, 400, 2)
 	divider.fill = Color.DarkGrey.darker
 	val subHeadingText: Text = new Text("Employee Login")
-	subHeadingText.x = 10
+	subHeadingText.x = 110
 	subHeadingText.y = 80
 	subHeadingText.font = subHeaderFont
 	subHeadingText.fill = textColour
 	val userText: Text = new Text("Username:")
-	userText.x = 10
+	userText.x = 70
 	userText.y = 150
 	userText.font = standardFont
 	userText.fill = textColour
 	val passwordText: Text = new Text("Password:")
-	passwordText.x = 10
+	passwordText.x = userText.getX
 	passwordText.y = userText.getY + 50
 	passwordText.font = standardFont
 	passwordText.fill = textColour
@@ -69,9 +69,9 @@ class UIloginWindow extends Scene {
 
 	//================================================= Buttons =================================================
 	val loginButton: Button = new Button("Login")
-	loginButton.relocate(10, 270)
+	loginButton.relocate(150, 270)
 	val cancelButton: Button = new Button("Cancel")
-	cancelButton.relocate(56, 270)
+	cancelButton.relocate(196, 270)
 
 	//================================================= Add to Scene =================================================
 	content = List(divider, headerText, subHeadingText, userText, passwordText, usernameInput, passwordInput, loginButton, cancelButton)
@@ -80,7 +80,7 @@ class UIloginWindow extends Scene {
 	onMouseMoved = (me: MouseEvent) => {
 		updatePasswordInput()
 	}
-
+	
 	usernameInput.onMouseClicked= (me: MouseEvent) => {
 		updatePasswordInput()
 	}

@@ -31,6 +31,6 @@ abstract class Stock{
 
 
   override def toString():String = {
-    s"$name, Price: $price"
+    s"$name, Price: £$price"
   }
 }

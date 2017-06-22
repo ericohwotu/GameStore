@@ -43,7 +43,7 @@ class UIstaffWindow extends Scene {
 	deleteButton.onMouseClicked = (e:MouseEvent) => {if(currentlySelected != null) {
 		currentlySelected.getClass.getSimpleName match {
 			case "Employee" => Main.deleteEmployee(currentlySelected.asInstanceOf[Employee].ID)
-			case "Manager" => Main.deleteManager(currentlySelected.asInstanceOf[Employee].ID)
+			case "Manager" => Main.deleteManager(currentlySelected.asInstanceOf[Manager].ID)
 			case _ =>
 		}
 		update()
@@ -79,6 +79,7 @@ class UIstaffWindow extends Scene {
 			println("Name added")
 		})
 		employeeList.items = new ComboBox(names).getItems
+		eEditButton.visible = false
 	}
 	def clearSearch():Unit ={
 		sFName.text = ""
@@ -160,7 +161,11 @@ class UIstaffWindow extends Scene {
 	val eJobLabel:Text = new Text("Job Role"){relocate(0, 170);fill=textColour;font=mainFont}
 	val eJob:TextField = new TextField(){relocate(0,190);editable=false;maxWidth=200;minWidth=200}
 	
-	employeeInfoPane.children.addAll(eFName, eFNameLabel, eLName, eLNameLabel, eGenderLabel, eGender, eAgeLabel, eAge, eJobLabel, eJob)
+	val eEditButton:Button = new Button("Edit Employee"){relocate(425,50);visible=true}
+	val eSaveButton:Button = new Button("Save Changes"){relocate(425, 50);visible=false}
+	val eDiscardButton:Button = new Button("Discard Changes"){relocate(515, 50);visible=false}
+	
+	employeeInfoPane.children.addAll(eFName, eFNameLabel, eLName, eLNameLabel, eGenderLabel, eGender, eAgeLabel, eAge, eJobLabel, eJob, eEditButton, eSaveButton, eDiscardButton)
 	
 	//========================================================= Search Pane
 	var searchPane:Pane = new Pane(){relocate(15, 150)}
@@ -196,6 +201,14 @@ class UIstaffWindow extends Scene {
 	var currentlySelected:Person = null
 	var searchList:ListBuffer[Person] = ListBuffer()
 	
+	//For save security
+	var tempfName:String = ""
+	var templName:String = ""
+	var tempAge:String = ""
+	var tempGender:String = ""
+	var tempAmount:String = ""
+	var tempSpecs:String = ""
+	var tempDate:String = ""
 	//============================================================ Functions ============================
 	def updateSelected(e:Person):Unit = {
 		eFName.text = e.fName
@@ -203,12 +216,70 @@ class UIstaffWindow extends Scene {
 		eGender.text = e.Gender
 		eAge.text = e.Age.toString
 		eJob.text = e.getClass.getTypeName
+		eEditButton.visible = true
 	}
 	
 	onKeyPressed = (e:KeyEvent) => {
 		if(e.code == KeyCode.Enter) {
 			searchEmployees(sFName.text.value, sLName.text.value, sGender.getValue, sJob.getValue)
 		}
+	}
+	eEditButton.onMouseClicked = (e:MouseEvent) => {
+		tempfName = eFName.text.value
+		templName = eLName.text.value
+		tempAge = eAge.text.value
+		tempGender = eGender.text.value
+		
+		eFName.editable = true
+		eLName.editable = true
+		eAge.editable = true
+		
+		eEditButton.visible = false
+		eSaveButton.visible = true
+		eDiscardButton.visible = true
+	}
+	eSaveButton.onMouseClicked = (e:MouseEvent) => {
+		val fname:String = eFName.text.value
+		var lname:String = eLName.text.value
+		var age:Int = 0
+		
+		if(eAge.text.value.length > 0) {
+			try {
+				age = eAge.text.value.toInt
+			} catch {
+				case e:Exception => println("wrong age input")
+			}
+		}
+		
+		if(fname.length == 0) {eFNameLabel.fill = Color.Red} else {eFNameLabel.fill = Color.White}
+		if(lname.length == 0) {eLNameLabel.fill = Color.Red} else {eLNameLabel.fill = Color.White}
+		if(age < 17) {eAgeLabel.fill = Color.Red} else {eAgeLabel.fill = Color.White}
+		
+		if(fname.length > 0 && lname.length > 0 && age != 0) {
+			currentlySelected.editFirstName(fname)
+			currentlySelected.editLastName(lname)
+		}
+		eFName.editable = false
+		eLName.editable = false
+		eAge.editable = false
+		
+		eEditButton.visible = true
+		eSaveButton.visible = false
+		eDiscardButton.visible = false
+		Main.writeStockToFile
+	}
+	eDiscardButton.onMouseClicked = (e:MouseEvent) => {
+		eFName.text = tempfName
+		eLName.text = templName
+		eAge.text = tempAge
+		
+		eFName.editable = false
+		eLName.editable = false
+		eAge.editable = false
+		
+		eEditButton.visible = true
+		eSaveButton.visible = false
+		eDiscardButton.visible = false
 	}
 	
 	content = List(divider, bg1, employeeTitle, searchTitle, employeeInfoPane, searchPane, employeeList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton, deleteButton)
