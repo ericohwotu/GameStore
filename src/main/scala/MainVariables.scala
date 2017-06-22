@@ -9,7 +9,8 @@ trait MainVariables {
   val stocks: ListBuffer[Stock] = new ListBuffer[Stock]
   val employees: ListBuffer[Employee] = new ListBuffer[Employee]
   val managers: ListBuffer[Manager] = new ListBuffer[Manager]
-  val reports: ListBuffer[Report] = new ListBuffer[Report]
+	val customers: ListBuffer[Customer] = new ListBuffer[Customer]
+	val reports: ListBuffer[Report] = new ListBuffer[Report]
 	var newUsername: String = ""
   var loggedIn: Person = null
 	
