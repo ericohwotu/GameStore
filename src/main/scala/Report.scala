@@ -1,3 +1,5 @@
+import java.util.Date
+
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -7,7 +9,7 @@ import scala.collection.mutable.ListBuffer
   */
 
 
-case class Report(reportID: Int, transaction: ListBuffer[Transaction]){
+case class Report(reportID: Int, transaction: ListBuffer[Transaction], dateFrom: Date, dateTo: Date){
   
   override def toString: String = s"Report ID: $reportID     " + transaction
 
