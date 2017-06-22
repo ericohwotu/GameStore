@@ -19,7 +19,9 @@ abstract class Stock{
       true
     }else false
   }
-
+  override def toString():String = {
+    s"$name, Price: $price"
+  }
 }
 
 
