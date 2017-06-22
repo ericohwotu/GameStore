@@ -87,13 +87,13 @@ class UInewStockWindow extends Scene {
 
 		if(name.length > 0 && price != 0 && iType != "" && desc.length > 0 && eDate.value.value != null) {
 			iType match {
-				case "Game" => Main.createStock(Main.stocks.length, name, desc, price, amount, 18, "", null, convertToDate(eDate));println("Item added")
-				case "Console" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.CONSOLE);println("Item added")
-				case "Laptop" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.LAPTOP);println("Item added")
-				case "Phone" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.PHONE);println("Item added")
-				case "Mug" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.MUG);println("Item added")
-				case "Poster" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.POSTER);println("Item added")
-				case "Shirt" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.SHIRT);println("Item added")
+				case "Game" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, 18, "", null, convertToDate(eDate));println("Item added")
+				case "Console" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, config, HardwareType.CONSOLE);println("Item added")
+				case "Laptop" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, config, HardwareType.LAPTOP);println("Item added")
+				case "Phone" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, config, HardwareType.PHONE);println("Item added")
+				case "Mug" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.MUG);println("Item added")
+				case "Poster" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.POSTER);println("Item added")
+				case "Shirt" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.SHIRT);println("Item added")
 			}
 		}
 
