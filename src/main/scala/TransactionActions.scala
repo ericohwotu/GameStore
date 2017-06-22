@@ -13,22 +13,31 @@ trait TransactionActions extends MainVariables {
   * */
   val trans: Transaction = null
 
-  def createTransaction(id: Int, employee: Employee, dateAndTime: Date, list: List[Stock] ): Boolean = {
+  /*  def createTransaction(id: Int, employee: Employee, dateAndTime: Date, list: List[Stock] ): Boolean = {
 
-      println(transactions.find(t => t.transactionID == id) + " employee: " + employee)
-      if (transactions.find(t => t.transactionID == id) != None || employee == null) {
-        false
-      } else {
-        transactions += Transaction(id, employee, dateAndTime, list)
+        println(transactions.find(t => t.transactionID == id) + " employee: " + employee)
+        if (transactions.find(t => t.transactionID == id) != None || employee == null) {
+          false
+        } else {
+          transactions += Transaction(id, employee, dateAndTime, list)
+          list.foreach(stock => stock.decreaseCount(1))
+          outputTransactionsToFile
+          readTransactionsFromFile
+          true
+
+        }
+
+    }*/
+  def createTransaction(id: Int, employee: Employee, dateAndTime: Date, list: List[Stock]): Boolean = {
+
+    //println(transactions.find(t => t.transactionID == id) + s" employee: $employee")
+    Boolean match {
+      case _ if transactions.find(t => t.transactionID == id) != None || employee == null => false
+      case _ => transactions += Transaction(id, employee, dateAndTime, list)
         list.foreach(stock => stock.decreaseCount(1))
-        outputTransactionsToFile
-        readTransactionsFromFile
-        true
-
-      }
-
+        outputTransactionsToFile; readTransactionsFromFile; true
+    }
   }
-
 
   def getTransaction(id: Int): Transaction = {
     val transactionSearch = transactions.find(t => t.transactionID == id).getOrElse(null)
