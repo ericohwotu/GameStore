@@ -55,7 +55,7 @@ class UImainWindow extends Scene {
 		Main.setWindow("login")
 	}
 	salesIcon.onMouseClicked = (e:MouseEvent) =>{
-		Main.setWindow("transaction")
+		Main.setWindow("newT")
 	}
 	reportIcon.onMouseClicked = (e:MouseEvent) =>{
 		Main.setWindow("report")

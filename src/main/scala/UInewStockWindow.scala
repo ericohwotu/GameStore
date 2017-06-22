@@ -82,16 +82,15 @@ class UInewStockWindow extends Scene {
 		if(amount == 0) {eAmountLabel.fill = Color.Red} else {eAmountLabel.fill = Color.White}
 		if(iType == "") {eItemTypeLabel.fill = Color.Red} else {eItemTypeLabel.fill = Color.White}
 		
-		
 		if(name.length > 0 && price != 0 && iType != "" && desc.length > 0) {
 			iType match {
-				case "Game" => Main.createStock(Main.stocks.length, name, desc, price, 0, "", null)
-				case "Console" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.CONSOLE)
-				case "Laptop" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.LAPTOP)
-				case "Phone" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.PHONE)
-				case "Mug" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.MUG)
-				case "Poster" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.POSTER)
-				case "Shirt" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.SHIRT)
+				case "Game" => Main.createStock(Main.stocks.length, name, desc, price, amount, 18, "", null);println("Item added")
+				case "Console" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.CONSOLE);println("Item added")
+				case "Laptop" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.LAPTOP);println("Item added")
+				case "Phone" => Main.createStock(Main.stocks.length, name, desc, price, amount, config, HardwareType.PHONE);println("Item added")
+				case "Mug" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.MUG);println("Item added")
+				case "Poster" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.POSTER);println("Item added")
+				case "Shirt" => Main.createStock(Main.stocks.length, name, desc, price, amount, ItemType.SHIRT);println("Item added")
 			}
 		}
 		
