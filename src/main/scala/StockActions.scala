@@ -1,4 +1,5 @@
 import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
+import java.util.Date
 
 import scala.collection.mutable.ListBuffer
 
@@ -49,7 +50,7 @@ trait StockActions extends MainVariables{
 //  GAMES NEED TO BE LOOKED AT AS THEY TAKE A CONSOLE AS AN ARGUMENT, BUT THIS DOES NOT MAKE SENSE
   def createStock(id: Int, name: String, desc: String, price: Double, count:Int, rating: Int, genre: String, console: String): Boolean = {
     if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
-      stocks += new Game(id, name, desc, price, count, rating, genre, console)
+      stocks += new Game(id, name, desc, price, count, rating, genre, console, new Date())
       writeStockToFile
       true
     }else{
