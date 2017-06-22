@@ -11,6 +11,12 @@ import scala.collection.mutable.ListBuffer
 
 case class Report(reportID: Int, transaction: ListBuffer[Transaction], dateFrom: Date, dateTo: Date){
   
-  override def toString: String = s"Report ID: $reportID     " + transaction
-
+  override def toString: String = {
+    f"Report --- From: $dateFrom			To: $dateTo					Total income for period: £${getTotal()}%2.2f"
+  }
+	def getTotal():Double = {
+		var tot:Double = 0
+		transaction.foreach(i => tot += i.totalPrices())
+		tot
+	}
 }

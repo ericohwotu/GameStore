@@ -43,7 +43,7 @@ trait ReportActions extends MainVariables{
     Boolean match{
       case _ if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] =>
         transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-        generatedReport = Report(id, transList, new Date(), new Date()); println(s"Successfully generated report: $generatedReport")
+        generatedReport = Report(id, transList, dateFrom, dateTo); println(s"Successfully generated report: $generatedReport")
         reports += generatedReport; writeReportToFile; true
       case _ => false
     }

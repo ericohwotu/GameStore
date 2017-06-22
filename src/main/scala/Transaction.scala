@@ -47,7 +47,8 @@ case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, 
 
   def totalPrices(): Double = {
     var sum: Double = 0
-    salesHistory.foreach(elem => sum += elem); sum
+    transactionHistory.foreach(elem => sum += elem.price)
+    sum
   }
 
   def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}

@@ -67,7 +67,7 @@ class UIviewReport extends Scene{
 	stockTitle.font = titleFont
 	stockTitle.fill = textColour
 	stockTitle.relocate(415, 215)
-	val searchTitle:Text = new Text("Report History")
+	val searchTitle:Text = new Text("Transaction History")
 	searchTitle.font = titleFont
 	searchTitle.fill = textColour
 	searchTitle.relocate(15, 50)
@@ -127,8 +127,8 @@ class UIviewReport extends Scene{
 	}
 	def openReport(r:Report):Unit = {
 		prevTransactions.items = new ListView[Transaction](r.transaction.toList).getItems
-		eFromDate.text = "Not implemented"
-		eToDate.text = "Not implemented"
+		eFromDate.text = r.dateFrom.toString
+		eToDate.text = r.dateTo.toString
 	}
 	onKeyPressed = (e:KeyEvent) => {
 		if(e.code == KeyCode.Enter) {
