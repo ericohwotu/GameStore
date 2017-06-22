@@ -40,4 +40,14 @@ class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
     trans.transactionHistory.length should be (1)
   }
 
+  //========================================= Calculate total price ==================================================//
+
+  "Calculate price" should "return the total amount of sales made" in {
+    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
+    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
+    trans.calculatePrice(39.99, 0)
+    trans.calculatePrice(39.99, 0)
+    trans.totalPrices() should be (79.98)
+  }
+
 }
