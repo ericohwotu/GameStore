@@ -41,7 +41,7 @@ trait ReportActions extends MainVariables{
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
     Boolean match{
-      case _ if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] && id.toChar < 10 =>
+      case _ if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] =>
         transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
         generatedReport = Report(id, transList); println(s"Successfully generated report: $generatedReport")
         reports += generatedReport; writeReportToFile; true
