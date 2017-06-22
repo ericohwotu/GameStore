@@ -20,6 +20,7 @@ trait TransactionActions extends MainVariables {
         false
       } else {
         transactions += Transaction(id, employee, dateAndTime, list)
+        list.foreach(stock => stock.decreaseCount(1))
         outputTransactionsToFile
         readTransactionsFromFile
         true
