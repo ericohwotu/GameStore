@@ -95,6 +95,7 @@ class UInewStockWindow extends Scene {
 				case "Poster" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.POSTER);println("Item added")
 				case "Shirt" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.SHIRT);println("Item added")
 			}
+			update()
 		}
 
 	}
