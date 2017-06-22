@@ -3,4 +3,7 @@ import java.util.Date
 
 import scala.collection.mutable.ListBuffer
 
-new Date(2017-1900,4,22)
+Main.reports
+Main.writeReportToFile
+Main.readReportFromFile
+Main.reports
