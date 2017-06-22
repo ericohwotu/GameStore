@@ -6,6 +6,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by Administrator on 19/06/2017.
   */
+
 trait TransactionActions extends MainVariables {
   /*
   * Transaction functions
