@@ -81,7 +81,7 @@ class UInewEmployeeWindow extends Scene {
 	val eSalary:TextField = new TextField(){relocate(210,190);maxWidth=200;minWidth=200}
 	
 	val eJobLabel:Text = new Text("Job Role"){relocate(0, 170);fill=textColour;font=mainFont}
-	val eJob:ComboBox[String] = new ComboBox(List("Employee", "Manager"))
+	val eJob:ComboBox[String] = new ComboBox(List("Employee", "Manager", "Customer"))
 	eJob.minWidth=200;eJob.maxWidth=200;eJob.relocate(0, 190)
 	
 	val eCreateButton:Button = new Button("Create Employee"){relocate(210, 240)}
@@ -107,14 +107,24 @@ class UInewEmployeeWindow extends Scene {
 			var eType:EmployeeType.Value = null
 			var newID:Int = 0
 			job match {
-				case "Manager" => eType = EmployeeType.MANAGER;newID=Main.managers.length
-				case "Employee" => eType = EmployeeType.EMPLOYEE;newID=Main.employees.length
+				case "Manager" => eType = EmployeeType.MANAGER;newID=Main.managers.last.ID+1
+				case "Employee" => eType = EmployeeType.EMPLOYEE;newID=Main.employees.last.ID+1
+				case "Customer" => eType = EmployeeType.CUSTOMER;newID=Main.customers.last.ID+1
 			}
-			if(fName.length > 0 && lName.length > 0 && nAge > 17 && gender.length > 0 && nSalary > 0) {
-				println("Created")
-				println(s"New username: ${fName(0).toString}${lName(0).toString}")
-				Main.createEmployee(newID, fName, lName, nAge, gender, nSalary, s"${fName(0).toString}${lName(0).toString}", "password", eType)
-				Main.setWindow("staff")
+			eType match {
+				case EmployeeType.MANAGER | EmployeeType.EMPLOYEE =>
+					if(fName.length > 0 && lName.length > 0 && nAge > 17 && gender.length > 0 && nSalary > 0) {
+						println("Created")
+						println(s"New username: ${fName(0).toString}${lName(0).toString}")
+						Main.createEmployee(newID, fName, lName, nAge, gender, nSalary, s"${fName(0).toString}${lName(0).toString}", "password", eType)
+						Main.setWindow("staff")
+					}
+				case EmployeeType.CUSTOMER =>
+					if(fName.length > 0 && lName.length > 0 && nAge > 17 && gender.length > 0 && nSalary > 0) {
+						println("Created Customer")
+						Main.createEmployee(newID, fName, lName, nAge, gender, 0, 0)
+						Main.setWindow("staff")
+					}
 			}
 		}
 		if(fName.length == 0) {eFNameLabel.fill = Color.Red} else {eFNameLabel.fill = Color.White}
