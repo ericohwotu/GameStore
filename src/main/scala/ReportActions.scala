@@ -43,8 +43,8 @@ trait ReportActions extends MainVariables{
     Boolean match{
       case _ if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] && id.toChar < 10 =>
         transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-        generatedReport = Report(count + 1, transList); println(s"Successfully generated report: $generatedReport")
-        reports += generatedReport; true
+        generatedReport = Report(id, transList); println(s"Successfully generated report: $generatedReport")
+        reports += generatedReport; writeReportToFile; true
       case _ => false
     }
   }
@@ -53,7 +53,7 @@ trait ReportActions extends MainVariables{
     val reportID = reports.find(r => r.reportID == id )
     Boolean match {
       case _ if reportID != None && loggedIn.isInstanceOf[Manager] => val reportToDelete = reports.filter(_ == id)
-        println(s"Report $reportToDelete has been successfully deleted"); true
+        println(s"Report $reportToDelete has been successfully deleted"); writeReportToFile; true
       case _ => false
     }
   }
