@@ -44,6 +44,8 @@ class UInewTransactionWindow extends Scene{
 			loggedInText.text = "Log in error"
 		}
 		currentItems.items = new ListView[Stock]().getItems
+		curSale = ListBuffer()
+		runningTotal.text = "0"
 	}
 	
 	//================================================ Content ================================
@@ -60,7 +62,7 @@ class UInewTransactionWindow extends Scene{
 	newItemButton.onMouseClicked = (e:MouseEvent) => {
 		val selectedStockToAdd = new ChoiceDialog(defaultChoice="Select Product",choices=updateDialogChoices()){title = "Select Item";headerText = "Select an Item to add to the Transaction";contentText = "Item"}.showAndWait()
 		selectedStockToAdd match {
-			case Some(choice) => curSale += choice.asInstanceOf[Stock];
+			case Some(choice) => curSale += choice.asInstanceOf[Stock]
 			case _ => println("No valid selection")
 		}
 		currentItems.items = new ListView[Stock](curSale).getItems
