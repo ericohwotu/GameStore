@@ -6,13 +6,27 @@ import java.util.{Date}
 
 abstract class Person {
   val ID: Int
-  val fName: String
-  val lName: String
+  var fName: String
+  var lName: String
   def fullName: String =  s"$fName $lName"
   val Age: Int
   val Gender: String
-  val loginName: String
-  val password: String
+  var loginName: String
+  var password: String
 
+  def editUsername(str: String): Unit ={
+    loginName = str
+  }
 
+  def editPassword(str: String): Unit ={
+    password = str
+  }
+
+  def editFirstName(str: String): Unit ={
+    fName = str
+  }
+
+  def editLastName(str: String): Unit = {
+    lName = str
+  }
 }
