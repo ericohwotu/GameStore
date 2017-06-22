@@ -183,6 +183,28 @@ class UIstockWindow extends Scene {
 	var tempSpecs:String = ""
 	var tempDate:String = ""
 	//============================================================ Functions ============================
+
+	var amountValue = ""
+	eAmount.onKeyReleased = (e:KeyEvent)=>{
+		println(e.code)
+		if (eAmount.text.value.matches("[0-9]*.?[0-9]?[0-9]?"))amountValue=eAmount.text.value
+		else {eAmount.text = amountValue; eAmount.positionCaret(amountValue.length)}
+	}
+
+	var priceValue = ""
+	ePrice.onKeyReleased = (e:KeyEvent)=>{
+		println(e.code)
+		if (ePrice.text.value.matches("[0-9]*.?[0-9]?[0-9]?"))priceValue=ePrice.text.value
+		else {ePrice.text = priceValue; ePrice.positionCaret(priceValue.length)}
+	}
+
+	var sPriceValue = ""
+	sPrice.onKeyReleased = (e:KeyEvent)=>{
+		println(e.code)
+		if (sPrice.text.value.matches("[0-9]*.?[0-9]?[0-9]?"))sPriceValue=sPrice.text.value
+		else {sPrice.text = sPriceValue; sPrice.positionCaret(sPriceValue.length)}
+	}
+
 	def updateSelected(e:Stock):Unit = {
 		var newSpecs:String = ""
 		if(e.isInstanceOf[Hardware]) {
