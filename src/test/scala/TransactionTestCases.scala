@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.Date
 
 import org.scalatest._
 
@@ -10,95 +10,44 @@ import org.scalatest._
 
 class TransactionTestCases extends FlatSpec with Matchers with MainVariables{
 
-  //========================================= Add employee ==================================================//
-
-  "Add employee" should "return true if successful" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.addEmployee(alf) should be (true)
-  }
-
-  it should "return false if no employee is passed" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val nobody = null
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.addEmployee(nobody) should be (false)
-  }
-
-  //========================================= Remove employee ==================================================//
-
-  "Remove employee" should "return true if successful" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.removeEmployee(alf) should be (true)
-  }
-
-  it should "return false if the employee is not found with the transaction" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val js = Employee(1,"John","Smith",24,"Male",23000,"JSmith","Smooth")
-    val trans =  Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.removeEmployee(js) should be (false)
-  }
-
-  it should "return false if no employee is passed" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val nobody = null
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.removeEmployee(nobody) should be (false)
-  }
-
-  //========================================= Update employee ==================================================//
-
-  "Update employee" should "return true if successful" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val js = Employee(1,"John","Smith",24,"Male",23000,"JSmith","Smooth")
-    val trans =  Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.updateEmployee(js) should be (true)
-  }
-
-  it should "return false if employee is already in transaction" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val js = Employee(1,"John","Smith",24,"Male",23000,"JSmith","Smooth")
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.updateEmployee(alf) should be (false)
-  }
-
-  it should "return false if no employee is passed" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val nobody = null
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.updateEmployee(nobody) should be (false)
-  }
 
   //========================================= Calculate price ==================================================//
 
   "calculate price" should "return correct price if successful" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
     val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.calculatePrice(39.99, None) should be (39.99)
+    trans.calculatePrice(39.99,0) should be (39.99)
+  }
+
+  it should "return the full price when 0 is entered in the discount field" in {
+    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
+    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
+    trans.calculatePrice(39.99,0) should be (39.99)
   }
 
   it should "return the correct discounted price" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
     val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    trans.calculatePrice(39.99, Some(10)) should be (35.99)
-  }
-
-  it should "throw an error when the discount value entered is too much (i.e. <20)" in {
-    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
-    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
-    a [Error] should be thrownBy {
-      trans.calculatePrice(39.99, Some(20)) should be(35.99)
-    }
+    trans.calculatePrice(39.99, 10) should be (35.99)
   }
 
   //========================================= Add transaction ==================================================//
 
-  "Add transaction" should "add a transaction to the transactions list" in {
+  /*"Add transaction" should "add a transaction to the transactions list" in {
     val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
     val trans = Transaction(1, alf, new Date(), stocks = List.empty)
     trans.addTransaction(trans)
-    transactions.length should be (1)
+    trans.transactionHistory.length should be (1)
+  }*/
+
+  //========================================= Calculate total price ==================================================//
+
+  "Calculate price" should "return the total amount of sales made" in {
+    val alf = Employee(25,"Alfie","Abdullah",5,"Male",25000,"aabdullah","Private")
+    val trans = Transaction(1, alf, new Date(), stocks = List.empty)
+    trans.calculatePrice(39.99, 0)
+    trans.calculatePrice(39.99, 0)
+    trans.totalPrices() should be (79.98)
   }
 
 }

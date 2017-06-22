@@ -52,7 +52,7 @@ class UIstockWindow extends Scene {
 		stock = ListBuffer()
 		Main.stocks.foreach(i => allStock += i)
 		allStock.foreach(i => {
-			stock += f"${i.name}, Price: £${i.price}%2.2f, Amount: ####"
+			stock += f"${i.name}, Price: £${i.price}%2.2f, Amount: ${i.count}"
 			println("Item added")
 		})
 		stockList.items = new ComboBox(stock).getItems
@@ -169,9 +169,10 @@ class UIstockWindow extends Scene {
 		}
 		eName.text = e.name
 		ePrice.text = e.price.toString
-		eAmount.text = ""
+		eAmount.text = e.count.toString
 		eDesc.text = e.desc
 		eSpecs.text = newSpecs
+		eItemType.text = e.getClass.getSimpleName
 	}
 	
 	onKeyPressed = (e:KeyEvent) => {

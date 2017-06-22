@@ -23,7 +23,7 @@ trait ReportActions extends MainVariables{
   def getReport(id: Int): Report = {
   val reportOne = reports.find(r => r.reportID == id)
     Report match{
-      case a if(reportOne!=None) => reportOne.get
+      case _ if(reportOne!=None) => reportOne.get
       case _ => null
     }
   }
@@ -41,9 +41,10 @@ trait ReportActions extends MainVariables{
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
     Boolean match{
-      case a if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] && id.toChar < 10 =>
+      case _ if (dateFrom != null && dateTo != null) && loggedIn.isInstanceOf[Manager] =>
         transList = transactions.filter(_.dateAndTime.after(dateFrom)).filter(_.dateAndTime.before(dateTo))
-        generatedReport = Report(count + 1, transList); println(s"Successfully generated report: $generatedReport"); reports += generatedReport; true
+        generatedReport = Report(id, transList); println(s"Successfully generated report: $generatedReport")
+        reports += generatedReport; writeReportToFile; true
       case _ => false
     }
   }
@@ -51,9 +52,8 @@ trait ReportActions extends MainVariables{
   def deleteReport(id: Int): Boolean ={
     val reportID = reports.find(r => r.reportID == id )
     Boolean match {
-      case a if reportID != None && loggedIn.isInstanceOf[Manager] => val reportToDelete = reports.filter(_ == id)
-        println(s"Report $reportToDelete has been successfully deleted");
-        true
+      case _ if reportID != None && loggedIn.isInstanceOf[Manager] => val reportToDelete = reports.filter(_ == id)
+        println(s"Report $reportToDelete has been successfully deleted"); writeReportToFile; true
       case _ => false
     }
   }
@@ -77,7 +77,7 @@ trait ReportActions extends MainVariables{
       reports ++= report
       true
     } catch {
-      case e :Exception => false
+      case _ :Exception => false
     }
   }
 }

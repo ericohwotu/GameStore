@@ -15,18 +15,22 @@ trait StockActions extends MainVariables{
       hardwareType match{
         case HardwareType.CONSOLE => {
           stocks += new Console(id, name, desc, price, count, config)
+          writeStockToFile
           true
         }
         case HardwareType.LAPTOP =>{
           stocks += new Laptop(id, name, desc, price, count,config)
+          writeStockToFile
           true
         }
         case HardwareType.PHONE =>{
           stocks += new Phone(id,name,desc,price, count,config)
+          writeStockToFile
           true
         }
         case _ => false
       }
+      writeStockToFile
     }else{
       false
     }
@@ -35,6 +39,7 @@ trait StockActions extends MainVariables{
   def createStock(id: Int, name: String, desc: String, price: Double, count:Int, itemType: ItemType.Value): Boolean = {
     if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
       stocks += new Misc(id, name, desc, price, count, itemType)
+      writeStockToFile
       true
     }else{
       false
@@ -45,6 +50,7 @@ trait StockActions extends MainVariables{
   def createStock(id: Int, name: String, desc: String, price: Double, count:Int, rating: Int, genre: String, console: String): Boolean = {
     if (stocks.find(s => s.id == id) == None && loggedIn.isInstanceOf[Manager]) {
       stocks += new Game(id, name, desc, price, count, rating, genre, console)
+      writeStockToFile
       true
     }else{
       false
@@ -64,6 +70,7 @@ trait StockActions extends MainVariables{
     val stock = stocks.find(s => s.id==id)
     if(stock!=None && loggedIn.isInstanceOf[Manager]){
       stocks -= stock.get
+      writeStockToFile
       true
     }else {
       false

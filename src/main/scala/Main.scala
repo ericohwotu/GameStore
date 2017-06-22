@@ -6,7 +6,7 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 
 
-object Main extends JFXApp with MainVariables with EmployeeActions with StockActions{
+object Main extends JFXApp with MainVariables with EmployeeActions with StockActions with TransactionActions with ReportActions{
 	
 	val mainWindow:UImainWindow = new UImainWindow
 	val loginWindow:UIloginWindow = new UIloginWindow
@@ -18,10 +18,12 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 	val stockWindow:UIstockWindow = new UIstockWindow
 	val newStockWindow:UInewStockWindow = new UInewStockWindow
 	var mainStage:PrimaryStage = new PrimaryStage
-	setWindow("newT")
+	setWindow("report")
 	readManagersFromFile
 	readEmployeesFromFile
 	readStockFromFile
+	readTransactionsFromFile
+	readReportFromFile
 	
 	def Main(args:Array[String]):Unit = {}
 	

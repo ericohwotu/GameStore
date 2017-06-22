@@ -1,4 +1,6 @@
-import java.util.Date;
+import java.util.Date
+
+import scala.collection.mutable.ListBuffer;
 
 /**
   * Created by alfie on 19/06/2017.
@@ -7,72 +9,52 @@ import java.util.Date;
   *
   */
 
-case class Transaction(transactionID: Int, employee: Employee, dateAndTime: Date, stocks: List[Stock]) {
+case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, stocks: List[Stock]) {
 
-/*
-  var stocks: List[Stock] = List.empty
-*/
-  var transactionHistory: List[Transaction] = List.empty
+  var transactionHistory: List[Stock] = stocks
+  var salesHistory: ListBuffer[Double] = new ListBuffer[Double]
   var price: Double = 0.0
   var discount: Double = 0.0
   var isPreOrder: Boolean = false
-
-  /**
-    * Getters and setters for parameters
-    * @return
-    */
+  var employeeV:Person = employee
+	var iDate:Date = dateAndTime
 
   def getStock = stocks
   def getTransactionHistory = transactionHistory
   def getDiscount = discount
   def setDiscount {this.discount = discount}
 
-  /**
-    * Method to add employees to any transactions.
-    *
-    * @param employee
-    */
+  def updateEmployee(employee: Employee): Unit = this.employeeV = employee
 
-  def addEmployee(employee: Employee): Boolean = {true}
+  def calculatePrice(price: Double, discount: Double): Double = {
+    var totalPrice: Double = 0
+    Double match {
+      case a if discount == 0 => totalPrice = price
+      case _ => totalPrice = price * (100 - discount) / 100
+    }
+    BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
+    salesHistory += totalPrice
+    BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
+  }
 
-  /**
-    * Method to remove employees from any transactions.
-    *
-    * @param employee
-    */
+  /*def addTransaction(transaction: Transaction): ListBuffer[Transaction] = {
+    Transaction match {
+      case a if !transactionHistory.contains(transaction) => transactionHistory += transaction
+      case _ => println(s"Transaction $transaction is already added.")
+    }
+    transactionHistory
+  }*/
 
-  def removeEmployee(employee: Employee): Boolean = {true}
-
-  /**
-    * Method to update employees related to any transactions.
-    *
-    * @param employee
-    */
-
-  def updateEmployee(employee: Employee): Boolean = {true}
-
-  /**
-    * Method to calculate the price of the transaction by multiplying the price by the discount value (if any...)
-    *
-    * @param price
-    * @param discount
-    * @return price with discount applied (if any...)
-    */
-
-  def calculatePrice(price: Double, discount: Option[Double]): Double = {price}
-
-  /**
-    * Method to add a transaction to a transaction List.
-    *
-    * @param transaction
-    */
-
-  def addTransaction(transaction: Transaction): Unit = {}
-
-  /**
-    * Method to print a receipt for the transaction.
-    *
-    */
+  def totalPrices(): Double = {
+    var sum: Double = 0
+    salesHistory.foreach(elem => sum += elem); sum
+  }
 
   def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
+	
+	override def toString ():String ={
+		var tot:Double = 0
+		transactionHistory.foreach(i => tot += i.price)
+		s"${employeeV.fName} ${employeeV.lName}, $tot, $dateAndTime"
+	}
 }

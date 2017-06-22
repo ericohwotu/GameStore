@@ -8,7 +8,7 @@ import scala.collection.mutable.ListBuffer
 
 
 case class Report(reportID: Int, transaction: ListBuffer[Transaction]){
-
-  override def toString: String = s"Report ID: $reportID" + transaction
+  
+  override def toString: String = s"Report ID: $reportID     " + transaction
 
 }
