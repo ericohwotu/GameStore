@@ -9,7 +9,7 @@ import scala.collection.mutable.ListBuffer;
   *
   */
 
-case class Transaction(transactionID: Int, var employee: Employee, dateAndTime: Date, stocks: List[Stock]){
+case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, stocks: List[Stock]) {
 
   var transactionHistory: ListBuffer[Transaction] = new ListBuffer[Transaction]
   var price: Double = 0.0

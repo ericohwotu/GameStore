@@ -30,6 +30,7 @@ trait StockActions extends MainVariables{
         }
         case _ => false
       }
+      writeStockToFile
     }else{
       false
     }

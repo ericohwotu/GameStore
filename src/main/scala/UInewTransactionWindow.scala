@@ -1,12 +1,11 @@
+import java.util.Date
+
 import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
-import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control._
-import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
-import scalafx.scene.layout.Pane
+import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.Rectangle
 import scalafx.scene.text.{Font, Text}
 
 class UInewTransactionWindow extends Scene{
@@ -17,7 +16,7 @@ class UInewTransactionWindow extends Scene{
 	
 	//==================================================== Text ===========
 	var loggedInText:Text = new Text("")
-	loggedInText.relocate(5, 5)
+	loggedInText.relocate(530, 60)
 	loggedInText.font = mainFont
 	loggedInText.fill = textColour
 	
@@ -33,37 +32,53 @@ class UInewTransactionWindow extends Scene{
 	returnButton.relocate(874, 7)
 	returnButton.onMouseClicked = (e:MouseEvent) => Main.setWindow("main")
 	
+	val transactionsButton:Button = new Button("Previous Transactions")
+	transactionsButton.relocate(743, 7)
+	transactionsButton.onMouseClicked = (e:MouseEvent) => Main.setWindow("transaction")
+	
 	def update():Unit = {
 		updateDialogChoices()
+		if(Main.loggedIn != null) {
+			loggedInText.text = s"Logged in as: ${Main.loggedIn.fName} ${Main.loggedIn.lName}"
+		} else {
+			loggedInText.text = "Log in error"
+		}
+		currentItems.items = new ListView[Stock]().getItems
 	}
 	
 	//================================================ Content ================================
 	val titleText:Text = new Text("Sale"){relocate(10,30);font=titleFont;fill=textColour}
-	val currentItems:ListView[String] = new ListView[String](){relocate(10, 60);maxHeight=600;minHeight=600;minWidth=500;maxWidth=500}
+	val currentItems:ListView[Stock] = new ListView[Stock](){relocate(10, 60);maxHeight=600;minHeight=600;minWidth=500;maxWidth=500}
 	val newItemButton:Button = new Button("Add Item Manually"){relocate(10, 670)}
-	val selectedAmountLabel:Text = new Text("Quantity"){relocate(530, 60);font=mainFont;fill=Color.White}
-	val selectedAmount:TextField = new TextField(){relocate(530, 80)}
+	val performSaleButton:Button = new Button("Complete"){relocate(127, 670)}
+	val runningTotal:TextField = new TextField(){editable=false;relocate(200, 670)}
 	
-	content = List(logoutButton, returnButton, titleText, currentItems, newItemButton, selectedAmount, selectedAmountLabel)
+	var curSale:ListBuffer[Stock] = ListBuffer()
+	content = List(logoutButton, returnButton, transactionsButton, titleText, currentItems, newItemButton, performSaleButton, loggedInText, runningTotal)
 	
 	//================================================ Functions ================================
 	newItemButton.onMouseClicked = (e:MouseEvent) => {
-		new ChoiceDialog(defaultChoice="Select Product",choices=updateDialogChoices()){title = "Select Item";headerText = "Select an Item to add to the Transaction";contentText = "Item"}.showAndWait()
+		val selectedStockToAdd = new ChoiceDialog(defaultChoice="Select Product",choices=updateDialogChoices()){title = "Select Item";headerText = "Select an Item to add to the Transaction";contentText = "Item"}.showAndWait()
+		selectedStockToAdd match {
+			case Some(choice) => curSale += choice.asInstanceOf[Stock];
+			case _ => println("No valid selection")
+		}
+		currentItems.items = new ListView[Stock](curSale).getItems
+		var runTot:Double = 0
+		curSale.foreach(i => runTot += i.price)
+		runningTotal.text = runTot.toString
+	}
+	performSaleButton.onMouseClicked = (e:MouseEvent) => {
+		if(curSale.nonEmpty) {
+			Main.createTransaction(Main.transactions.length, Main.loggedIn, new Date(), curSale.toList)
+			Main.setWindow("main")
+		} else {
+			println("Empty sale list")
+		}
 	}
 	def updateDialogChoices():List[Stock] = {
 		var returnList:ListBuffer[Stock] = ListBuffer[Stock]()
-	/*	Main.stocks.foreach(i => {
-			returnList += i.name
-		})
-		returnList.toList*/
-		returnList = Main.stocks
-		returnList.toList
-	}
-	def selection(dialog:ChoiceDialog[Stock]):Option[Stock] = {
-		dialog.title = "Select Item"
-		dialog.headerText = "Select an Item to add to the Transaction"
-		dialog.contentText = "Item"
-		dialog.showAndWait()
-		//var selected:String = dialog.getSelectedItem
+			returnList = Main.stocks
+			returnList.toList
 	}
 }

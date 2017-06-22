@@ -14,7 +14,7 @@ trait TransactionActions extends MainVariables {
   * */
   val trans: Transaction = null
 
-  def createTransaction(id: Int, employee: Employee, dateAndTime: Date, list: List[Stock] ): Boolean = {
+  def createTransaction(id: Int, employee: Person, dateAndTime: Date, list: List[Stock] ): Boolean = {
 
       println(transactions.find(t => t.transactionID == id) + " employee: " + employee)
       if (transactions.find(t => t.transactionID == id) != None || employee == null) {
