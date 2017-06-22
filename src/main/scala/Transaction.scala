@@ -1,6 +1,6 @@
 import java.util.Date
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.ListBuffer;
 
 /**
   * Created by alfie on 19/06/2017.
@@ -12,6 +12,7 @@ import scala.collection.mutable.ListBuffer
 case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, stocks: List[Stock]) {
 
   var transactionHistory: List[Stock] = stocks
+  var salesHistory: ListBuffer[Double] = new ListBuffer[Double]
   var price: Double = 0.0
   var discount: Double = 0.0
   var isPreOrder: Boolean = false
@@ -32,6 +33,8 @@ case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, 
       case _ => totalPrice = price * (100 - discount) / 100
     }
     BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
+    salesHistory += totalPrice
+    BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
   }
 
   /*def addTransaction(transaction: Transaction): ListBuffer[Transaction] = {
@@ -41,7 +44,12 @@ case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, 
     }
     transactionHistory
   }*/
-	
+
+  def totalPrices(): Double = {
+    var sum: Double = 0
+    salesHistory.foreach(elem => sum += elem); sum
+  }
+
   def printReceipt() {println(s"Transaction ID: $transactionID" + s"\nPrice: $price" + s"\nYour checkout employee today was: $employee")}
 	
 	override def toString ():String ={
