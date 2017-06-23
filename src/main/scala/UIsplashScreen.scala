@@ -31,7 +31,7 @@ class UIsplashScreen extends Scene {
   implicit val ec = ExecutionContext.global
 
   Future {
-    Thread.sleep(10000)
+    Thread.sleep(5000)
     if (Platform.isFxApplicationThread) {
       Main.setWindow("login")
     } else {
