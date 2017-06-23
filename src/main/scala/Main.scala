@@ -85,7 +85,7 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 				mainStage.title = "Elliot and Friends™ Report View"
 				reportViewWindow.update()
 			case "splash" => mainStage.scene = splashWindow
-				mainStage.width = 894
+				mainStage.width = 1480
 				mainStage.height = 1040
 				mainStage.title = "Elliot and Friends™ Report Splash"
 				mainStage.initStyle(StageStyle.Transparent)
