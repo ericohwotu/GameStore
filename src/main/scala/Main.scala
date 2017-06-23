@@ -27,7 +27,7 @@ object Main extends JFXApp with MainVariables with EmployeeActions with StockAct
 	readTransactionsFromFile
 	readReportFromFile
 	
-	setWindow("splash")
+	setWindow("report")
 	
 	def Main(args:Array[String]):Unit = {}
 	

@@ -34,6 +34,17 @@ class UIreportWindow extends Scene{
 	returnButton.onMouseClicked = (e:MouseEvent) =>{
 		Main.setWindow("main")
 	}
+	val deleteButton:Button = new Button("Delete Report")
+	deleteButton.relocate(784, 7)
+	deleteButton.onMouseClicked = (e:MouseEvent) => {
+		try {
+			if(curReports.getSelectionModel().getSelectedItem.getClass != null) {
+				Main.deleteReport(curReports.getSelectionModel().getSelectedItem.reportID)
+			}
+		} catch {
+			case e:Exception => println("No report selected")
+		}
+	}
 	
 	def update():Unit = {
 		if(Main.loggedIn != null) {
@@ -84,7 +95,7 @@ class UIreportWindow extends Scene{
 	
 	
 	//========================================================================================== Main Content List ====================
-	content = List(loggedInText, logoutButton, returnButton, createPane, currentPane)
+	content = List(loggedInText, logoutButton, returnButton, deleteButton, createPane, currentPane)
 	//=================================================================================================================================
 	
 	
@@ -92,7 +103,11 @@ class UIreportWindow extends Scene{
 	createReportButton.onMouseClicked = (e:MouseEvent) => {
 		if(startDatePicker.value.value != null && endDatePicker.value.value != null) {
 			if(endDateAsDate.after(startDateAsDate)) {
-				Main.createReport(Main.reports.last.reportID+1, startDateAsDate, endDateAsDate)
+				var newID:Int = 0
+				if(Main.reports.nonEmpty) {
+					newID = Main.reports.last.reportID + 1
+				}
+				Main.createReport(newID, startDateAsDate, endDateAsDate)
 				curReports.items = new ListView[Report](Main.reports.toList.reverse).getItems
 			}
 		}

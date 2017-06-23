@@ -61,7 +61,8 @@ class UInewStockWindow extends Scene {
 		val iType:String = eItemType.getSelectionModel().getSelectedItem
 		val desc:String = eDesc.text.value
 		val config:String = eSpecs.text.value
-
+		var newID:Int = 0
+		
 		if(ePrice.text.value.length > 0) {
 			try {
 				price = ePrice.text.value.toDouble
@@ -77,23 +78,23 @@ class UInewStockWindow extends Scene {
 			}
 		}
 
-
+		if(Main.stocks.nonEmpty) newID = Main.stocks.last.id + 1
 
 		if(name.length == 0) {eNameLabel.fill = Color.Red} else {eNameLabel.fill = Color.White}
 		if(price == 0) {ePriceLabel.fill = Color.Red} else {ePriceLabel.fill = Color.White}
 		if(amount == 0) {eAmountLabel.fill = Color.Red} else {eAmountLabel.fill = Color.White}
 		if(iType == "") {eItemTypeLabel.fill = Color.Red} else {eItemTypeLabel.fill = Color.White}
 		if(eDate.value.value == null) {eDateLabel.fill = Color.Red} else {eDateLabel.fill = Color.White}
-
+		
 		if(name.length > 0 && price != 0 && iType != "" && desc.length > 0 && eDate.value.value != null) {
 			iType match {
-				case "Game" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, 18, "", null, convertToDate(eDate));println("Item added")
-				case "Console" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, config, HardwareType.CONSOLE);println("Item added")
-				case "Laptop" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, config, HardwareType.LAPTOP);println("Item added")
-				case "Phone" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, config, HardwareType.PHONE);println("Item added")
-				case "Mug" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.MUG);println("Item added")
-				case "Poster" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.POSTER);println("Item added")
-				case "Shirt" => Main.createStock(Main.stocks.last.id+1, name, desc, price, amount, ItemType.SHIRT);println("Item added")
+				case "Game" => Main.createStock(newID, name, desc, price, amount, 18, "", null, convertToDate(eDate));println("Item added")
+				case "Console" => Main.createStock(newID, name, desc, price, amount, config, HardwareType.CONSOLE);println("Item added")
+				case "Laptop" => Main.createStock(newID, name, desc, price, amount, config, HardwareType.LAPTOP);println("Item added")
+				case "Phone" => Main.createStock(newID, name, desc, price, amount, config, HardwareType.PHONE);println("Item added")
+				case "Mug" => Main.createStock(newID, name, desc, price, amount, ItemType.MUG);println("Item added")
+				case "Poster" => Main.createStock(newID, name, desc, price, amount, ItemType.POSTER);println("Item added")
+				case "Shirt" => Main.createStock(newID, name, desc, price, amount, ItemType.SHIRT);println("Item added")
 			}
 			update()
 		}

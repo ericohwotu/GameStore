@@ -107,9 +107,9 @@ class UInewEmployeeWindow extends Scene {
 			var eType:EmployeeType.Value = null
 			var newID:Int = 0
 			job match {
-				case "Manager" => eType = EmployeeType.MANAGER;newID=Main.managers.last.ID+1
-				case "Employee" => eType = EmployeeType.EMPLOYEE;newID=Main.employees.last.ID+1
-				case "Customer" => eType = EmployeeType.CUSTOMER;newID=Main.customers.last.ID+1
+				case "Manager" => eType = EmployeeType.MANAGER;newID=if(Main.managers.nonEmpty) Main.managers.last.ID+1 else 0
+				case "Employee" => eType = EmployeeType.EMPLOYEE;newID=if(Main.employees.nonEmpty) Main.employees.last.ID+1 else 0
+				case "Customer" => eType = EmployeeType.CUSTOMER;newID=if(Main.customers.nonEmpty) Main.customers.last.ID+1 else 0
 			}
 			eType match {
 				case EmployeeType.MANAGER | EmployeeType.EMPLOYEE =>

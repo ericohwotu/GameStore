@@ -71,8 +71,9 @@ class UInewTransactionWindow extends Scene{
 		runningTotal.text = runTot.toString
 	}
 	performSaleButton.onMouseClicked = (e:MouseEvent) => {
+		val newID = if(Main.transactions.nonEmpty) Main.transactions.last.transactionID + 1 else 0
 		if(curSale.nonEmpty) {
-			Main.createTransaction(Main.transactions.last.transactionID+1, Main.loggedIn, new Date(), curSale.toList)
+			Main.createTransaction(newID, Main.loggedIn, new Date(), curSale.toList)
 			Main.setWindow("main")
 		} else {
 			println("Empty sale list")
