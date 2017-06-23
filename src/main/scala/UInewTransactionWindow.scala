@@ -1,9 +1,11 @@
 import java.util.Date
 
+import scalafx.scene.control._
 import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
+import scalafx.collections.ObservableBuffer
 import scalafx.scene.Scene
-import scalafx.scene.control._
+import scalafx.scene.control.TableColumn._
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
@@ -44,7 +46,8 @@ class UInewTransactionWindow extends Scene{
 		} else {
 			loggedInText.text = "Log in error"
 		}
-		currentItems.items = new ListView[Stock]().getItems
+		val emptyOBuff:ObservableBuffer[Stock] = ObservableBuffer()
+		currentItems.items = new TableView[Stock](emptyOBuff).getItems
 		curSale = ListBuffer()
 		runningTotal.text = "0"
 	}
@@ -53,7 +56,21 @@ class UInewTransactionWindow extends Scene{
 	
 	//================================================ Content ================================
 	val titleText:Text = new Text("Sale"){relocate(10,30);font=titleFont;fill=textColour}
-	val currentItems:ListView[Stock] = new ListView[Stock](){relocate(10, 60);maxHeight=600;minHeight=600;minWidth=500;maxWidth=500}
+	val currentItems:TableView[Stock] = new TableView[Stock](){relocate(10, 60);maxHeight=600;minHeight=600;minWidth=500;maxWidth=500}
+	currentItems.columns ++= List(
+		new TableColumn[Stock, String](){
+			text = "Item Name"
+			cellValueFactory = { _.value.namep }
+			prefWidth = 350
+		},
+		new TableColumn[Stock, Double](){
+			text = "Cost"
+			cellValueFactory = { _.value.pricep }
+			prefWidth = 150
+		}
+	)
+	
+	
 	val newItemButton:Button = new Button("Add Item Manually"){relocate(10, 670)}
 	val performSaleButton:Button = new Button("Complete"){relocate(127, 670)}
 	val runningTotal:TextField = new TextField(){editable=false;relocate(200, 670)}
@@ -68,7 +85,10 @@ class UInewTransactionWindow extends Scene{
 			case Some(choice) => curSale += choice.asInstanceOf[Stock]
 			case _ => println("No valid selection")
 		}
-		currentItems.items = new ListView[Stock](curSale).getItems
+		
+		val oB:ObservableBuffer[Stock] = ObservableBuffer()
+		curSale.foreach(i => {i.updateP();oB += i})
+		currentItems.items = new TableView[Stock](oB).getItems
 		var runTot:Double = 0
 		curSale.foreach(i => runTot += i.price)
 		runningTotal.text = runTot.toString

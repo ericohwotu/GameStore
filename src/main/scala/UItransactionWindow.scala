@@ -3,7 +3,6 @@ import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
 import scalafx.scene.Scene
 import scalafx.scene.control._
-import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
@@ -51,11 +50,6 @@ class UItransactionWindow extends Scene {
 		eEmployee.text = ""
 		eDateTime.text = ""
 		prevTransactions.items = new ListView[Transaction](Main.transactions).getItems
-		if(Main.loggedIn.getClass.getSimpleName == "Manager") {
-			deleteButton.visible = true
-		} else {
-			deleteButton.visible = false
-		}
 	}
 	//============================================================ Background Layout ============================
 	val divider = Rectangle(400, 0, 2, 800)
@@ -66,8 +60,6 @@ class UItransactionWindow extends Scene {
 	bg1.fill = Color.Gray
 	val topBar = Rectangle(1000, 40)
 	topBar.fill = Color.DarkGrey.darker
-	
-	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
 
 	//============================================================ Content ============================
 	val stockTitle:Text = new Text("Transaction Details")
@@ -123,5 +115,5 @@ class UItransactionWindow extends Scene {
 		
 		}
 	}
-	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, deleteButton, windowIcon)
+	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, deleteButton)
 }

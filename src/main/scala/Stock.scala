@@ -1,3 +1,5 @@
+import scalafx.beans.property.{DoubleProperty, ObjectProperty, StringProperty}
+
 /**
   * Created by Administrator on 19/06/2017.
   */
@@ -7,7 +9,15 @@ abstract class Stock{
   var name: String
   var desc: String
   var count: Int
-
+  
+  var namep = new StringProperty(this, "namep", name)
+  var pricep = new ObjectProperty[Double](this, "pricep", price)
+  
+  def updateP():Unit = {
+    namep = new StringProperty(this, "namep", name)
+    pricep = new ObjectProperty[Double](this, "pricep", price)
+  }
+  
   def increaseCount(add:Int):Unit = {
     count += add
   }
