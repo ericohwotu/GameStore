@@ -35,7 +35,7 @@ class StockActionsTest extends FlatSpec with Matchers with StockActions with Mai
     stocks.length should be(2)
   }
 
-
+//yo
 
   "creating new misc item" should "return true if successful" in {
     stocks.clear
