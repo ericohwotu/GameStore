@@ -5,26 +5,30 @@ import org.scalatest._
   * Created by alfie on 20/06/2017.
   */
 
-class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions with MainVariables{
+class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions with MainVariables with TransactionActions{
 
   //========================================= Create Report ==================================================//
 
   "Create report" should "return true if successful" in {
     reports.clear
+    readTransactionsFromFile
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-    val reportOne = createReport(1, new Date(), new Date())
+    new Date()
+    val reportOne = createReport(576, dateFrom = new Date(2017-1900,5-1,22), dateTo = new Date(2017-1900,7-1,22))
     reportOne should be(true)
   }
 
   it should "add the report to a reports list and reflect the quantity of reports" in {
     reports.clear
+    readTransactionsFromFile
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-    val reportOne = createReport(1, new Date(), new Date())
+    val reportOne = createReport(576, dateFrom = new Date(2017-1900,5-1,22), dateTo = new Date(2017-1900,7-1,22))
     reports.length should be(1)
   }
 
   it should "return false if dateFrom is left empty" in {
     reports.clear
+    readTransactionsFromFile
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
     val noDate = null
     val reportOne = createReport(1, noDate, new Date())
@@ -33,6 +37,7 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
 
   it should "return false if toDate is left empty" in {
     reports.clear
+    readTransactionsFromFile
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
     val noDate = null
     val reportOne = createReport(1, new Date(), noDate)
@@ -62,10 +67,9 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
   "Delete report" should "return true if successful" in {
     reports.clear
     loggedIn = Manager(1,"Eric","Ohwotu",28,"Male",23000,"CallMeMaster","NoneYaBusiness")
-    createReport(1, new Date(), new Date())
-    val r = getReport(1)
-    r should not be(null)
-    r.isInstanceOf[Report] should be (true)
+    createReport(576, dateFrom = new Date(2017-1900,5-1,22), dateTo = new Date(2017-1900,7-1,22))
+    val r = deleteReport(576)
+    r should be (true)
   }
 
   it should "return false if the report doesn't exist" in {
@@ -77,9 +81,9 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
 
   "Saving report to file" should "return true if successful" in {
     reports.clear()
-    createReport(1, new Date(), new Date())
-    createReport(2, new Date(), new Date())
-    createReport(3, new Date(), new Date())
+    createReport(576, dateFrom = new Date(2017-1900,5-1,22), dateTo = new Date(2017-1900,7-1,22))
+    createReport(577, dateFrom = new Date(2017-1900,5-1,22), dateTo = new Date(2017-1900,7-1,22))
+    createReport(578, dateFrom = new Date(2017-1900,5-1,22), dateTo = new Date(2017-1900,7-1,22))
     writeReportToFile should be (true)
   }
 

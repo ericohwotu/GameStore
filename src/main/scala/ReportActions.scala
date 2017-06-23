@@ -18,6 +18,7 @@ trait ReportActions extends MainVariables{
   }
 
   def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = {
+
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]
     val count = 0
     Boolean match{

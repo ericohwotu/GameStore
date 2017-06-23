@@ -99,6 +99,7 @@ class UIloginWindow extends Scene {
 	loginButton.onAction = (ae:ActionEvent) => {
 		sendLogin()
 	}
+
 	cancelButton.onAction = (ae:ActionEvent) => {
 		Main.closeWindow
 	}

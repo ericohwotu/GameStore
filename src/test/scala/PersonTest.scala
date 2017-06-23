@@ -51,6 +51,7 @@ class PersonTest extends FeatureSpec with GivenWhenThen {
       assert(employee.password=="rt*^^*l)..3tu")
       assert(employee.loginName=="H3r3254ve")
     }
+
     scenario("new employee is instantiated") {
       Given("All employees details are supplied")
       val ID = 2
