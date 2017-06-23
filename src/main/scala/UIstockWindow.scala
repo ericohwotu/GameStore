@@ -3,6 +3,7 @@ import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control._
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
@@ -38,6 +39,10 @@ class UIstockWindow extends Scene {
 	createNewButton.relocate(764, 7)
 	createNewButton.onMouseClicked = (e:MouseEvent) => Main.setWindow("newS")
 	
+	val deleteButton:Button = new Button("Create New Stock")
+	deleteButton.relocate(764, 7)
+	deleteButton.onMouseClicked = (e:MouseEvent) => Main.deleteStock(currentlySelected.id);update()
+	
 	def update():Unit = {
 		if(Main.loggedIn != null) {
 			loggedInText.text = s"Logged in as: ${Main.loggedIn.fName} ${Main.loggedIn.lName}"
@@ -63,6 +68,14 @@ class UIstockWindow extends Scene {
 		})
 		stockList.items = new ComboBox(stock).getItems
 		currentlySelected = null
+		
+		if(Main.loggedIn.getClass.getSimpleName == "Manager") {
+			createNewButton.visible = true
+			deleteButton.visible = true
+		} else {
+			createNewButton.visible = false
+			deleteButton.visible = false
+		}
 	}
 	def clearSearch():Unit ={
 		sName.text = ""
@@ -182,6 +195,9 @@ class UIstockWindow extends Scene {
 	var tempAmount:String = ""
 	var tempSpecs:String = ""
 	var tempDate:String = ""
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
+	
 	//============================================================ Functions ============================
 
 	var amountValue = ""
@@ -313,5 +329,5 @@ class UIstockWindow extends Scene {
 		eSaveButton.visible = false
 		eDiscardButton.visible = false
 	}
-	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, stockList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton, stockTitle)
+	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, stockList, topBar, divider2, loggedInText, logoutButton, returnButton, createNewButton, stockTitle, windowIcon)
 }

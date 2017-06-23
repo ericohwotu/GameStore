@@ -3,6 +3,7 @@ import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control.{Alert, Button, PasswordField, TextField}
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
@@ -13,7 +14,7 @@ class UIloginWindow extends Scene {
 	def update(): Unit = {
 		usernameInput.requestFocus()
 	}
-
+	
 	def sendLogin(): Unit = {
 		val attempt: Boolean = Main.login(usernameInput.text.value, passwordInput.text.value)
 		passwordInput.text = ""
@@ -36,7 +37,9 @@ class UIloginWindow extends Scene {
 	val headerFont: Font = new Font("Times New Roman", 36)
 	val subHeaderFont: Font = new Font("Times New Roman", 24)
 	val standardFont: Font = new Font("Times New Roman", 18)
-
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,0)}
+	
 	val headerText: Text = new Text("Elliot & Friends™")
 	headerText.x = 70
 	headerText.y = 37
@@ -74,7 +77,7 @@ class UIloginWindow extends Scene {
 	cancelButton.relocate(196, 270)
 
 	//================================================= Add to Scene =================================================
-	content = List(divider, headerText, subHeadingText, userText, passwordText, usernameInput, passwordInput, loginButton, cancelButton)
+	content = List(divider, headerText, subHeadingText, userText, passwordText, usernameInput, passwordInput, loginButton, cancelButton, windowIcon)
 
 	//================================================= Functionality =================================================
 	onMouseMoved = (me: MouseEvent) => {

@@ -15,6 +15,11 @@ class UImainWindow extends Scene {
 		} else {
 			loggedInText.text = "Log in error"
 		}
+		if(salesIcon.hover.value) buttonHover(0) = {highlightIcon.relocate(100, 100); true} else buttonHover(0) = false
+		if(reportIcon.hover.value) buttonHover(1) = {highlightIcon.relocate(500, 100); true} else buttonHover(1) = false
+		if(stockIcon.hover.value) buttonHover(2) = {highlightIcon.relocate(100, 400); true} else buttonHover(2) = false
+		if(staffIcon.hover.value) buttonHover(3) = {highlightIcon.relocate(500, 400); true} else buttonHover(3) = false
+		if(buttonHover.count(_ == false) == 4) highlightIcon.visible = false else highlightIcon.visible = true
 	}
 	
 	val mainFont:Font = new Font("Times New Roman", 18)
@@ -31,6 +36,8 @@ class UImainWindow extends Scene {
 	stockIcon.relocate(100, 400)
 	staffIcon.relocate(500, 400)
 	val buttonHover:ListBuffer[Boolean] = ListBuffer(false, false, false, false)
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
 	
 	//==================================================== Text ===========
 	var loggedInText:Text = new Text("")
@@ -67,5 +74,5 @@ class UImainWindow extends Scene {
 		Main.setWindow("staff")
 	}
 	
-	content = List(salesIcon, reportIcon, stockIcon, staffIcon, highlightIcon, logoutButton, loggedInText)
+	content = List(salesIcon, reportIcon, stockIcon, staffIcon, highlightIcon, logoutButton, loggedInText, windowIcon)
 }

@@ -4,6 +4,7 @@ import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control._
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
@@ -111,6 +112,8 @@ class UInewStockWindow extends Scene {
 	bg1.fill = Color.Gray
 	val topBar = Rectangle(1000, 40)
 	topBar.fill = Color.DarkGrey.darker
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
 
 	//============================================================ Content ============================
 	val stockTitle:Text = new Text("Stock Details")
@@ -187,5 +190,5 @@ class UInewStockWindow extends Scene {
 		var year:Int = datePicker.value.value.getYear
 		new Date(year-1900,month-1,day)
 	}
-	content = List(divider, bg1, stockTitle, stockInfoPane, topBar, divider2, loggedInText, logoutButton, returnButton)
+	content = List(divider, bg1, stockTitle, stockInfoPane, topBar, divider2, loggedInText, logoutButton, returnButton, windowIcon)
 }

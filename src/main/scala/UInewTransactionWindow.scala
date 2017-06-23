@@ -4,6 +4,7 @@ import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
 import scalafx.scene.Scene
 import scalafx.scene.control._
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.paint.Color
 import scalafx.scene.text.{Font, Text}
@@ -48,6 +49,8 @@ class UInewTransactionWindow extends Scene{
 		runningTotal.text = "0"
 	}
 	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
+	
 	//================================================ Content ================================
 	val titleText:Text = new Text("Sale"){relocate(10,30);font=titleFont;fill=textColour}
 	val currentItems:ListView[Stock] = new ListView[Stock](){relocate(10, 60);maxHeight=600;minHeight=600;minWidth=500;maxWidth=500}
@@ -56,7 +59,7 @@ class UInewTransactionWindow extends Scene{
 	val runningTotal:TextField = new TextField(){editable=false;relocate(200, 670)}
 	
 	var curSale:ListBuffer[Stock] = ListBuffer()
-	content = List(logoutButton, returnButton, transactionsButton, titleText, currentItems, newItemButton, performSaleButton, loggedInText, runningTotal)
+	content = List(logoutButton, returnButton, transactionsButton, titleText, currentItems, newItemButton, performSaleButton, loggedInText, runningTotal, windowIcon)
 	
 	//================================================ Functions ================================
 	newItemButton.onMouseClicked = (e:MouseEvent) => {

@@ -4,6 +4,7 @@ import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, DatePicker, ListView}
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
@@ -55,6 +56,21 @@ class UIreportWindow extends Scene{
 		startDatePicker.value = null
 		endDatePicker.value = null
 		curReports.items = new ListView[Report](Main.reports.toList.reverse).getItems
+		if(Main.loggedIn.getClass.getSimpleName == "Manager") {
+			deleteButton.visible = true
+			startDatePicker.visible = true
+			endDatePicker.visible = true
+			createReportButton.visible = true
+			startDateLabel.visible = true
+			endDateLabel.visible = true
+		} else {
+			deleteButton.visible = false
+			startDatePicker.visible = false
+			endDatePicker.visible = false
+			createReportButton.visible = false
+			startDateLabel.visible = false
+			endDateLabel.visible = false
+		}
 	}
 	
 	//======================================================== Create Pane ====================
@@ -71,16 +87,24 @@ class UIreportWindow extends Scene{
 	var endDateAsDate:Date = new Date()
 	
 	startDatePicker.onAction = (e:ActionEvent) => {
-		var day:Int = startDatePicker.value.value.getDayOfMonth
-		var month:Int = startDatePicker.value.value.getMonthValue
-		var year:Int = startDatePicker.value.value.getYear
-		startDateAsDate = new Date(year-1900,month-1,day)
+		try {
+			var day:Int = startDatePicker.value.value.getDayOfMonth
+			var month:Int = startDatePicker.value.value.getMonthValue
+			var year:Int = startDatePicker.value.value.getYear
+			startDateAsDate = new Date(year - 1900, month - 1, day)
+		} catch {
+			case e:Exception => println("Start Date Picker Invalid")
+		}
 	}
 	endDatePicker.onAction = (e:ActionEvent) => {
-		var day:Int = endDatePicker.value.value.getDayOfMonth
-		var month:Int = endDatePicker.value.value.getMonthValue
-		var year:Int = endDatePicker.value.value.getYear
-		endDateAsDate = new Date(year-1900,month-1,day)
+		try {
+			var day:Int = endDatePicker.value.value.getDayOfMonth
+			var month:Int = endDatePicker.value.value.getMonthValue
+			var year:Int = endDatePicker.value.value.getYear
+			endDateAsDate = new Date(year - 1900, month - 1, day)
+		} catch {
+			case e:Exception => println("End Date Picker Invalid")
+		}
 	}
 	createPane.children.addAll(reportTitle, startDateLabel, endDateLabel, startDatePicker, endDatePicker, createReportButton)
 	
@@ -95,7 +119,10 @@ class UIreportWindow extends Scene{
 	
 	
 	//========================================================================================== Main Content List ====================
-	content = List(loggedInText, logoutButton, returnButton, deleteButton, createPane, currentPane)
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
+	
+	content = List(loggedInText, logoutButton, returnButton, deleteButton, createPane, currentPane, windowIcon)
 	//=================================================================================================================================
 	
 	

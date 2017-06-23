@@ -2,6 +2,7 @@ import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control._
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
@@ -56,6 +57,8 @@ class UInewEmployeeWindow extends Scene {
 	bg1.fill = Color.Gray
 	val topBar = Rectangle(1000, 40)
 	topBar.fill = Color.DarkGrey.darker
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
 	
 	//============================================================ Content ============================
 	val employeeTitle:Text = new Text("Employee Details")
@@ -144,5 +147,5 @@ class UInewEmployeeWindow extends Scene {
 		createEmployee()
 	}
 	
-	content = List(divider, bg1, employeeTitle, employeeInfoPane, topBar, divider2, loggedInText, logoutButton, returnButton)
+	content = List(divider, bg1, employeeTitle, employeeInfoPane, topBar, divider2, loggedInText, logoutButton, returnButton, windowIcon)
 }

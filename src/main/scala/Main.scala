@@ -3,6 +3,7 @@
   */
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.scene.image.Image
 import scalafx.stage.StageStyle
 
 

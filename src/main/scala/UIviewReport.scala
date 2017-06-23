@@ -2,6 +2,7 @@ import scala.collection.mutable.ListBuffer
 import scalafx.Includes._
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, ListView, TextField}
+import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.scene.layout.Pane
 import scalafx.scene.paint.Color
@@ -135,5 +136,8 @@ class UIviewReport extends Scene{
 		
 		}
 	}
-	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, stockTitle, secondDivider, reportHeaderPane)
+	
+	val windowIcon:ImageView = new ImageView(new Image("file:src/main/images/ElliotIcon.png")){fitHeight=50;fitWidth=50;relocate(10,740)}
+	
+	content = List(divider, bg1, searchTitle, stockInfoPane, searchPane, topBar, divider2, loggedInText, logoutButton, returnButton, stockTitle, secondDivider, reportHeaderPane, windowIcon)
 }
