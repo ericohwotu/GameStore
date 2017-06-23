@@ -85,6 +85,10 @@ class UIloginWindow extends Scene {
 		updatePasswordInput()
 	}
 
+	usernameInput.onKeyPressed = (ke: KeyEvent) => {
+		updatePasswordInput()
+	}
+
 	passwordInput.onMouseClicked= (me: MouseEvent) => {
 		updatePasswordInput()
 	}
