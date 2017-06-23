@@ -41,7 +41,6 @@ class UIstockWindow extends Scene {
 	
 	val deleteButton:Button = new Button("Create New Stock")
 	deleteButton.relocate(764, 7)
-	deleteButton.onMouseClicked = (e:MouseEvent) => Main.deleteStock(currentlySelected.id);update()
 	
 	def update():Unit = {
 		if(Main.loggedIn != null) {
@@ -49,7 +48,7 @@ class UIstockWindow extends Scene {
 		} else {
 			loggedInText.text = "Log in error"
 		}
-		stockList.selectionModel().clearSelection()
+		stockList.getSelectionModel().clearSelection()
 		eName.text = ""
 		eItemType.text = ""
 		eSpecs.text = ""
@@ -69,7 +68,7 @@ class UIstockWindow extends Scene {
 		stockList.items = new ComboBox(stock).getItems
 		currentlySelected = null
 		
-		if(Main.loggedIn.getClass.getSimpleName == "Manager") {
+		if(Main.loggedIn != null && Main.loggedIn.getClass.getSimpleName == "Manager") {
 			createNewButton.visible = true
 			deleteButton.visible = true
 		} else {
@@ -220,7 +219,9 @@ class UIstockWindow extends Scene {
 		if (sPrice.text.value.matches("[0-9]*.?[0-9]?[0-9]?"))sPriceValue=sPrice.text.value
 		else {sPrice.text = sPriceValue; sPrice.positionCaret(sPriceValue.length)}
 	}
-
+	
+	deleteButton.onMouseClicked = (e:MouseEvent) => Main.deleteStock(currentlySelected.id);update()
+	
 	def updateSelected(e:Stock):Unit = {
 		var newSpecs:String = ""
 		if(e.isInstanceOf[Hardware]) {

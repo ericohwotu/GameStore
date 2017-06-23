@@ -1,4 +1,6 @@
+import java.net.URL
 import java.util.concurrent
+import javax.sound.sampled._
 
 import scala.concurrent.{ExecutionContext, Future}
 import scalafx.Includes._
@@ -16,7 +18,17 @@ class UIsplashScreen extends Scene {
 
   val elliotAndFriends: Image = new Image("file:src/main/images/ElliotAndFriends.png")
   val elliotAndFriendsHolder: ImageView = new ImageView(elliotAndFriends)
-
+  
+  try {
+    val url = new URL("file:src/main/audio/splashSound.wav")
+    val audioIn = AudioSystem.getAudioInputStream(url)
+    val clip = AudioSystem.getClip
+    clip.open(audioIn)
+    clip.start
+  } catch {
+    case e:Exception => println(e)
+  }
+  
   fill = Color.Transparent
 
   content = List(elliotAndFriendsHolder)
