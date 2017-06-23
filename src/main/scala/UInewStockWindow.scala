@@ -161,13 +161,13 @@ class UInewStockWindow extends Scene {
 
   eAmount.onKeyReleased = (e:KeyEvent)=>{
     println(e.code)
-    if (eAmount.text.value.matches("[0-9]*.?[0-9]?[0-9]?"))amountValue=eAmount.text.value
+    if (eAmount.text.value.matches("[0-9]*"))amountValue=eAmount.text.value
     else {eAmount.text = amountValue; eAmount.positionCaret(amountValue.length)}
   }
 
   ePrice.onKeyReleased = (e:KeyEvent)=>{
     println(e.code)
-    if (ePrice.text.value.matches("[0-9]*.?[0-9]?[0-9]?"))priceValue=ePrice.text.value
+    if (ePrice.text.value.matches("[0-9]*[.]?[0-9]?[0-9]?"))priceValue=ePrice.text.value
     else {ePrice.text = priceValue; ePrice.positionCaret(priceValue.length)}
   }
 
