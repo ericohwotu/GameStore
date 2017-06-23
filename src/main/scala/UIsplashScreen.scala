@@ -1,3 +1,4 @@
+import scala.concurrent.{ExecutionContext, Future}
 import scalafx.Includes._
 import scalafx.scene.Scene
 import scalafx.scene.image.{Image, ImageView}
@@ -20,6 +21,13 @@ class UIsplashScreen extends Scene{
 		if(e.code == KeyCode.Enter) {
 			Main.setWindow("login")
 		}
+	}
+
+	implicit val ec = ExecutionContext.global
+
+	Future{
+		Thread.sleep(2000)
+		Main.setWindow("login")
 	}
 	
 }
