@@ -134,7 +134,7 @@ trait EmployeeActions extends MainVariables {
       val result = customers.filter(_.ID == id)
       result.length match {
         case 0 => println("Sorry Customer Doesnt Exist"); false
-        case 1 => customers -= result.head; writeManagersToFile; readManagersFromFile; true
+        case 1 => customers -= result.head; writeCustomersToFile; readManagersFromFile; true
         case x if x > 1 => println("Multiple Found"); false
       }
     } else {
@@ -196,7 +196,11 @@ trait EmployeeActions extends MainVariables {
       managers ++= newList
       true
     } catch {
-      case x: Exception => false
+      case x: Exception =>
+        loggedIn = Manager(1, "Supreme", "Overlord - Eric", 28, "Male", 27000, "admin", "admin")
+        createEmployee(1, "Supreme", "Overlord - Eric", 28, "Male", 27000, "admin", "admin", EmployeeType.MANAGER)
+        logout()
+        false
     }
   }
   def readCustomersFromFile: Boolean = {
