@@ -2,9 +2,7 @@
   * Created by Administrator on 19/06/2017.
   */
 
-
 import org.scalatest._
-
 
 class EmployeeActionsTests extends FlatSpec with Matchers with EmployeeActions with MainVariables {
 

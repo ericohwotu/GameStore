@@ -3,9 +3,7 @@
   */
 
 import java.util.Date
-
 import org.scalatest._
-import Main._
 
 class TransactionActionsTests extends FlatSpec with Matchers with TransactionActions with MainVariables {
   //======================================== Transaction Section =========================================//

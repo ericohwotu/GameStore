@@ -2,8 +2,6 @@
   * Created by Emmanuel Haastrup on 19/06/2017.
   */
 
-import java.util.{Date}
-
 abstract class Person {
   val ID: Int
   var fName: String

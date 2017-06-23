@@ -1,5 +1,4 @@
 import java.util.Date
-
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -7,7 +6,6 @@ import scala.collection.mutable.ListBuffer
   *
   * Created by alfie on 19/06/2017.
   */
-
 
 case class Report(reportID: Int, transaction: ListBuffer[Transaction], dateFrom: Date, dateTo: Date){
   

@@ -97,8 +97,6 @@ class StockTests extends FeatureSpec with GivenWhenThen {
       assert(game.console==console)
     }
 
-
-
     scenario("User creates new misc item"){
       Given("All misc item details are supplied")
       val id = 5

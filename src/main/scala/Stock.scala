@@ -28,8 +28,6 @@ abstract class Stock{
     desc = newDesc
   }
 
-
-
   override def toString():String = {
     s"$name, Price: £$price"
   }

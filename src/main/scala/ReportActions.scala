@@ -1,24 +1,13 @@
 import java.io._
 import java.util.Date
-
 import scala.collection.mutable.ListBuffer
 
 /**
   * Created by Administrator on 19/06/2017.
   */
 trait ReportActions extends MainVariables{
-  /*
-  * Report functions
-  *
-  * */
 
   var generatedReport: Report = _
-
-  /**
-    * Method that will allow other classes to get a report generated.
-    *
-    * @param id
-    */
 
   def getReport(id: Int): Report = {
   val reportOne = reports.find(r => r.reportID == id)
@@ -27,15 +16,6 @@ trait ReportActions extends MainVariables{
       case _ => null
     }
   }
-
-  /**
-    * Method that will take 3 parameters and generate a report which will display transactions between a date
-    * range.
-    *
-    * @param id
-    * @param dateFrom
-    * @param dateTo
-    */
 
   def createReport(id: Int, dateFrom: Date, dateTo: Date): Boolean = {
     var transList: ListBuffer[Transaction] = new ListBuffer[Transaction]

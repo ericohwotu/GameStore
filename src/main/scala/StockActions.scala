@@ -78,7 +78,6 @@ trait StockActions extends MainVariables{
     }
   }
 
-
   def writeStockToFile: Boolean ={
     try {
       val save = new ObjectOutputStream(new FileOutputStream("stock.dat"))

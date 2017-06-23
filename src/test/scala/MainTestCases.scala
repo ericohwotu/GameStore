@@ -2,10 +2,7 @@
   * Created by Administrator on 19/06/2017.
   */
 
-import java.util.Date
-
 import org.scalatest._
-import Main._
 
 class MainTestCases extends FlatSpec with Matchers with TransactionActions with EmployeeActions with MainVariables{
 

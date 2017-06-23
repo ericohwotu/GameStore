@@ -37,14 +37,6 @@ case class Transaction(transactionID: Int, employee: Person, dateAndTime: Date, 
     BigDecimal(totalPrice).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble
   }
 
-  /*def addTransaction(transaction: Transaction): ListBuffer[Transaction] = {
-    Transaction match {
-      case a if !transactionHistory.contains(transaction) => transactionHistory += transaction
-      case _ => println(s"Transaction $transaction is already added.")
-    }
-    transactionHistory
-  }*/
-
   def totalPrices(): Double = {
     var sum: Double = 0
     transactionHistory.foreach(elem => sum += elem.price)

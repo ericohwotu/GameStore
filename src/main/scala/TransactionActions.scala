@@ -1,6 +1,5 @@
 import java.io._
 import java.util.Date
-
 import scala.collection.mutable.ListBuffer
 
 /**
@@ -15,7 +14,6 @@ trait TransactionActions extends MainVariables {
   val trans: Transaction = null
 
   def createTransaction(id: Int, employee: Person, dateAndTime: Date, list: List[Stock] ): Boolean = {
-
       println(transactions.find(t => t.transactionID == id) + " employee: " + employee)
       if (transactions.find(t => t.transactionID == id) != None || employee == null) {
         println("Failed")
@@ -26,24 +24,20 @@ trait TransactionActions extends MainVariables {
         outputTransactionsToFile
         readTransactionsFromFile
         true
-
       }
-
   }
-
 
   def getTransaction(id: Int): Transaction = {
     val transactionSearch = transactions.find(t => t.transactionID == id).getOrElse(null)
     transactionSearch
   }
 
-
   def deleteTransaction(id: Int): Boolean = {
     val transactionSearch = transactions.find(t => t.transactionID == id)
     if (loggedIn.isInstanceOf[Manager]) {
-
       if (transactionSearch != None) {
         transactions -= transactionSearch.get
+        outputTransactionsToFile
         true
       } else false
     } else false

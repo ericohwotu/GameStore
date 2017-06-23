@@ -1,8 +1,6 @@
 /**
   * Created by Administrator on 19/06/2017.
   */
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.stage.StageStyle

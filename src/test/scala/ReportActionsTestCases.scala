@@ -1,12 +1,9 @@
 import java.util.Date
-
 import org.scalatest._
-
 
 /**
   * Created by alfie on 20/06/2017.
   */
-
 
 class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions with MainVariables{
 
@@ -47,9 +44,7 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
       createReport(10000000, new Date(), new Date()) should be (false)
     }
 
-
   //========================================= Get Report ==================================================//
-
 
   "Get report" should "return a report if successful" in {
     reports.clear
@@ -61,7 +56,6 @@ class ReportActionsTestCases extends FlatSpec with Matchers with ReportActions w
     reports.clear
     getReport(5) should be (null)
   }
-
 
   //========================================= Delete Report ==================================================//
 
