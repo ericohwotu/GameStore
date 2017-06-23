@@ -67,8 +67,8 @@ class UIstaffWindow extends Scene {
 			createNewButton.visible = false
 		} else {
 			Main.loggedIn.getClass.getSimpleName match {
-				case "Manager" => createNewButton.visible = true; deleteButton.visible = true
-				case _ => createNewButton.visible = false; deleteButton.visible = false
+				case "Manager" => createNewButton.visible = true; deleteButton.visible = true; eEditButton.visible = true
+				case _ => createNewButton.visible = false; deleteButton.visible = false; eEditButton.visible = false
 			}
 		}
 		allEmployees = ListBuffer()

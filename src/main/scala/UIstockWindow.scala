@@ -71,9 +71,11 @@ class UIstockWindow extends Scene {
 		if(Main.loggedIn != null && Main.loggedIn.getClass.getSimpleName == "Manager") {
 			createNewButton.visible = true
 			deleteButton.visible = true
+			eEditButton.visible = true
 		} else {
 			createNewButton.visible = false
 			deleteButton.visible = false
+			eEditButton.visible = false
 		}
 	}
 	def clearSearch():Unit ={
